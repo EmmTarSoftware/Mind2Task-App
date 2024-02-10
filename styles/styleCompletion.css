@@ -1,0 +1,42 @@
+
+#suggestionList {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    position: absolute;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    max-height: 150px;
+    overflow-y: auto;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    width: 370px;
+    font-size: 12px;
+    display: none;
+}
+
+#suggestionList li {
+    padding: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+#suggestionList li:hover {
+    background-color: #f0f0f0;
+}
+
+
+.suggestion-before {
+    font-weight: normal;
+}
+
+.suggestion-match {
+    font-weight: bold;
+    color: var(--blueColor);
+}
+
+.suggestion-after {
+    font-weight: normal;
+}
+

@@ -1,0 +1,108 @@
+div.template{
+    
+    padding-left: 120px;
+    display: none;
+    width: 1000px;
+    height: 600px;
+    text-align: left;
+
+}
+
+
+div.menuTemplateList{
+    width: 600px;
+    height: 500px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+	border-radius: 10px;
+	margin-top: 10px;
+	background-color: var(--colorBackground2);
+}
+
+
+
+
+
+
+
+.listBtnTemplateLine {
+	display: flex;
+	text-align: center;
+	align-items: center;
+	border: solid 1px rgb(195, 195, 195);
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+	background-color: rgb(232, 231, 231);
+	border-radius: 5px;
+	margin-bottom: 10px;
+	margin-left: 10px;
+	width: 95%;
+
+	height: 22px;
+	transition: transform 0.3s ease; /* Ajout de l'effet de transition */
+}
+
+
+.listBtnTemplateLine:hover{
+	transform: translateX(5px);
+}
+
+
+p.gestionTemplateTitle{
+    display: inline-block;
+    width: 500px;
+    margin-right: 20px;
+    font-size: 14px;
+}
+
+
+
+
+
+
+
+
+/* Suppression */
+div.templateConfirmSupr{
+	left: 400px;
+    z-index: 2;
+	display: none;
+	width: 400px;
+	height: 150px;
+	background-color: var(--colorBackground2);
+	text-align: center;
+	border-radius: 10px 0px;
+	border: solid 1px var(--blueColor);
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Ombre portée */
+	position: absolute;
+	margin-left: auto;
+    margin-right: auto;
+	top: 100px;
+}
+
+
+
+
+
+
+
+div.renameTemplate{
+	left: 400px;
+    z-index: 2;
+	display: none;
+    position: absolute;
+	width: 500px;
+	height: 150px;
+	background-color: var(--colorBackground2);
+	text-align: center;
+	border-radius: 10px 0px;
+	border: solid 1px var(--blueColor);
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Ombre portée */
+	margin-left: auto;
+    margin-right: auto;
+    top: 100px;
+}
+
+input.renameTemplate{
+    width: 450px;
+    margin-bottom: 20px;
+}
+

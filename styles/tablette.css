@@ -1,0 +1,172 @@
+
+
+@media screen and (max-width:1280px) {
+
+    /* ---------------------       DATE     --------------------------------- */
+    div.dateVersion{
+        width: 300px;
+        left: -50px;
+    }
+
+	h1 {
+		font-size: 22px;
+		color: #333; /* Couleur du texte du titre */
+	}
+
+    /* -------------- NAVIGATION BAR  ----------------------- */
+
+    div.navBar{
+        width: 50px;
+    }
+
+    p.release{
+        font-size: 12px;
+    }
+
+    /* ---------------------- LISTE DES NOTES   ------------------------ */
+
+    div.listBtnNote{
+        width: 430px;height: 550px;
+        left: 60px;
+        top: 40px;
+    }
+
+    td.tdListeNotes{
+        height: 190px;
+
+    }
+    .listBtnTAG{
+        width: 100px;
+        text-align: left;
+    }
+
+    p.listNoteTag{
+        font-size: 10px;
+    }
+
+    button.btnListNote{
+        width: 220px;
+        font-size: 12px;
+        margin-left: 10px;
+    }
+    .iconQuickChangeStatus{
+        margin-left: 15px;
+    }
+
+    .progress-bar-container {
+        width: 410px;
+    }
+
+
+    /* ------------------------ VISUALISER UNE NOTE ----------------------- */
+
+        
+    div.noteViewArea{
+        left: 515px;top: 40px;
+        width: 450px ; height: 560px;
+    }
+
+
+
+    /* Le titre */
+    tr.viewNoteRowTitle p{
+        font-size: 1.8ch;
+    }
+
+    /* detail */
+    tr.tableViewNoteRowDetail {
+        height: 120px;
+
+
+    }
+    div.viewNoteDetail{
+        width: 95%;
+        height: 120px;
+        font-size: 12px;
+    }
+
+
+    /* Step */
+    tr.tableViewNoteRowStep{
+        height: 180px ;
+    }
+
+    tr.tableViewNoteRowStep td{
+        height: 180px;
+        font-size: 12px;
+    }
+
+    /* Pour la barre de défilement */
+    .scrollable-td {
+        height: 180px; /* Hauteur fixe de la cellule */
+    }
+
+
+
+
+
+    /* --------------------------- EDITER UNE NOTE -------------------- */
+
+
+
+    .divNoteEditor{
+        left: 250px;
+        width: 540px ; height: 550px;
+    }
+
+    #legendNoteEditor{
+
+        margin-top: 2px; margin-bottom: 5px;
+    }
+
+    .input-field-tag{
+        width: 200px;
+    }
+
+    tr.editorTitleRow{
+        height: 30px;
+
+    }
+
+    tr.editorDetailRow{
+        height: 130px;
+
+    }
+
+    .textarea-field{
+        height: 130px;
+    }
+
+    .input-field-step, .input-field-step-strike{
+        width: 260px;
+    }
+
+
+
+
+
+    /* -------------------------     SETTING     ------------------------- */
+
+    div.divSetting{
+        padding-left: 70px;
+        
+    }
+
+
+    /* Rend le menu setting scrollable */
+    div.divSettingScrollZone{
+        height: 500px;
+        overflow-y: scroll;
+    }
+
+
+
+    /* template selecteur */
+    div.selectTemplate{
+        left: 400px;
+    }
+
+
+
+}
+

@@ -1,0 +1,222 @@
+0.5.0
+Version fonctionnel
+
+0.5.1
+    Optimisation code :
+        ajout de variable CSS.
+    Evolution :
+        élargissement Visualisation et edition des notes;
+        augmentation du nbre de caractère pour input étape et élargissement (80);
+        ajout étape 6;
+        limitation tag à 20 caractere;
+        optimisation espace editeur de note;
+        affichage du "detail" en texte justifié.
+
+0.5.2
+    Optimisation code:
+        modification system de formatage
+    Evolution:
+        Champ TAG vide = DIVERS.
+        Modification visuel bouton navigation note.
+        ajout numéro release.
+
+0.6.0
+    Optimisation code
+        Desactivation div par systeme d'array.
+    Evolution
+        Modification visuel.
+        Possibilité d'impression beta.
+        Ajout d'un bouton retour Chariot pour "detail".
+        6 notes affichées par liste.
+        ajout statut "Termine archive".
+        ajout background btn note avec image de priorité.
+        correction des positionnements dans la liste des boutons.
+        Mise en place des icônes.
+        Correction date du jour Majuscule.
+0.7.0
+    Evolution
+        Système d'impression fonctionnel
+0.7.1
+    Evolution
+        Remplacement du checkbox dans la visionneuse par des images.
+0.7.2
+    Evolution 
+        Remplacement de l'icone Valider par une icone "Save".
+        Confirmation lors de la suppression.
+0.7.3
+    Evolution
+        Zone detail : Appuyer sur la touche entrer fait passer à la ligne.
+0.7.4
+    Correctif
+        Amelioration du systeme de saut de ligne dans les details.
+        Resolution du problème d'impression des checkbox d'étapes.
+    Evolution
+        Plus de limite des étapes.
+0.7.5
+    Correctif
+        Modification des icones de suppression des étapes.
+        Modification emplacement bouton next previous.
+    Evolution
+        Ajout des infos bulles.
+        Ajout de la possibilité de filtrer par TAG.
+0.7.6
+    Correctif
+        Les TAG des item "Terminer" n'apparaissent plus dans le filtre.
+    Optimisation
+        Passage en mode dynamique pour les statuts et priorité des tâches.
+    Evolution
+        Mise en place d'une navigation principale.
+        Changement du system de validation des étapes : Mise en place d'un système "barré".
+0.7.7
+    Optimisation
+        Remplacement du systeme de visibilité des boutons de navigation next/previous pour les notes par une concept amélioré (display => visibility).
+    Evolution
+        Mise en place d'un system de notification.
+0.7.8
+    Evolution
+        Mise en place de l'affichage de la pagination des tâches dans la navigation.
+        Le tag s'affiche désormais en italique.
+        Mise en place d'un système d'auto complétion pour les tag.
+0.7.9
+    Correctif
+        Retrait du format "form" qui empéchait de créer des étapes.
+        Retrait du system d'autoSuppression des notes "Terminer".
+        Les index dateStart et dateEnd fonctionnent.
+    Evolution
+        Detection des champs obligatoires vides.
+        Impossible que la date de fin soit antérieur à la date de début.
+        Possibilité d'exporter le store (task) via le dashboard.
+0.8.0
+    Evolution
+        Empeche l'utilisateur de créer une nouvelle étape si il y en a déjà de vide.
+0.8.1
+    Correctif
+        Correction du system ou la date de création changeait à chaque modification.
+        Correction du bug sur le tagfilter qui ne se réinitialisait pas à "toutes les tâches" lors des tâches "terminer" .
+    Optimisation
+        Variabilisation du TAG par défaut.
+        Modification du système de date.
+        Modification du système de formatage et de detection des erreurs dans la création/modification des notes.
+    Evolution
+        Mise en place du system de traitement des dates non remplit. (voir info)
+        Implementation de la date de modification de la note.
+        Mise en place du systeme de note "TERMINER". Enregistrement dans la dashboard et suppression de la tâche.
+0.8.2
+    Evolution
+        Mise en place du système d'import et export des data fonctionnel.
+0.8.3
+    Optimisation
+        Sortie de fonction propre (if else if else) pour la création, modification, ou note terminer.
+        Mise en place d'une limite de caractère pour le champ "Détail".
+    Evolution
+        Verrouillage des valeurs de temps passé sur une tâche pour les heures et les minutes. (nbre de caractere et valeur maximale).
+        Mise en place du traitement des données sensibles.
+        Setting : système de paramétrage des données sensibles.
+0.8.4
+    Correctif
+        Correction du bug où les options coché par l'utilisateur n'était pas pris en compte à la reconnexion.
+        Correction du bug pour la gestion des id pour les step = retrait de "currentNbreEditorStep--"
+        Modification du systeme de traitement des étapes.
+        Correction du format pour if.
+        Modification du system de boolean pour les cookies de sécurité.
+    Optimisation
+        Mise en place d'une fonction unique pour la gestion de l'affichage.
+        Résolution du bug style inconnu.
+    Evolution
+        Implementation du trie alphabetique pour la liste de filtre de tag excluant le généricTag qui sera toujours en premier.
+        Refonte intégrale du design.
+        Barre de défilement pour les étapes et détails.
+0.8.5
+    Evolution
+        Mise en place d'un bouton "fullscreen".
+0.8.6
+    Optimisation
+        Mise en place responsive tablette 10 pouces.
+    Evolution
+        Modification emplacement item step editor.
+        Modification design setting.
+        Ajout de la date dans l'export des datas.
+0.8.7
+    Correctif
+        Modification du system de notification qui retirait le mode plein écran.
+    Evolution
+        Agrandissement du bouton de navigation gauche droite dans les listes de tâches.
+0.8.7
+    Optimisation
+        Mise en place de la gestion des changements de menu optimisant les performances et la mémoire.
+        Remplacement du system de div pour les listes de note par des boutons. Cela causait des problèmes dans le cadre de l'utilisation du tactile.
+0.8.8
+    Correctif
+        Limitation du nombre d'étape par tâche à 10.
+    Optimisation
+        Modification de tout le système de traitement des priorités pour futur évolutions.
+    Evolution
+        Ajout de l'indexation par priorité.
+        Les notes sont maintenant classées par priority.
+0.8.9
+    Optimisation
+        Modification de tout le système de traitement des statuts pour futur évolutions.
+    Evolution
+        Mise en place d'une version beta de suppression de la base de donnée.
+0.9.0
+    Correctif
+        Correction du bug ou le filtre de tag ne fonctionnais plus suite à la mise à jour 0.8.9
+            (Ajout de .systemStatus dans le TagFilterSystem.js)
+    Evolution
+        Mise en place de la personnalisation des priorité et des status dans les settings.
+0.9.1
+    Optimisation
+        Modification du system de liste de note pour evolution changement de status et priorité.
+    Evolution
+        Introduction des boutons actions rapides fonctionnel. (reste à faire le design)
+0.9.2
+    Evolution
+        Amelioration style visuel quick change
+0.9.3
+    Correctif
+        Rajout de l'icone priorité C dans les settings qui avait été oubliée.
+        Les modifications dans les settings sont directement pris en compte, il n'est donc plus nécessaire de recharger l'application.
+        Resolution du bug ou les dates de début et de fin n'était pas indexé dans la base. (l'erreur : dateStartUS. solution = dateStart)
+    Optimisation
+        Optimisation du system de changement de menu.
+    Evolution
+        Le menu setting est scrollable lorsque l'écran est petit.
+        Mise en place du menu info afin d'avoir les infos du site actualisé.
+0.9.4
+    Test divers sur l'intégration des infos.
+0.9.5
+    Correctif
+        Résolution du bug ou le script info n'était pas chargé.
+        Retrait de l'iframe pour les info car pb d'alerte partage cookies.
+        Modification du system de selection automatique de date début ou fin selon.
+        Notification de l'évenement de sauvegarde des changements de statut et priorité dans les settings.
+    Optimisation
+        Optimisation du code pour éviter les traitements inutile. 
+            (affichage des notes déjà en cours d'affichage).
+            (Action rapide : modification des priorité pour la meme priorité).
+    Evolution
+        Lors de la cloture d'une tâche, l'utilisateur peut modifier les dates de début et fin.
+0.9.6
+    Mise en place icone application.
+0.9.7
+    Ajout des icones main menu lorsque sélectionnées.
+0.9.8
+    Evolution
+        Implementation de l'action rapide "Cloture de tâche".
+        Implementation de la visualisation de l'évolution des étapes (progress bar).
+0.9.9
+    Correctif
+        Correction du bug ou les heures totales lors de la cloture n'étaient pas réinitialisées.
+    Evolution
+        Implémentation des templates (caché)
+            Passage de la base en V2 pour création du store templates
+        Ajout de 3 niveau de trie des taches (priority,tag et titre)
+
+0.9.9 pre-launch
+    evolution
+        Intégration des icones et style visuel
+        Gestion des templates.
+
+0.9.9 pre-launch 2
+    Evolution
+        Mise en place du déplacement haut bas des étapes

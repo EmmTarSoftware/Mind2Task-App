@@ -1,0 +1,10 @@
+/* cache la div de base */
+
+div.divInfo{
+    position: absolute;
+    left: 110px;
+    display: none;
+    width: 80%;
+    height:90%;
+}
+

@@ -1,0 +1,92 @@
+/* cache la div de base */
+
+div.divSetting{
+    display: none;
+    padding-left: 120px;
+    display: none;
+    text-align: center;
+
+}
+
+
+
+/* A modifier plus tard */
+label.labelSetting{
+    color: black;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+/* Style de base pour le tableau */
+table.setting {
+    width: 850px;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin-bottom: 15px;
+}
+  
+  /* Style pour les cellules du tableau */
+table.setting td, th {
+    border: 1px solid #dddddd;
+    padding: 5px;
+    text-align: left;
+    transition: background-color 0.3s ease;
+}
+  
+  /* Style pour la première ligne du tableau (en-tête) */
+table.setting th {
+    /* background-color: #3498db; */
+    background: var(--gradient-blue);
+    color: #ffffff;
+}
+  
+  /* Style pour les lignes impaires du tableau */
+table.setting tr:nth-child(odd) {
+    background-color: #ecf0f1;
+}
+  
+  
+  /* Ajout d'une ombre subtile sur le tableau */
+table.setting{
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+  
+  /* Bordures arrondies pour les coins du tableau */
+table.setting  td, th {
+    border-radius: 6px;
+}
+
+
+td.saveSetting{
+  width: 30%;
+}
+
+td.importSetting{
+  width: 70%;
+}
+
+
+
+
+
+
+/* SUPPRESSION DE LA BDD */
+
+
+
+
+div.confirmeBdDSuppr{
+  display: none;
+}
+
+
+button.bddSuppr{
+background:brown;
+}
+
+/* Style au survol du bouton */
+button.bddSuppr:hover {
+  background:brown;
+	transform: scale(1.05);
+	 
+}

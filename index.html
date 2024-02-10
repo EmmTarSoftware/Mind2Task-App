@@ -1,0 +1,672 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="./images/TaskManager.ico" type="image/x-icon">
+    <link rel="stylesheet" href="./styles/global.css">
+    <link rel="stylesheet" href="./styles/styleCompletion.css">
+    <link rel="stylesheet" href="./styles/dashboard.css">
+    <link rel="stylesheet" href="./styles/setting.css">
+    <link rel="stylesheet" href="./styles/info.css">
+    <link rel="stylesheet" href="./styles/tablette.css">
+    <link rel="stylesheet" href="./styles/dashboard.css">
+    <link rel="stylesheet" href="./styles/template.css">
+    <title>Mind2Task</title>
+</head>
+<body>
+       
+
+    
+    <div class="navBar">
+        <img id="imgIconMainMenuAccueil" onclick="onChangeMenu('Accueil')" class="iconMainMenu" src="./images/IconeHomeSelected.png" alt="Accueil" srcset="" title="Menu principal">
+        <img id="imgIconMainMenuDashboard" onclick="onChangeMenu('Dashboard')" class="iconMainMenu" src="./images/IconeDashboard.png" alt="Dashboard" srcset="" title="Dashboard">
+        <img id="imgIconMainMenuSetting" onclick="onChangeMenu('Setting')" class="iconMainMenu" src="./images/IconeSetting.png" alt="Setting" srcset="" title="Paramètres">
+        <img id="imgIconMainMenuTemplate" onclick="onChangeMenu('Template')" class="iconMainMenu" src="./images/IconeMenuTemplate2.png" alt="Template" srcset="" title="Modèle">
+        <img id="imgIconMainMenuInfo" onclick="onChangeMenu('Info')" class="iconMainMenu" src="./images/IconeInfo.png" alt="Icone menu info" srcset="" title="Infos">
+        <img onclick="switchFullScreen()" class="iconMainMenu" src="./images/IconeScreen.png" alt="Plein écran" srcset="" title="Plein écran">
+        <p class="release">Release : 1.0.0</p>
+
+    </div>
+    
+
+
+
+
+
+
+    <!-- ---------------------------  Div Accueil ------------------------------------- -->
+
+
+
+
+
+
+
+    <div class="divAccueil" id="divAccueil">        
+        <div class="dateVersion">
+            <h1 id="h1DateDuJour"></h1>
+        </div>
+
+        <!-- selection template -->
+        <div class="selectTemplate" id="divChoiceTemplate">
+            <p>Sélection du modèle</p>
+            <select class="selectTemplate" name="" id="selectTemplate">
+                <!-- injection des options de templates -->
+            </select>
+            <p>
+                <button class="basicBtn basicBtnA" onclick="onChooseTemplate()"><img class="iconeMenu" src="./images/IconeValider.png" alt="Valider" srcset=""></button>
+                <button class="basicBtn basicBtnB" onclick="onReturnFromChoiceTemplate()"><img class="iconeMenu" src="./images/IconeReturnCancel.png" alt="Annuler" srcset=""></button>
+            </p>
+            
+        </div>
+
+
+
+
+
+        <!-- ----------------- DIV Tableau d'affichage des boutons de notes--------------------------- -->
+        <div class="listBtnNote" id="divListBtnNote">
+            <!-- <h2>Mes tâches</h2> -->
+            
+            <label class="labelTagFilter" for="selectTagFilter">Filtre : </label>
+            <select class="selectTag" name="" id="selectTagFilter" onchange="onSelectorTagChange()">
+                <!-- Injection des options -->
+            </select>
+
+            <button class="basicBtn basicBtnA" onclick="onCreateNote()" title="Nouvelle tâche">
+                <img class="iconeMenu" src="./images/IconeNewTask.png" alt="Nouvelle tâche" srcset="">
+            </button>
+            <button id="btnNewFromTemplete" class="basicBtn basicBtnA" onclick="onClickSelectTemplate()" title="Créer depuis un modèle">
+                <img class="iconeMenu" src="./images/IconeTemplate.png" alt="Nouveau depuis modèle" srcset="">
+            </button>
+
+            <table class="tableListNotes">
+                <tr class="rowTopLine">
+                    <!-- <th id="thTxtEnCours">En cours ( 0 )</th> -->
+                    <td class="btnPrevious">
+                       <img id="btnNoteStatus1Previous" class="nextPrevious" onclick="onClickNavNoteStatus1Previous()" src="./images/IconePrevious.png" alt="Précédent" srcset="">
+                    </td>
+                    <td class="btnNextPreviousText">
+                        <p class="btnPreviousNext" id="pTxtStatus1">En cours ( 0 )</p>
+                    </td>
+                    <td class="btnNext">
+                        <img id="btnNoteStatus1Next"  class="nextPrevious" onclick="onClickNavNoteStatus1Next()" src="./images/IconeNext.png" alt="Suivant" srcset="">
+                    </td>
+                </tr>
+                <tr>
+                    <td class="tdListeNotes" colspan="3">
+                        <div id="divBtnNoteStatus1">
+                            <!-- Injection des notes -->
+                        </div>
+                    </td>
+                </tr>
+            </table>
+
+            <table class="tableListNotes">
+                <tr class="rowTopLine">
+                    <!-- <th id="thTxtAFaire">A faire ( 0 )</th> -->
+                    <td class="btnPrevious">
+                        <img id="btnNoteStatus0Previous" onclick="onClickNavNoteStatus0Previous()" class="nextPrevious" src="./images/IconePrevious.png" alt="Précédent" srcset="">
+                    </td>
+                    <td class="btnNextPreviousText">
+                        <p class="btnPreviousNext" id="pTxtStatus0">A faire ( 0 )</p>
+                    </td>
+                    <td class="btnNext">
+                        <img id="btnNoteStatus0Next" onclick="onClickNavNoteStatus0Next()" class="nextPrevious" src="./images/IconeNext.png" alt="Suivant" srcset="">
+                    </td>
+                </tr>
+                <tr>
+                    <td class="tdListeNotes" colspan="3">
+                        <div id="divBtnNoteStatus0">
+                            <!-- Injection des notes -->
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <!-- -----------------FIN DIV Tableau d'affichage des boutons de notes--------------------------- -->
+       
+
+
+
+
+
+
+        <!-- ------------------ ---------  Visualisation d'une tache ------------------>
+        <div id="divNoteView" class="noteViewArea">
+            <!-- Les boutons -->
+            <div class="noteViewBtn">
+                <button class="basicBtn basicBtnA" onclick="onEditNote()" title="Modifier"><img class="iconeMenu" src="./images/IconeEditer.png" alt="Editer"></button>
+                <button class="basicBtn basicBtnA" onclick="onClickBtnDeleteNote()" title="Supprimer"><img class="iconeMenu" src="./images/IconeDelete.png" alt="Supprimer" srcset=""></button>
+                <button class="basicBtn basicBtnA" onclick="onClickPrint()" title="Imprimer"><img class="iconeMenu" src="./images/Icone-imp.png" alt="Imprimer" srcset=""></button>
+                <button class="basicBtn basicBtnA" onclick="quickEventNoteTerminer()" title="Cloturer"><img class="iconeMenu" src="./images/IconeValider.png" alt="Cloturer" srcset=""></button>
+            </div>
+            <!-- zone qui sera imprimé -->
+            <div class="noteViewData" id="printArea">
+               
+                <table class="noteViewData">
+                    <tr>
+                        <td class="urgenceCategorie"><p id="noteViewPriority">Priorité</p></td>
+                        <td class="noteViewTag"><p id="noteViewTag">[ TAG ]</p></td>
+                        <td class="urgenceCategorie"><p id="hnoteViewStatus">Status</p></td>
+                    </tr>
+                    <tr class="viewNoteRowTitle">
+                        <td colspan="3"><p id="noteViewTitle"> TITRE </p></td>
+                    </tr>
+                    <tr>
+                        <td colspan="3">
+                            <p class="annotation"><u>Détail de la tâche :</u></p>
+                        </td>
+                    </tr>
+                    <tr class="tableViewNoteRowDetail">
+                        <td colspan="3">
+                                <div class="viewNoteDetail" id="divNoteViewDetail">Detail</div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="3">
+                            <p class="annotation"><u>Les étapes :</u></p>
+                        </td>
+                    </tr>
+                    <tr class="tableViewNoteRowStep">
+                        <td colspan="3" class="scrollable-td-step-view">
+                            <div class="scrollable-content">
+                                <ul id="ulNoteViewStep">
+                                    <!-- Injection des étapes -->
+                                </ul>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr class="noteViewDateRow">
+                        <td colspan="3" id="noteViewDateInfo">Date début et fin</td>
+                    </tr>
+                    <tr class="noteViewDateRow">
+                        <td colspan="3" id="noteViewDateCreated">Tâche créé le : </td>
+                    </tr>
+                </table>
+            </div>
+
+        </div>
+        <!-- ------------------ --------- FIN Visualisation d'une tache ------------------>
+
+
+
+
+
+
+
+        <!-- ----------------- Creation /modification d'une tache --------------------->
+        <div id="divNoteEditor" class="divNoteEditor">
+                
+                    <p id="legendNoteEditor">Editer une tâche</p>
+                    <table>
+                        <tr>
+                            <td>
+                                <label for="selectorNotePriority">Priorité : </label>
+                                <select name="" id="selectorNotePriority">
+                                <!-- Injection des options-->
+                            </select>
+                            </td>
+                            <td>
+                                <label for="inputNoteTag">TAG : </label>
+                                <input class="input-field input-field-tag" id="inputNoteTag" type="text" placeholder="20 caractères max" maxlength="20">
+                                <!-- Liste de suggestions -->
+                                <ul id="suggestionList"></ul>
+                            </td>
+                            <td>
+                                <label for="selectorNoteStatus">Statut : </label>
+                                <select name="" id="selectorNoteStatus">
+                                    <!-- Injection des options-->
+                                </select>
+                            </td>
+                        </tr>
+                        <tr class="editorTitleRow">
+                            <td colspan="3">
+                                <label for="inputNoteTitle">Titre : </label>
+                                <input class="input-field" id="inputNoteTitle" type="text" placeholder="Titre" maxlength="80">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="3">
+                                <p class="annotation"><u>Détail de la tâche :</u></p>
+                            </td>
+                        </tr>
+                        <tr class="editorDetailRow">
+                            <td colspan="3">
+                                <textarea class="textarea-field" name="" id="textareaNoteDetail" cols="30" rows="10" maxlength="1000"></textarea>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="3">
+                                <p class="annotation"><u>Les étapes :</u></p>
+                            </td>
+                        </tr>
+                        <tr class="editorStepRow">
+                            <td colspan="3" class="scrollable-td-step-editor">
+                                <div class="scrollable-content">
+                                    <ul class="ulEditorStep" id="ulNoteEditorStep">
+                                        <!-- Injection des étapes -->
+                                    </ul>
+                                    <img onclick="onAddStep(false,)" class="iconeMenu iconeAddStep" src="./images/IconeAddStep1.png" alt="Ajouter une étape" srcset="">
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="3">
+                                <label for="inputNoteDateStart">Date début</label>
+                                <input type="date" name="" id="inputNoteDateStart">
+                                <label for="inputNoteDateEnd">Date fin</label>
+                                <input type="date" name="" id="inputNoteDateEnd">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="3">
+                                <p class="pButtonEditor">
+                                    <button class="basicBtn basicBtnA" onclick="onClickBtnValidNoteEditor()" title="Sauvegarder"><img class="iconeMenu" src="./images/IconeSave.png" alt="Valider" srcset=""></button>
+                                    <button class="basicBtn basicBtnB" onclick="onClickBtnAnnulNoteEditor()" title="Retour"><img class="iconeMenu" src="./images/IconeReturnCancel.png" alt="Retour" srcset=""></button>    
+                                    <button class="basicBtn basicBtnA" onclick="onClickSaveAsTemplate()" title="Sauvegarder en tant que modèle"><img class="iconeMenu" src="./images/IconeSaveTemplate.png" alt="Sauvegarder modèle" srcset=""></button>
+                                </p>
+                            </td>
+                        </tr>
+                    </table>
+
+        </div>
+        <!-- ----------------- FIN Creation /modification d'une tache --------------------->
+
+
+
+
+
+
+
+        <!-- ----------------- CONFIRMATION SUPPRESSION --------------------->
+        <div class="confirmSupr" id="divPopupDelete">
+            <p>Etes vous sur de vouloir supprimer cette tâche ?</p>
+            <button class="basicBtn basicBtnA" onclick="onValidSuppression()"><img class="iconeMenu" src="./images/IconeDelete.png" alt="Confirmer" srcset=""></button>
+            <button class="basicBtn basicBtnB" onclick="onCancelSuppression()"><img class="iconeMenu" src="./images/IconeReturnCancel.png" alt="Annuler" srcset=""></button>
+
+        </div>
+        <!-- ----------------- FIN CONFIRMATION SUPPRESSION --------------------->
+
+
+
+
+
+
+
+        <!-- ----------------- CONFIRMATION NOTE TERMINER --------------------->
+        <div class="popupTerminer" id="divPopupTerminer">
+            <h3>Veuillez renseigner le temps passé sur la tâche pour la terminer :</h3>
+            <p>
+                <label for="taskDurationHours">Heure(s):</label>
+                <input class="inputTime" type="number" id="taskDurationHours" oninput="onlimitNumberLength(this, 3,999)"  placeholder="0" min="0" max="999">
+                
+                <label for="TaskDurationMinutes">Minute(s):</label>
+                <input class="inputTime" type="number" id="TaskDurationMinutes"  oninput="onlimitNumberLength(this, 2,59)" placeholder="0" min="0" max="59">
+            </p>
+            <p  class="annotation" id="pStepTotalTimeInfo">
+                <!-- Injection -->
+            </p>
+            <p>
+                <label for="inputConfirmDateStart">Date Début :</label>
+                <input type="date" id="inputConfirmDateStart">
+                <label for="inputConfirmDateEnd">Date Fin :</label>
+                <input type="date" id="inputConfirmDateEnd">
+            </p>
+            <p>
+                <!-- onclick pour valider injecté depuis le javascript -->
+                <button class="basicBtn basicBtnA" id="btnValidTerminer" title="Cloturer" ><img class="iconeMenu" src="./images/IconeValider.png" alt="Terminer" srcset=""></button>
+                <button class="basicBtn basicBtnB" id="btnCancelTerminer" title="Annuler" onclick="onCancelPopupTerminer()"><img class="iconeMenu" src="./images/IconeReturnCancel.png" alt="Annuler" srcset=""></button>
+            </p>
+
+
+        </div>
+        <!-- ----------------- FIN CONFIRMATION NOTE TERMINER --------------------->
+
+
+
+
+
+
+        <!-- ----------------- QUICK CHANGE PRIORITY --------------------->
+        <div id="divQuickChangePriority" class="divQuickChangePriority">
+            <button class="basicBtn basicBtnC" onclick="onChangeQuickPriority(priorityArray[0].systemPriority)"><img class="iconeMenu" src="./images/IconePriorityC.png" alt="Priorité C" srcset=""></button>
+            <button class="basicBtn basicBtnC" onclick="onChangeQuickPriority(priorityArray[1].systemPriority)"><img class="iconeMenu" src="./images/IconePriorityB.png" alt="Priorité B" srcset=""></button>
+            <button class="basicBtn basicBtnC" onclick="onChangeQuickPriority(priorityArray[2].systemPriority)"><img class="iconeMenu" src="./images/IconePriorityA.png" alt="Priorité A" srcset=""></button>
+        </div>
+        <!-- ----------------- FIN QUICK CHANGE PRIORITY --------------------->
+
+
+
+        <!-- --------------------------- Div NOTIFY ------------------------------------- -->
+
+        <div class="notify" id="divNotify">
+            <p id="pNotifyText">La tâche "bla bla bla" à été créé !</p>
+        </div>
+        <!-- --------------------------- FIN Div NOTIFY ------------------------------------- -->
+
+
+
+
+    </div>
+    <!-- --------------------------- FIN Div Accueil ------------------------------------- -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+    <!-- -------------------------   div Dashboard----------------------------------- -->
+    <div class="divDashboard" id="divDashboard">
+        <h2>DASHBOARD</h2>
+        <p id="pDashboardStatus0">
+            <!-- Injection -->
+        </p>
+        <p id="pDashboardStatus1">
+            <!-- Injection -->
+        </p>
+        <p id="pDashboardStatus2">
+            <!-- Injection -->
+        </p>
+
+        <h3>Tableau de statistiques des tâches terminées :</h3>
+        <div class="dashboard-table-container" id="divStatisticContainer">
+      
+
+            <!-- Injection -->
+    
+        </div>
+        <!-- Legende -->
+        <img class="dashboardLegend" src="./images/DashboardLegend.png" alt="" srcset="">
+        <!-- <p>Si vous souhaitez générer des statisques plus poussées, veuillez télécharger le dashboard et l'uploader sur le lien suivant : A venir...</p> -->
+    </div>
+    <!-- -------------------------  FIN div Dashboard----------------------------------- -->
+
+
+
+
+
+
+
+
+
+
+    <!-- -------------------------   div Setting ----------------------------------- -->
+    <div class="divSetting" id="divSetting">
+        <h2>SETTING</h2>
+        <div class="divSettingScrollZone">
+            <!-- div personnalisation -->
+            <div>
+                <table class="setting">
+                    <tr>
+                        <th colspan="2">PERSONNALISATION</th>
+                    </tr>
+                    <tr>
+                        <td>PRIORITE</td>
+                        <td>STATUT</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label for="customP2">Priorité C:</label>
+                            <input type="text" placeholder="Basse" maxlength="15" id="inputCustomPriorityC">
+                            <img class="iconPriority" src="./images/IconePriorityC.png" alt="Priorité C" srcset="">
+                        </td>
+                        <td>
+                            <label for="inputCustomStatus0">Statut 1 :</label>
+                            <input type="text" placeholder="A faire" maxlength="15" id="inputCustomStatus0">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label for="inputCustomPriorityB">Priorité B :</label>
+                            <input type="text" placeholder="Moyenne" maxlength="15" id="inputCustomPriorityB">
+                            <img class="iconPriority" src="./images/IconePriorityB.png" alt="Priorité B" srcset="">
+                        </td>
+                        <td>
+                            <label for="inputCustomStatus1">Statut 2 :</label>
+                            <input type="text" placeholder="En cours" maxlength="15" id="inputCustomStatus1">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label for="inputCustomPriorityA">Priorité A:</label>
+                            <input type="text" placeholder="Haute" maxlength="15" id="inputCustomPriorityA">
+                            <img class="iconPriority" src="./images/IconePriorityA.png" alt="Priorité A" srcset="">
+                        </td>
+                        <td>
+                            <label for="inputCustomStatus2">Statut 3 :</label>
+                            <input type="text" placeholder="Terminer" maxlength="15" id="inputCustomStatus2">
+                            (Note supprimée)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <button class="basicBtn basicBtnA" onclick="onSaveCustomPriority()">Sauvegarder priorité</button>
+                            <p id="pNotifySaveChangePriority"></p>
+                        </td>
+                        <td>
+                            <button class="basicBtn basicBtnA" onclick="onSaveCustomStatus()">Sauvegarder statut</button>
+                            <p id="pNotifySaveChangeStatus"></p>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <!-- div securite -->
+            <div>
+                <table class="setting">
+                    <tr>
+                        <th colspan="2">SECURITE</th>
+                    </tr>
+                    <tr>
+                        <td colspan="2">Par défaut, les données sensibles sont volontairement effacées. Si vous le souhaitez, vous pouvez les activer ici :</td>
+                    </tr>
+                    <tr>
+                        <td><label class="labelSetting" for="checkboxPhoneNumber">Autoriser les numéros de téléphone</label></td>
+                        <td><input type="checkbox" name="" id="checkboxPhoneNumber" onchange="onChangeSecuritySetting('phoneNumber',this)"></td>
+                    </tr>
+                    <tr>
+                        <td><label class="labelSetting" for="checkboxEmail">Autoriser les emails</label></td>
+                        <td><input type="checkbox" name="" id="checkboxEmail" onchange="onChangeSecuritySetting('email',this)" ></td>
+                    </tr>
+                    <tr>
+                        <td><label class="labelSetting" for="checkboxIP">Autoriser les adresses IP</label></td>
+                        <td><input type="checkbox" name="" id="checkboxIP" onchange="onChangeSecuritySetting('IPAdress',this)"></td>
+                    </tr>
+                    <tr>
+                        <td><label class="labelSetting" for="checkboxWebLink">Autoriser les liens web</label></td>
+                        <td><input type="checkbox" name="" id="checkboxWebLink" onchange="onChangeSecuritySetting('linkWeb',this)"></td>
+                    </tr>
+                </table>
+            </div>
+
+            <!-- Div gestion des données -->
+            <div>
+                <table class="setting">
+                    <tr>
+                        <th colspan="2">GESTION DES DONNEES</th>
+                    </tr>
+                    <tr>
+                        <td><strong>SAUVEGARDE</strong></td>
+                        <td><strong>IMPORT</strong></td>
+                    </tr>
+                    <tr>
+                        <td class="saveSetting">
+                            <p>Lancer la sauvegarde téléchargera 4 fichiers distincts !</p>
+                            <button class="basicBtn basicBtnA" onclick="exportData()">Sauvegarder la base</button>
+                        </td>
+                        <td class="importSetting">
+                            <!-- Import TASK -->
+                            <p>
+                                <label class="labelSetting" for="fileInputJsonTask">Tâches :</label>
+                                <input type="file" id="fileInputJsonTask" accept=".json">
+                                <button class="basicBtn basicBtnA" onclick="importTask('fileInputJsonTask','taskList','pImportTaskResult')">Import Tache</button>
+                            </p>
+                            <p id="pImportTaskResult">
+                                <!-- Injection resultat import -->
+                            </p>
+
+                            <!-- Import TAG -->
+                            <p>
+                                <label class="labelSetting" for="fileInputJsonTag">TAG :</label>
+                                <input type="file" id="fileInputJsonTag" accept=".json">
+                                <button class="basicBtn basicBtnA" onclick="importTask('fileInputJsonTag','TAGList','pImportTagResult')">Import TAG</button>
+                            </p>
+                            <p id="pImportTagResult">
+                                <!-- Injection resultat import -->
+                            </p>
+
+                            <!-- Import dashboard -->
+                            <p>
+                                <label class="labelSetting" for="fileInputJsonDashboard">Dashboard : </label>
+                                <input type="file" id="fileInputJsonDashboard" accept=".json">
+                                <button class="basicBtn basicBtnA" onclick="importTask('fileInputJsonDashboard','dashboard','pImportDashboardResult')">Import Dashboard</button>
+                            </p>
+                            <p id="pImportDashboardResult">
+                                <!-- Injection resultat import -->
+                            </p>
+                             <!-- Import template -->
+                             <p>
+                                <label class="labelSetting" for="fileInputJsonTemplate">Template : </label>
+                                <input type="file" id="fileInputJsonTemplate" accept=".json">
+                                <button class="basicBtn basicBtnA" onclick="importTask('fileInputJsonTemplate','template','pImportTemplateResult')">Import Template</button>
+                            </p>
+                            <p id="pImportTemplateResult">
+                                <!-- Injection resultat import -->
+                            </p>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+
+            <!-- div suppression BdD -->
+            <div>
+                <table class="setting">
+                    <tr>
+                        <th colspan="3">BASE DE DONNEES</th>
+                    </tr>
+                    <tr>
+                        <td><button class="basicBtn bddSuppr" onclick="onClickDeleteBDD()">Supprimer la base</button></td>
+                        <td>
+                            <div class="confirmeBdDSuppr" id="divConfirmeBdDSuppr">
+                                <p>Valider la suppression :</p>
+                                <button class="basicBtn bddSuppr" onclick="onDeleteBDD()">Confirmer</button>
+                                <button class="basicBtn basicBtnB" onclick="onCancelDeleteBDD()">Annuler</button>
+                            </div>
+                        </td>
+                        <td id="tdResultDeleteBDD">
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+    </div>
+    <!-- -------------------------  FIN div Setting----------------------------------- -->
+
+
+
+
+
+
+
+
+
+
+    <!-- -------------------------   DIV TEMPLATE  ----------------------------------- -->
+    <div id="divMenuTemplate" class="template">
+        <h2>MODELES</h2>
+        <p>Renommez ou supprimez vos modèles :</p>
+        <div class="menuTemplateList" id="divGestionTemplateList">
+            <!-- injection des listes de template -->
+        </div>
+
+        <!-- div rename template -->
+        <div class="renameTemplate" id="divRenameTemplate">
+            <p>Renommez votre modèle :</p>
+            <input class="renameTemplate" id="inputRenameTemplateTitle" type="text">
+            <!-- onclick du bouton injecter en JS -->
+            <button class="basicBtn basicBtnA" id="btnValidRenameTemplate"><img class="iconeMenu" src="./images/IconeValider.png" alt="Valider" srcset=""></button>
+            <button class="basicBtn basicBtnB" onclick="onCancelTemplateRename()"><img class="iconeMenu" src="./images/IconeReturnCancel.png" alt="Annuler" srcset=""></button>
+        </div>
+
+        <!-- div confirme delete -->
+
+        <div class="templateConfirmSupr" id="divPopupDeleteTemplate">
+            <p>Etes vous sur de vouloir supprimer ce modèle ?</p>
+            <p id="pTemplateToDeleteTitle"></p>
+            <button id="btnValidTemplateSuppression" class="basicBtn basicBtnA"><img class="iconeMenu" src="./images/IconeDelete.png" alt="Confirmer" srcset=""></button>
+            <button class="basicBtn basicBtnB" onclick="onCancelTemplateSuppresion()"><img class="iconeMenu" src="./images/IconeReturnCancel.png" alt="Annuler" srcset=""></button>
+        </div>
+
+    </div>
+    <!-- -------------------------   FIN DIV TEMPLATE  ----------------------------------- -->
+
+
+
+
+
+
+
+
+
+
+
+
+    <!-- -------------------------   div Info ----------------------------------- -->
+    <div class="divInfo" id="divInfo">
+        <h2>INFO</h2>
+            <p>Release : 1.0.0</p>
+            <h3>
+                Actualité :
+            </h3>
+            <p>
+                Consultez les <a target="_blank" href="https://emmtarsystem.github.io/plannif-Com/actualite.html">actualités de l'application.</a>
+            </p>
+
+            <h3>
+                Site Mind2Task : 
+            </h3>
+           <p>
+                Accéder au site <a target="_blank" href="https://emmtarsystem.github.io/plannif-Com/index.html">Mind2Task.</a>
+           </p> 
+           <h3>
+                CGU : 
+            </h3>
+           <p>
+            Consulter les <a target="_blank" href="https://emmtarsystem.github.io/plannif-Com/cgu.html">conditions générales d'utilisation.</a>
+           </p>      
+        
+
+    </div>
+    <!-- -------------------------  FIN div Info----------------------------------- -->
+
+
+
+
+
+
+
+   
+    <script src="./scripts/info.js"></script>
+    <script src="./scripts/setting.js"></script>
+    <script src="./scripts/NoteSystem.js"></script>
+    <script src="./scripts/TagFilterSystem.js"></script>
+    <script src="./scripts/print.js"></script>
+    <script src="./scripts/TagCompletion.js"></script>
+    <script src="./scripts/importExportData.js"></script>
+    <script src="./scripts/security.js"></script>
+    <script src="./scripts/template.js"></script>
+    <script src="./scripts/dashboard.js"></script>
+    <script src="./scripts/App.js"></script>
+</body>
+</html>

@@ -1,0 +1,782 @@
+/* Déclaration variables */
+:root{
+	--gradient-blue:linear-gradient(45deg, #3498db, #6c5ce7);
+	--gradient-yellow:linear-gradient(to right, #e9fa65, #ffd54f);
+	--div-note-width: 600px;
+	--colorBackground2: #f0f9ff;
+	--blueColor:#5673e2;
+	--yellowColor:#ffd54f;
+
+
+	/* Style des div editeur et visionneuse de note */
+	--divNoteViewEditorWidth:630px;
+	--divNoteViewEditorHeight:650px;
+	--divNoteViewEditorleft:800px;
+	--divNoteViewEditortop:20px;
+	--divNoteViewEditorRadius: 20px;
+}
+
+div.navBar{
+	background: var(--gradient-blue);
+  }
+
+
+body {
+	font-family: Arial, sans-serif; /* Police de caractères */
+  	background: #f0f0f0; /* Couleur de l'arrière-plan */
+  	margin: 0;
+  	padding: 0;
+  	display: flex;
+  	
+}
+
+
+
+/* position interface global */
+
+div.divAccueil{
+	margin-left: auto;
+	margin-right: auto;
+	width: 100%;height: 100%;
+}
+
+
+
+
+
+/* Style de titre */
+
+div.dateVersion{
+	position: absolute;
+	margin-left: 110px;
+	width: 500px;
+}
+
+h1 {
+	font-size: 30px;
+	color: #333; /* Couleur du texte du titre */
+}
+
+
+
+/* Style du paragraphe */
+
+img.iconeMenu{
+	width: 25px;
+}
+
+img.iconeNavigation{
+	width: 10px;
+}
+
+
+img.iconeCheck{
+	width: 10px;
+}
+
+/* -------------------------------       NAVIGATION MAIN MENU BAR           --------------------------------*/
+
+div.navBar{
+	position: absolute;
+	width: 80px;height: 100%;
+	text-align: center;
+}
+
+
+
+img.iconMainMenu{
+	width: 48px;
+	cursor: pointer;
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+
+img.iconMainMenu:hover{
+	transform: scale(1.1);
+}
+
+p.release{
+	color: white;
+}
+
+
+
+
+/* ---------------------------------------------- EDITION de NOTES ------------------------------ */
+
+/* Style de l'éditeur de note */
+.divNoteEditor {
+	position: absolute;
+	display: none;
+    left: var(--divNoteViewEditorleft);top: var(--divNoteViewEditortop);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    width:var(--divNoteViewEditorWidth);height: var(--divNoteViewEditorHeight);
+    text-align: center;
+    color: #333; /* Couleur du texte */
+    border-radius: var(--divNoteViewEditorRadius);
+	background-color: var(--colorBackground2);
+}
+  
+
+  /* Style des labels */
+label {
+    display: inline-block;
+    margin-bottom: 5px;
+    font-size: 12px;
+}
+
+
+
+tr.editorTitleRow{
+	height: 50px;
+}
+
+
+tr.editorDetailRow{
+	height: 180px;
+}
+
+.textarea-field{
+	display: inline-block;
+	white-space: pre-line;
+	white-space: pre-wrap;
+    width: 90%;height: 150px;
+    padding: 5px;
+    border: 2px solid #d1d3d4;
+    border-radius: 5px;
+    font-size: 12px;
+  }
+
+
+
+
+  /* LES ETAPES */
+tr.editorStepRow{
+	height: 180px;
+	vertical-align: top;
+}
+
+
+
+p.editorStep{
+	display: inline-block;
+	margin: 0px;
+}
+
+/* Pour la barre de défilement des steps */
+.scrollable-td-step-editor {
+	width: 600px;
+    height: 180px; /* Hauteur fixe de la cellule */
+}
+.scrollable-content {
+    height: 100%; 
+	-webkit-overflow-y: auto;
+    overflow-y: auto; /* Ajoute une barre de défilement verticale si nécessaire */
+}
+
+.input-field-step{
+    display: inline-block;
+    width: 350px;
+    border: 2px solid #d1d3d4;
+    border-radius: 5px;
+    font-size: 12px;
+}
+
+  /* Style des champs de texte barré */
+.input-field-step-strike{
+    display: inline-block;
+	text-decoration: line-through;
+    width: 350px;
+    border: 2px solid #d1d3d4;
+    border-radius: 5px;
+    font-size: 12px;
+}
+
+
+/* Icone ajoute d'étape */
+
+img.iconeAddStep{
+	cursor: pointer;
+}
+img.iconeAddStep:hover{
+	transform: scale(1.1);
+}
+
+
+/* Icone de suppression des étapes */
+img.IconManageStep{
+	width: 18px;
+	cursor: pointer;
+}
+img.IconManageStep:hover{
+	transform: scale(1.1);
+}
+
+
+
+
+
+
+
+
+
+
+
+label.labelTagFilter{
+	color: black;
+	font-size: 16px;
+	font-weight: bold;
+}
+
+button.btnAddStep{
+	border: 1px solid #999;
+    font-size: 14px;
+    color: var(--blueColor);
+    background-color: #eee;
+    border-radius: 5px;
+	text-align: center;
+	cursor: pointer;
+  	transition: background 0.3s, transform 0.2s;
+
+}
+
+
+button.btnAddStep:hover{
+	transform: scale(1.05);
+	background: var(--gradient-blue);
+	color: white;
+}
+
+
+
+  /* Style des champs de texte */
+.input-field{
+    display: inline-block;
+    width: 370px;
+    padding: 5px;
+    border: 2px solid #d1d3d4;
+    border-radius: 5px;
+    font-size: 12px;
+}
+
+
+
+.inputTime{
+	margin-left: 5px;
+	margin-right: 5px;
+	width: 50px;
+	border: 2px solid #d1d3d4;
+    border-radius: 5px;
+}
+
+
+ /* Nouvelle couleur du texte pour le bouton (teinte plus claire) */
+.submit-button {
+    color: #ecf0f1; /* Couleur tendant vers le blanc */
+}
+
+
+/* alignement des boutons dans un tableau */
+
+tr.tableRowBtn{
+	text-align: center;
+}
+
+
+
+/* placement bouton editeur */
+p.pButtonEditor{
+	text-align: center;
+}
+
+
+
+
+/* ------------------------------------------  Visualisation des notes ------------------------------*/
+
+div.noteViewArea {
+    position: absolute;
+    left: var(--divNoteViewEditorleft);top: var(--divNoteViewEditortop);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    width:var(--divNoteViewEditorWidth);height: var(--divNoteViewEditorHeight);
+    text-align: center;
+    color: #333; /* Couleur du texte */
+    border-radius: var(--divNoteViewEditorRadius);
+	background-color: var(--colorBackground2);
+	display: none;
+}
+
+
+
+/* la div des boutons de gestion de la note */
+div.noteViewBtn{
+	margin: auto;
+	width: 250px; height: 50px;
+}
+
+p.annotation{
+	font-size: 12px;
+	margin-top: 1px; margin-bottom: 1px;
+}
+
+
+div.noteViewData{
+	width: 100%;height:90%;
+}
+
+
+table.noteViewData{
+	width: 100%;
+}
+
+
+/* L'entete */
+td.urgenceCategorie{
+	width: 20%;
+	font-size: 12px;
+}
+td.noteViewTag{
+	width: 60%;
+	font-size: 12px;
+}
+
+
+/* Le titre */
+tr.viewNoteRowTitle p{
+	color: black;
+	font-size: 2.3ch;
+	font-weight: bold;
+}
+
+tr.viewNoteRowTitle td{
+	border-top: solid 1px black;
+}
+
+/* Detail */
+tr.tableViewNoteRowDetail {
+	height: 160px;
+  }
+  
+div.viewNoteDetail{
+	white-space: pre-line;
+	white-space: pre-wrap;
+	width: 95%;
+    height: 160px;
+    overflow: auto; /* Ajoute une barre de défilement si le contenu dépasse la taille de la div */
+    padding: 10px; /* Ajoute un espace intérieur à la div */
+	text-align: left;
+}
+
+
+
+/* Step */
+tr.tableViewNoteRowStep{
+	height: 220px;
+	font-size: 14px;
+	text-align: left;
+	vertical-align: top;
+}
+
+/* Pour la barre de défilement des steps */
+.scrollable-td-step-view {
+    height: 220px; /* Hauteur fixe de la cellule */
+
+}
+
+
+/* Dates */
+tr.noteViewDateRow td{
+	font-size: 1.5ch ;
+	margin-bottom: 2px;
+}
+
+
+/*  ------------------------------------ Bouton d'application ---------------------------------- */
+
+
+button.basicBtn{
+	display: inline-block;
+  	padding: 5px 10px;
+  	font-size: 14px;
+  	text-align: center;
+  	text-decoration: none;
+  	border: none;
+  	border-radius: 10px;
+  	color: #ffffff;
+  	box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  	cursor: pointer;
+  	transition: background 0.3s, transform 0.2s;
+
+}
+
+
+
+button.basicBtnA{
+	background: var(--gradient-blue);
+}
+/* Style au survol du bouton */
+button.basicBtnA:hover {
+	background: linear-gradient(45deg, #6c5ce7, #3498db);
+	transform: scale(1.05);
+	 
+}
+
+button.basicBtnB{
+	background: var(--gradient-yellow);
+}
+
+button.basicBtnB:hover {
+	background:linear-gradient(45deg, #ffd54f, #e9fa65);
+	transform: scale(1.05);
+}
+
+button.basicBtnC{
+	background-color: white;
+	border: 1px solid var(--blueColor);
+}
+
+button.basicBtnC:hover {
+	transform: scale(1.05);
+}
+
+
+
+
+/* ------------------------- MENU PRINCIPAL ------------------------ */
+div.mainMenu{
+	position: relative;
+	margin-left: 40%;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* -------------------------------- LISTE DES NOTES ----------------------------------- */
+
+
+
+/* la div de la liste des notes */
+div.listBtnNote{
+	position: relative;
+	text-align: center;
+	left: 140px; top: 80px;
+	width: 620px;height: 600px;
+
+}
+
+
+
+
+/* Style du selecteur de tag */
+select.selectTag{
+	width: 200px;
+    border: 1px solid #999;
+    font-size: 14px;
+    color: var(--blueColor);
+    background-color: #eee;
+    border-radius: 5px;
+	text-align: center;
+	cursor: pointer;
+}
+
+table.tableListNotes{
+	width:100%;
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+	border-radius: 10px;
+	margin-top: 10px;
+	background-color: var(--colorBackground2);
+}
+
+
+/* Ligne entre les status de notes */
+tr.rowTopLine{
+	background: var(--gradient-blue);
+}
+
+
+
+/* La zone qui accueil les notes */
+td.tdListeNotes{
+	height: 230px;
+	text-align: left;
+	vertical-align: top;
+
+}
+
+
+/*-  Les boutons de navigations gauches droits */
+
+td.btnNext {
+	width: 30%;
+	text-align: left;
+	padding-left: 10px;
+}
+td.btnPrevious{
+	width: 30%;
+	text-align: right;
+	padding-right: 10px;
+}
+
+td.btnNextPreviousText{
+	width: 40%;
+}
+
+
+
+img.nextPrevious{
+	width: 25px;
+	height: 15px;
+	cursor: pointer;
+}
+
+/* Ne pas supprimer */
+p.btnPreviousNext{
+	display: inline-block;
+	margin-top: 1px;
+	margin-bottom: 1px;
+	font-size: 16px;
+	color: white;
+}
+
+
+
+
+
+/*    bouton individuel des taches */
+
+
+
+.listBtnLine {
+	display: flex;
+	align-items: center;
+	border: solid 1px rgb(195, 195, 195);
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+	background-color: rgb(232, 231, 231);
+	border-radius: 5px;
+	margin-bottom: 0px;
+	margin-left: 10px;
+	width: 95%;
+	height: 22px;
+	transition: transform 0.3s ease; /* Ajout de l'effet de transition */
+}
+
+
+.listBtnLine:hover{
+	transform: translateX(5px);
+}
+
+.listBtnTAG{
+	margin-left: 5px;
+	width: 130px;
+	text-align: center;
+	overflow: hidden;    /* Cache le texte qui dépasse */
+}
+
+p.listNoteTag{
+	font-size: 10px;
+	white-space: nowrap; /* Pour éviter le retour à la ligne */
+	overflow: hidden; /*Cache le texte qui dépasse */
+  	text-overflow: ellipsis; /* Ajoute des points de suspension (...) pour indiquer que du texte est masqué */
+	font-style: italic;
+}
+
+
+button.btnListNote{
+	margin-left: 15px;
+	margin-right: 30px;
+	width:350px; height: 20px;
+ 	overflow: hidden;    /* Cache le texte qui dépasse */
+	white-space: nowrap; 
+	overflow: hidden; 
+	text-overflow: ellipsis;
+	border: none;
+	text-align: left;
+	font-size: 12px;
+	font-weight: bold;
+	background-color: rgb(232, 231, 231);
+}
+
+
+.listBtnChangeStatus{
+	margin-left: 30px;
+}
+
+
+
+button.btnListNote:hover{
+	cursor: pointer;
+}
+
+
+/* Progress bar list note */
+
+.progress-bar-container {
+	margin-left: 20px;
+	margin-bottom: 10px;
+	width: 560px;
+	height: 3px;
+	background-color: #eee;
+	border-radius: 10px;
+	overflow: hidden;
+}
+
+.progress-bar {
+	height: 100%;
+	background-color: #4caf50; /* couleur de fond Progress Bar */
+	transition: width 0.5s ease-in-out; /* effet de transition */
+}
+
+/* ---------------------------- QUICK CHANGE PRIORITY   ----------------------------- */
+
+/* la selection de la nouvelle priorité */
+div.divQuickChangePriority{
+	display: none;
+	z-index: 2;
+	width: 200px;height: 50px;
+	padding-top: 10px;
+	position: relative;
+	margin-left: 350px;
+	top: -500px;
+	background-color: var(--colorBackground2);
+	text-align: center;
+	border-radius: 10px 0px;
+	border: solid 1px var(--blueColor);
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Ombre portée */
+}
+
+
+.iconQuickChange{
+	width: 25px;
+	cursor: pointer;
+}
+.iconQuickChange:hover{
+	transform: scale(1.05);
+}
+
+
+/* -------------------------------- POPUP SUPPRESSION ----------------------------------- */
+
+div.confirmSupr{
+	z-index: 2;
+	display: none;
+	width: 400px;
+	height: 100px;
+	background-color: var(--colorBackground2);
+	text-align: center;
+	border-radius: 10px 0px;
+	border: solid 1px var(--blueColor);
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Ombre portée */
+	position: relative;
+	margin-left: auto;
+    margin-right: auto;
+	top: -400px;
+}
+
+
+/* -------------------------------- POPUP NOTE TERMINER ----------------------------------- */
+
+
+div.popupTerminer{
+	z-index: 2;
+	display: none;
+	width: 500px;
+	height: 230px;
+	background-color: var(--colorBackground2);
+	text-align: center;
+	border-radius: 10px 0px;
+	border: solid 1px var(--blueColor);
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Ombre portée */
+	position: relative;
+	margin-left: auto;
+    margin-right: auto;
+	top: -400px;
+
+}
+
+div.popupTerminer label{
+	color: black;
+	font-weight: bold;
+}
+
+
+
+
+
+
+
+
+
+
+/* -------------------------------- POPUP NOTIFY ----------------------------------- */
+
+div.notify{
+	z-index: 5;
+	/* visibility: hidden; */
+	display: none;
+	width: 500px;
+	height: 60px;
+	background-color: gainsboro;
+	text-align: center;
+	border-radius: 10px 0px;
+	border: solid 1px var(--blueColor);
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Ombre portée */
+	/* position: fixed;
+	margin-left: 200px;
+    top: 30px; */
+	position: relative;
+	margin-left: auto;
+    margin-right: auto;
+    top: -500px;
+}
+
+/*-----------------------------------  DIVERS -------------------------------  */
+
+img.iconPriority{
+	width: 30px;
+	margin-left: 10px;
+	margin-right: 10px;
+}
+
+
+
+
+/* -------------------------- TEMPLATE ------------------------------ */
+
+/* div choix du template */
+
+div.selectTemplate{
+	display: none;
+	position: absolute;
+	text-align: center;
+	width: 400px;
+	height: 130px;
+	background-color: gainsboro;
+	z-index: 2;
+	left: 650px;
+	top: 50px;
+	border-radius: 10px 0px;
+	border: solid 1px var(--blueColor);
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Ombre portée */
+	
+}
+
+select.selectTemplate{
+	width: 350px;
+    border: 1px solid #999;
+    font-size: 14px;
+    color: var(--blueColor);
+    background-color: #eee;
+    border-radius: 5px;
+	text-align: center;
+	cursor: pointer;
+}
