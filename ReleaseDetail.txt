@@ -220,3 +220,16 @@ Version fonctionnel
 0.9.9 pre-launch 2
     Evolution
         Mise en place du déplacement haut bas des étapes
+1.0.0
+    Migration vers le nouveau site pour la version publiée.
+    Correctif
+        Correction du bug ou les étapes modifié non sauvegardées étaient conservées.
+    Amelioration
+        Ajout d'une icone renommer pour les templates.
+        Passage des textes menu en francais.
+        Amélioration des étapes dans l'éditeur de note.
+    Evolution
+        Possibilité de renommer un template.
+        Dashboard, ajout de la statistique tache la plus longue.
+        Dashboard, ajout des top 3.
+        Dashboard, refonte du design.

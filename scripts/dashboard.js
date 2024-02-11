@@ -27,6 +27,10 @@ function onOpenDashboard() {
         
         // en meme temps SET les éléments divers du dashboard
         onSetDiversDashboardItem(arrayResult.length);
+
+
+        // En meme temps calcul la tache la plus longue
+        onSetMaxTaskDuration(arrayResult);
     }
 }
 
@@ -196,11 +200,135 @@ function onSetDiversDashboardItem(taskStatus2Length) {
     pdashboardStatus2Ref = document.getElementById("pDashboardStatus2");
 
 
-    pdashboardStatus0Ref.innerHTML = `Tâche ${statusArray[0].userStatus} : ${notesStatus0Array.length}`;
-    pdashboardStatus1Ref.innerHTML = `Tâche ${statusArray[1].userStatus} : ${noteStatus1Array.length}`;
-    pdashboardStatus2Ref.innerHTML = `Tâche ${statusArray[2].userStatus} : ${taskStatus2Length}`;
+    pdashboardStatus0Ref.innerHTML = `<strong>Nombre de tâches '${statusArray[0].userStatus}' : </strong> ${notesStatus0Array.length}`;
+    pdashboardStatus1Ref.innerHTML = `<strong>Nombre de tâches '${statusArray[1].userStatus}' : </strong>${noteStatus1Array.length}`;
+    pdashboardStatus2Ref.innerHTML = `<strong>Nombre de tâches '${statusArray[2].userStatus}' : </strong>${taskStatus2Length}`;
+
+    onSetMaxTaskDuration
 
 }
+
+
+// Fonction pour la tâche la plus longue
+
+function onSetMaxTaskDuration(dashboardArray) {
+    // Étape 1 : Trouver la durée maximale
+    let maxDuration = Math.max(...dashboardArray.map(item => item.duration));
+
+    // Étape 2 : Filtrer les éléments avec la durée maximale
+    let elementsMaxDuration = dashboardArray.filter(item => item.duration === maxDuration);
+
+    
+    // Set la durée maximale
+    let durationToHour = onConvertMinutesToHour(maxDuration);
+
+    // Converti format minute en texte
+    let textMinutes = onConvertMinutesToText(durationToHour.minutes);
+
+    document.getElementById("pDashboardMaxDuration").innerHTML = `<strong> Tâche(s) ayant la plus longue durée  (${durationToHour.heures}.${textMinutes} heures) : </strong>`;
+
+    // remplit la liste :
+    let ulDashboardMaxDuration = document.getElementById("ulDashboardMaxTaskList");
+
+    elementsMaxDuration.forEach(e=>{
+        let newLi = document.createElement("li");
+
+        newLi.innerHTML = `${e.title} `;
+
+        ulDashboardMaxDuration.appendChild(newLi);
+    })
+
+    // Lance les TOP3
+    topTagsByDuration(dashboardArray);
+    topTagsByTaskCount(dashboardArray);
+
+}
+
+// TOP 3
+
+// CATEGORIE par durée
+function topTagsByDuration(dashboardData) {
+    // Reference le parent pour le résultat
+    let olTop3TAGDuration = document.getElementById("olTop3TAGDuration");
+
+    let tagDurationMap = {};
+    
+    // Agréger les durées par tag
+    dashboardData.forEach(task => {
+        if (!tagDurationMap[task.tag]) {
+            tagDurationMap[task.tag] = 0;
+        }
+        tagDurationMap[task.tag] += task.duration;
+    });
+
+    // Trier les tags par durée décroissante
+    let sortedTags = Object.keys(tagDurationMap).sort((a, b) => tagDurationMap[b] - tagDurationMap[a]);
+
+    // Récupérer les 3 premiers tags avec leur durée
+    let topTags = sortedTags.slice(0, 3).map(tag => ({ tag: tag, duration: tagDurationMap[tag] }));
+
+    // Set le resultat dans le html
+    topTags.forEach(e=>{
+
+        // Converti la duré
+        let convertedDuration = onConvertMinutesToHour(e.duration);
+
+        // Converti format minute en texte
+        let textMinutes = onConvertMinutesToText(convertedDuration.minutes);
+
+        let newLi = document.createElement("li");
+
+        newLi.innerHTML = `<strong> ${e.tag} : </strong> ${convertedDuration.heures}.${textMinutes} heures.`;
+
+        olTop3TAGDuration.appendChild(newLi);
+    })
+
+}
+
+// Convertion de l'affichage des minutes en texte user avec zero devant si besoin
+function onConvertMinutesToText(e) {
+    return e>=10 ? e : '0' + e;
+}
+
+
+
+// CATEGORIE par Nbre de tâches
+function topTagsByTaskCount(dashboardData) {
+
+    // Reference le parent pour le résultat
+    let olTop3TAGNbre = document.getElementById("olTop3TAGNbre");
+
+    let tagTaskCountMap = {};
+
+    // Compter le nombre de tâches par tag
+    dashboardData.forEach(task => {
+        if (!tagTaskCountMap[task.tag]) {
+            tagTaskCountMap[task.tag] = 0;
+        }
+        tagTaskCountMap[task.tag]++;
+    });
+
+    // Trier les tags par nombre de tâches décroissant
+    let sortedTags = Object.keys(tagTaskCountMap).sort((a, b) => tagTaskCountMap[b] - tagTaskCountMap[a]);
+
+    // Récupérer les 3 premiers tags avec leur nombre de tâches
+    let topTags = sortedTags.slice(0, 3).map(tag => ({ tag: tag, taskCount: tagTaskCountMap[tag] }));
+
+
+    // Set le resultat dans le html
+    topTags.forEach(e=>{
+
+        let newLi = document.createElement("li");
+
+        newLi.innerHTML = `<strong> ${e.tag} : </strong>${e.taskCount} tâches.`;
+
+        olTop3TAGNbre.appendChild(newLi);
+    })
+
+    
+}
+
+
 
 
 // Reset dashboard
@@ -213,4 +341,8 @@ function onClearDashboard() {
     document.getElementById("pDashboardStatus2").innerHTML = "";
 
     document.getElementById("divStatisticContainer").innerHTML = "";
+    document.getElementById("ulDashboardMaxTaskList").innerHTML = "";
+    document.getElementById("pDashboardMaxDuration").innerHTML = "";
+    document.getElementById("olTop3TAGDuration").innerHTML = "";
+    document.getElementById("olTop3TAGNbre").innerHTML = "";
 }

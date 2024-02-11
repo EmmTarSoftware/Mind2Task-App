@@ -30,7 +30,6 @@ function onFindTemplateInDB() {
                     arrayTemplate.push({ key: e.key, title: e.title });
                 });
                 console.log("[ TEMPLATE ] templates existants");
-                console.log(arrayTemplate);
                 resolve(true);
             } else {
                 console.log("[ TEMPLATE ] Aucun template");
@@ -191,8 +190,36 @@ function onClickSaveAsTemplate() {
 
 
 
-// Insertion d'un nouveau template
+// filtre pour savoir si c'est un template à créé ou à modifier
 function onInsertTemplate(e) {
+    let templateType = onFindTemplateTitle(e.title);
+
+    if (templateType.modified === true) {
+        onInsertModifiedTemplate(e,templateType.key);
+    }else{
+        onInsertNewTemplate(e);
+    }
+
+}
+
+// fonction de recherche de titre dans le tableau de template
+function onFindTemplateTitle(titleTarget) {
+
+     for (let i = 0; i < arrayTemplate.length; i++) {
+        if (arrayTemplate[i].title === titleTarget) {
+            return { modified: true, key: arrayTemplate[i].key };
+        }
+    }
+    return { modified: false, key: null };
+}
+
+
+
+
+
+
+// Insertion d'un nouveau template
+function onInsertNewTemplate(e) {
     let transaction = db.transaction(templateStoreName,"readwrite");
     let store = transaction.objectStore(templateStoreName);
 
@@ -228,13 +255,72 @@ function onInsertTemplate(e) {
         onUpdatePage(false);
 
     }
-
 }
 
 
 
+// Insertion d'un template modifié
+function onInsertModifiedTemplate(e,keyTarget) {
+    console.log("[ TEMPLATE ] fonction d'insertion de la donnée modifié");
+
+    let transaction = db.transaction(templateStoreName,"readwrite");
+    let store = transaction.objectStore(templateStoreName);
+    let modifyRequest = store.getAll(IDBKeyRange.only(keyTarget));
+
+    
+
+    modifyRequest.onsuccess = function () {
+        console.log("[ TEMPLATE ] modifyRequest = success");
+
+        let modifiedData = modifyRequest.result[0];
+
+        modifiedData.tag = e.tag;
+        modifiedData.dateLastModification = e.dateLastModification;
+        modifiedData.dateStart = "";
+        modifiedData.dateEnd = "";
+        modifiedData.detail = e.detail;
+        modifiedData.priority = e.priority;
+        modifiedData.status = e.status;
+        modifiedData.stepArray = e.stepArray;
+        modifiedData.title = e.title;
+
+        let insertModifiedData = store.put(modifiedData);
+
+        insertModifiedData.onsuccess = function (){
+            console.log("[ TEMPLATE ] insertModifiedTemplate = success");
+
+            console.log("[ TEMPLATE ] " + e.title + "a été Modifié.");
+            // evenement de notification
+            eventNotify(arrayNotify.templateModified + e.title);
 
 
+            // Clear l'editeur de note
+            onClearNoteEditor();
+
+        }
+
+        insertModifiedData.onerror = function (){
+            console.log("insertModifiedData = error",insertModifiedData.error);
+
+            
+        }
+
+
+    }
+
+    modifyRequest.onerror = function(){
+        console.log("[ TEMPLATE ] ModifyRequest = error");
+    }
+
+    transaction.oncomplete = function(){
+        console.log("[ TEMPLATE ] transaction insert Template complete");
+        // reactive la div principale Cache la div edition
+        // Gestion affichage
+        onChangeDisplay(["divNoteEditor"],[],[],["divListBtnNote","divNoteView"]);
+        onUpdatePage(false);
+
+    }
+}
 
 
 // -------------------------------------------  GESTIONNAIRE DE TEMPLATE -------------------------------------------
@@ -294,7 +380,7 @@ function onSetTemplateManagerList() {
         // Renommer
         let newBtnRename = document.createElement("img");
         newBtnRename.className= "iconQuickChange";
-        newBtnRename.src ="./images/IconeEditer3.png";
+        newBtnRename.src ="./images/IconeRename.png";
         newBtnRename.onclick = function (){
             onDisplayRenameTemplate(e.title,e.key);
         }

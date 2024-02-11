@@ -8,6 +8,8 @@ div.divDashboard{
 }
 
 
+
+
 .dashboard-table-container {
     display: flex;
     justify-content: space-around;
@@ -67,4 +69,27 @@ div.divDashboard{
 
 img.dashboardLegend{
     width: 250px;
+}
+
+
+
+
+
+/* Le tableau de statistiques divers */
+
+.statisticDivers {
+    border-collapse: collapse;
+    width: 100%; 
+    border: thick double var(--blueColor);
+    background-color: var(--colorBackground2);
+}
+
+.statisticDivers th, .statisticDivers td {
+    border: 1px solid black; 
+    padding: 8px; 
+    text-align: left; 
+}
+
+.statisticDivers th {
+   text-align: center;
 }

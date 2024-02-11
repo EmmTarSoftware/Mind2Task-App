@@ -13,8 +13,8 @@ let noteStatus1Array= [],//les notes en cours
     btnNoteStatus1NextRef = document.getElementById("btnNoteStatus1Next"),//les boutons de navigation des notes
     btnNoteStatus0PreviousRef = document.getElementById("btnNoteStatus0Previous"),//les boutons de navigation des notes
     btnNoteStatus0NextRef = document.getElementById("btnNoteStatus0Next"),//les boutons de navigation des notes
-    tempStepArray = [];//pour stoquer les étapes temporairement lorsqu'ils sont en mode édition
-
+    tempStepArray = [],//pour stoquer les étapes temporairement lorsqu'ils sont en mode édition
+    previousStepArray = []; // pour stocker les étapes précédentes avant toute modification
 
 let defaultTagValue = "divers",
     maxStep = 10,
@@ -756,8 +756,11 @@ function onSetNoteEditor(e) {
     textareaNoteDetailRef.value = e.detail;
     selectorNotePriorityRef.value = e.priority;
 
-    // Transfert les étapes dans une variable temporaire pour la gestion
-    tempStepArray = e.stepArray;
+    // Sauvegarde les étapes actuelles dans previousStepArray
+    previousStepArray = e.stepArray.map(step => ({...step})); // Utilise .map() pour créer une nouvelle copie de chaque objet étape
+
+    // Transfert les étapes dans tempStepArray pour la gestion
+    tempStepArray = e.stepArray.map(step => ({...step})); // Utilise .map() pour créer une nouvelle copie de chaque objet étape
 
     // set les étapes si il y en a
 
@@ -782,6 +785,7 @@ function onClearNoteEditor() {
     selectorNotePriorityRef.value = priorityArray[0].systemPriority;
     ulNoteEditorStepRef.innerHTML = "";
     tempStepArray = [];
+
 };
 
 
@@ -888,6 +892,18 @@ function onDisplayStep() {
             }
         });
 
+        // Les texte minutes et heures de étapes
+        let newTextHour = document.createElement("p");
+        newTextHour.className = "editorStep";
+        newTextHour.innerHTML = "h";
+        let newTextMinute = document.createElement("p");
+        newTextMinute.className = "editorStep";
+        newTextMinute.innerHTML = "m";
+
+
+
+
+
 
         // Creation des boutons
         // Monter
@@ -915,7 +931,9 @@ function onDisplayStep() {
         newLi.appendChild(newCheckbox);
         newLi.appendChild(newInput);
         newLi.appendChild(newInputHour);
+        newLi.appendChild(newTextHour);
         newLi.appendChild(newInputMinutes);
+        newLi.appendChild(newTextMinute);
         newLi.appendChild(btnStepUp);
         newLi.appendChild(btnStepDown);
         newLi.appendChild(btnDeleteStep);
@@ -1257,6 +1275,10 @@ function onInsertModification(e) {
 
 // Annuler une édition de note
 function onClickBtnAnnulNoteEditor() {
+    // Restaure les étapes précédentes
+    tempStepArray = previousStepArray.slice(); // Utilise .slice() pour créer une copie de previousStepArray
+    onDisplayStep(); // Met à jour l'affichage des étapes
+    onClearNoteEditor(); // Vide l'éditeur de note
 
     // Si ça vient d'une modification réaffiche le visualiseur de note sinon non.
     if (boolEditNoteCreation === true) {

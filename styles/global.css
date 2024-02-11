@@ -9,7 +9,7 @@
 
 
 	/* Style des div editeur et visionneuse de note */
-	--divNoteViewEditorWidth:630px;
+	--divNoteViewEditorWidth:650px;
 	--divNoteViewEditorHeight:650px;
 	--divNoteViewEditorleft:800px;
 	--divNoteViewEditortop:20px;
@@ -48,7 +48,7 @@ div.divAccueil{
 
 div.dateVersion{
 	position: absolute;
-	margin-left: 110px;
+	margin-left: 90px;
 	width: 500px;
 }
 
@@ -76,16 +76,23 @@ img.iconeCheck{
 
 /* -------------------------------       NAVIGATION MAIN MENU BAR           --------------------------------*/
 
+
+/* Nom de l'application */
+p.AppName{
+	color: var(--yellowColor);
+}
+
+
 div.navBar{
 	position: absolute;
-	width: 80px;height: 100%;
+	width: 75px;height: 100%;
 	text-align: center;
 }
 
 
 
 img.iconMainMenu{
-	width: 48px;
+	width: 40px;
 	cursor: pointer;
 	margin-top: 10px;
 	margin-bottom: 10px;
@@ -155,12 +162,16 @@ tr.editorStepRow{
 	height: 180px;
 	vertical-align: top;
 }
-
-
+ul.ulEditorStep{
+	list-style-type:none;
+  	padding: 0;
+  	margin: 0;
+}
 
 p.editorStep{
 	display: inline-block;
 	margin: 0px;
+	font-size: 10px;
 }
 
 /* Pour la barre de défilement des steps */
@@ -176,16 +187,6 @@ p.editorStep{
 
 .input-field-step{
     display: inline-block;
-    width: 350px;
-    border: 2px solid #d1d3d4;
-    border-radius: 5px;
-    font-size: 12px;
-}
-
-  /* Style des champs de texte barré */
-.input-field-step-strike{
-    display: inline-block;
-	text-decoration: line-through;
     width: 350px;
     border: 2px solid #d1d3d4;
     border-radius: 5px;

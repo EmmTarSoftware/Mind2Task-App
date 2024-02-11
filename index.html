@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="shortcut icon" href="./images/TaskManager.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="./images/mind2Task.ico" type="image/x-icon">
     <link rel="stylesheet" href="./styles/global.css">
     <link rel="stylesheet" href="./styles/styleCompletion.css">
     <link rel="stylesheet" href="./styles/dashboard.css">
@@ -368,18 +368,46 @@
     
     <!-- -------------------------   div Dashboard----------------------------------- -->
     <div class="divDashboard" id="divDashboard">
-        <h2>DASHBOARD</h2>
-        <p id="pDashboardStatus0">
-            <!-- Injection -->
-        </p>
-        <p id="pDashboardStatus1">
-            <!-- Injection -->
-        </p>
-        <p id="pDashboardStatus2">
-            <!-- Injection -->
-        </p>
+        <h2>TABLEAU DE BORD</h2>
 
-        <h3>Tableau de statistiques des tâches terminées :</h3>
+
+        <table class="statisticDivers">
+            <tr>
+                <th>DIVERS</th>
+                <th>CLASSEMENT TOP 3</th>
+            </tr>
+            <tr>
+                <td>
+                    <p id="pDashboardStatus0">
+                        <!-- Injection -->
+                    </p>
+                    <p id="pDashboardStatus1">
+                        <!-- Injection -->
+                    </p>
+                    <p id="pDashboardStatus2">
+                        <!-- Injection -->
+                    </p>
+                    <p id="pDashboardMaxDuration">
+                        <!-- Injection -->
+                    </p>
+                    <ul id="ulDashboardMaxTaskList">
+                        <!-- Injection -->
+                    </ul>
+                </td>
+                <td>
+                    <h4>TAG cumulant le plus grand nombre d'heures :</h4>
+                    <ol id="olTop3TAGDuration">
+                        <!-- Injection -->
+                    </ol>
+                    <h4>TAG cumulant le plus grand nombre de tâches :</h4>
+                    <ol id="olTop3TAGNbre">
+                        <!-- Injection -->
+                    </ol>
+                </td>
+            </tr>
+        </table>
+
+        <h3>Analyses mensuelles des tâches traitées :</h3>
         <div class="dashboard-table-container" id="divStatisticContainer">
       
 
@@ -403,7 +431,7 @@
 
     <!-- -------------------------   div Setting ----------------------------------- -->
     <div class="divSetting" id="divSetting">
-        <h2>SETTING</h2>
+        <h2>PARAMETRES</h2>
         <div class="divSettingScrollZone">
             <!-- div personnalisation -->
             <div>
@@ -625,25 +653,33 @@
     <!-- -------------------------   div Info ----------------------------------- -->
     <div class="divInfo" id="divInfo">
         <h2>INFO</h2>
+            <img class="mainLogo" src="./images/Mind2TaskMainLogo.png" alt="">
+            
             <p>Release : 1.0.0</p>
             <h3>
                 Actualité :
             </h3>
             <p>
-                Consultez les <a target="_blank" href="https://emmtarsystem.github.io/plannif-Com/actualite.html">actualités de l'application.</a>
+                Consultez les <a target="_blank" href="https://emmtarsoftware.github.io/Mind2Task-Info/actualite.html">actualités de l'application.</a>
             </p>
 
             <h3>
                 Site Mind2Task : 
             </h3>
            <p>
-                Accéder au site <a target="_blank" href="https://emmtarsystem.github.io/plannif-Com/index.html">Mind2Task.</a>
+                Accéder au site web <a target="_blank" href="https://emmtarsoftware.github.io/Mind2Task-Info/index.html">Mind2Task.</a>
            </p> 
            <h3>
                 CGU : 
             </h3>
            <p>
-            Consulter les <a target="_blank" href="https://emmtarsystem.github.io/plannif-Com/cgu.html">conditions générales d'utilisation.</a>
+                Consulter les <a target="_blank" href="https://emmtarsoftware.github.io/Mind2Task-Info/cgu.html">conditions générales d'utilisation.</a>
+           </p>
+           <h3>
+                Licence : 
+            </h3>
+           <p>
+                © 2024 EmmTarSoftware. Tous droits réservés.
            </p>      
         
 

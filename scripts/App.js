@@ -8,8 +8,9 @@ let arrayNotify ={
     errorDate : "Les dates définies sont incorrectes",
     taskCreated : "Création de la tache : ",
     taskDone : "Clôture de la tâche : ",
-    templateCreated : "Création du template : ",
-    templateLimite : "Nombre maximal de template atteint !",
+    templateCreated : "Création du modèle : ",
+    templateModified : "Modification du modèle : ",
+    templateLimite : "Nombre maximal de modèle atteint !",
     stepLimite : "Nombre maximal d'étape atteint !",
     templateListEmpty :"Vous n'avez créé aucun modèle."
 };
@@ -412,6 +413,7 @@ function onCloseMenuDashboard() {
     onChangeDisplay(["divDashboard"],[],[],[]);
     // Changement image icone
     document.getElementById("imgIconMainMenuDashboard").src = "./images/IconeDashboard.png";
+    onClearDashboard();
 }
 
 
