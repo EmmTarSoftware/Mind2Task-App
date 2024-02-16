@@ -240,3 +240,8 @@ Version fonctionnel
         Ajout des contacts dans le menu information.
     Evolution
         Mise en place du systeme de recherche.
+1.1.1
+    Correctif
+        Correction du bug ou tous les recherche apparaissent dans "En cours".
+        Correction du bug ou les espaces étaient remplacés par des tirets.
+        Correction du bug ou le nombre de tâche dans le dashboard était influencé par la recherche en cours.

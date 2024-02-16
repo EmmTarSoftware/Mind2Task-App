@@ -98,15 +98,18 @@ function onUpdatePage(isUpdateTagListRequired) {
         let arrayResult = requestTask.result;
         
         
+        // Compte les taches status0 et status1 pour le dashboard
+        onCountTaskByStatus(arrayResult);
+
 
         // Filtre se mise à jour du selecteur de tag
         if (isUpdateTagListRequired === true) {
             // TEST FILTRE  PAR TAG
             onListTAG(arrayResult);
         }else{
-            // fonction de trie 
+            // fonction de répartition des taches dans le visualiseur
             onSortItem(arrayResult);
-            
+        
         }
 
         //Actualisation des templates dans la page d'accueil
@@ -136,7 +139,7 @@ function onSortItem(arrayResult) {
         tempNoteStatus1Array = arrayResult.filter((item) =>{
             
             if (currentTagFilter === genericTAG) {
-                return item.title.includes(textTarget) && statusArray[1].systemStatus;// Si toutes les taches (genericTAG) récupere tout
+                return item.title.includes(textTarget) && item.status === statusArray[1].systemStatus;// Si toutes les taches (genericTAG) récupere tout
             }else{
                 return item.title.includes(textTarget) && item.tag === currentTagFilter;  // Si un tag en cours, ne recupere que ceux du tag en cours
             }   
@@ -145,9 +148,9 @@ function onSortItem(arrayResult) {
 
         // MODE RECHERCHE dans STATUS 0
         console.log("Trie des éléments  par recherche" + statusArray[0].systemStatus);
-        tempNoteStatus1Array = arrayResult.filter((item) =>{
+        tempNoteStatus0Array = arrayResult.filter((item) =>{
             if (currentTagFilter === genericTAG) {
-                return item.title.includes(textTarget) && statusArray[0].systemStatus;// Si toutes les taches (genericTAG) récupere tout
+                return item.title.includes(textTarget) && item.status === statusArray[0].systemStatus;// Si toutes les taches (genericTAG) récupere tout
             }else{
                 return item.title.includes(textTarget) && item.tag === currentTagFilter;  // Si un tag en cours, ne recupere que ceux du tag en cours
             }       
@@ -416,7 +419,7 @@ function onSetListNotes(divNotesTarget,noteArray,indexToStart,thIDRef,currentUse
 
         
         // Set le nombre de tâche
-        currentThRef.innerHTML = `${currentUserStatus} ( ${noteArray.length} )   <i>${indexToStart + 1} - ${indexToStart + nbreIteration}</i>`;     
+        currentThRef.innerHTML = `<strong> ${currentUserStatus}  ( ${noteArray.length} )  </strong> <i>${indexToStart + 1} - ${indexToStart + nbreIteration}</i>`;     
 
     }else{
         console.log("Aucune note pour " + divNotesTarget);

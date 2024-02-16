@@ -282,8 +282,7 @@ function onRemoveSpecialCaracter(text) {
         [/[àâä]/gi,"a"],
         [/[ç]/gi,"c"],
         [/[ïî]/gi,"i"],
-        [/[ùûü]/gi,"u"],
-        [/ /gi,"-"]
+        [/[ùûü]/gi,"u"]
       ];
     //Correction
     for(let i = 0; i < correctionRef.length; i++){

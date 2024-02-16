@@ -1,4 +1,4 @@
-
+// Ouverture de dashboard
 function onOpenDashboard() {
     console.log("Génération du dashboard");
 
@@ -200,8 +200,8 @@ function onSetDiversDashboardItem(taskStatus2Length) {
     pdashboardStatus2Ref = document.getElementById("pDashboardStatus2");
 
 
-    pdashboardStatus0Ref.innerHTML = `<strong>Nombre de tâches '${statusArray[0].userStatus}' : </strong> ${notesStatus0Array.length}`;
-    pdashboardStatus1Ref.innerHTML = `<strong>Nombre de tâches '${statusArray[1].userStatus}' : </strong>${noteStatus1Array.length}`;
+    pdashboardStatus0Ref.innerHTML = `<strong>Nombre de tâches '${statusArray[0].userStatus}' : </strong> ${nbreTaskStatus0}`;
+    pdashboardStatus1Ref.innerHTML = `<strong>Nombre de tâches '${statusArray[1].userStatus}' : </strong>${nbreTaskStatus1}`;
     pdashboardStatus2Ref.innerHTML = `<strong>Nombre de tâches '${statusArray[2].userStatus}' : </strong>${taskStatus2Length}`;
 
     onSetMaxTaskDuration
@@ -327,6 +327,38 @@ function topTagsByTaskCount(dashboardData) {
 
     
 }
+
+
+
+
+// Compte les tâches par status
+
+let nbreTaskStatus0 = 0,
+nbreTaskStatus1 = 0;
+
+
+function onCountTaskByStatus(array) {
+    nbreTaskStatus0 = onCountTask(array,statusArray[0].systemStatus);
+    nbreTaskStatus1 = onCountTask(array,statusArray[1].systemStatus);
+}
+
+
+// Compteur de taches
+function onCountTask(array, statusTarget) {
+    let compteur = 0;
+
+    array.forEach(e => {
+        if (e.status === statusTarget) {
+            compteur++;
+        }
+    });
+
+    return compteur;
+}
+
+
+
+
 
 
 
