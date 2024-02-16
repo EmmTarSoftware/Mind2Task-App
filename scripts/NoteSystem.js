@@ -122,20 +122,67 @@ function onUpdatePage(isUpdateTagListRequired) {
 
 // Classe les items en les mettants dans leurs catégories respectives et stock dans les variables avec uniquement key/titre/priorité/tag
 function onSortItem(arrayResult) {
-    
-    
-    //Filtre sur les notes en cours avec le filtre du tag
-    console.log("Trie des éléments " + statusArray[1].systemStatus);
-    let tempNoteStatus1Array = arrayResult.filter((item) =>{
+    let tempNoteStatus1Array =[],
+    tempNoteStatus0Array =[];
+
+    // Jonction MODE RECHERCHE ou FILTRE TAG pour l'extraction des résultats
+    // Si il y a un texte = filtre TAG + text sinon TAG uniquement
+    if (document.getElementById("inputSearchText").value != "") {
+
+        let textTarget = document.getElementById("inputSearchText").value.toUpperCase();
+        
+        // MODE RECHERCHE dans STATUS 1
+        console.log("Trie des éléments  par recherche" + statusArray[1].systemStatus);
+        tempNoteStatus1Array = arrayResult.filter((item) =>{
+            
+            if (currentTagFilter === genericTAG) {
+                return item.title.includes(textTarget) && statusArray[1].systemStatus;// Si toutes les taches (genericTAG) récupere tout
+            }else{
+                return item.title.includes(textTarget) && item.tag === currentTagFilter;  // Si un tag en cours, ne recupere que ceux du tag en cours
+            }   
+
+        })
+
+        // MODE RECHERCHE dans STATUS 0
+        console.log("Trie des éléments  par recherche" + statusArray[0].systemStatus);
+        tempNoteStatus1Array = arrayResult.filter((item) =>{
+            if (currentTagFilter === genericTAG) {
+                return item.title.includes(textTarget) && statusArray[0].systemStatus;// Si toutes les taches (genericTAG) récupere tout
+            }else{
+                return item.title.includes(textTarget) && item.tag === currentTagFilter;  // Si un tag en cours, ne recupere que ceux du tag en cours
+            }       
+        })
+
+
+    }else{
+        // STATUS 1
+        //Filtre sur les notes en cours avec le filtre du tag
+        console.log("Trie des éléments " + statusArray[1].systemStatus);
+        tempNoteStatus1Array = arrayResult.filter((item) =>{
+            
+            if (currentTagFilter === genericTAG) {
+                return item.status === statusArray[1].systemStatus;// Si toutes les taches (genericTAG) récupere tout
+            }else{
+                return item.status === statusArray[1].systemStatus && item.tag === currentTagFilter;  // Si un tag en cours, ne recupere que ceux du tag en cours
+            }   
+        })
+
+        // STATUS 0
+        //Filtre sur les notes A FAIRE avec le filtre du tag
+        console.log("Trie des éléments " + statusArray[0].systemStatus);
+        tempNoteStatus0Array = arrayResult.filter((item) =>{
 
         if (currentTagFilter === genericTAG) {
-            return item.status === statusArray[1].systemStatus;
+            return item.status === statusArray[0].systemStatus;// Si toutes les taches (genericTAG) récupere tout
         }else{
-            return item.status === statusArray[1].systemStatus && item.tag === currentTagFilter;
+            return item.status === statusArray[0].systemStatus && item.tag === currentTagFilter;// Si un tag en cours, ne recupere que ceux du tag en cours
             
         }
         
     })
+    }
+    
+
 
     // Ne recupère que les valeurs nécessaires
     tempNoteStatus1Array.forEach(e=>{
@@ -162,18 +209,7 @@ function onSortItem(arrayResult) {
 
 
 
-    //Filtre sur les notes A FAIRE avec le filtre du tag
-    console.log("Trie des éléments " + statusArray[0].systemStatus);
-    let tempNoteStatus0Array = arrayResult.filter((item) =>{
 
-        if (currentTagFilter === genericTAG) {
-            return item.status === statusArray[0].systemStatus;
-        }else{
-            return item.status === statusArray[0].systemStatus && item.tag === currentTagFilter;
-            
-        }
-        
-    })
 
     // Ne recupère que les valeurs nécessaires
     tempNoteStatus0Array.forEach(e=>{
@@ -253,14 +289,6 @@ function onSortItem(arrayResult) {
     });
 
 
-
-
-
-
-
-
-
-    
     // Creation des liste de notes par catégories
     onSetListNotes("divBtnNoteStatus1",noteStatus1Array,noteStatus1IndexToStart,"pTxtStatus1",statusArray[1].userStatus,statusArray[1].systemStatus);
     onSetListNotes("divBtnNoteStatus0",notesStatus0Array,noteStatus0IndexToStart,"pTxtStatus0",statusArray[0].userStatus,statusArray[0].systemStatus);
@@ -538,9 +566,9 @@ function onClickQuickChangePriority(keyTarget,currentPriority){
 
     // Grise les div qui sont visible
     if(document.getElementById("divNoteView").style.display === "block"){
-        onChangeDisplay([],[],["divListBtnNote","divNoteView"],[]);
+        onChangeDisplay([],[],["divListBtnNote","divBtnNewTask","divNoteView"],[]);
     }else{
-        onChangeDisplay([],[],["divListBtnNote"],[]);
+        onChangeDisplay([],[],["divListBtnNote","divBtnNewTask"],[]);
     }
 
     
@@ -560,9 +588,9 @@ function onChangeQuickPriority(newPriorityTarget) {
         console.log("La priorité est la meme que la précédente. Aucun enregistrement !");
         // Réactive les div visibles qui étaient grisées
         if(document.getElementById("divNoteView").style.display === "block"){
-            onChangeDisplay([],[],[],["divListBtnNote","divNoteView"]);
+            onChangeDisplay([],[],[],["divListBtnNote","divBtnNewTask","divNoteView"]);
         }else{
-            onChangeDisplay([],[],[],["divListBtnNote"]);
+            onChangeDisplay([],[],[],["divListBtnNote","divBtnNewTask"]);
         }
         // Quitte la fonction
         return
@@ -608,9 +636,9 @@ function onChangeQuickPriority(newPriorityTarget) {
 
         // Réactive les div visibles qui étaient grisées
         if(document.getElementById("divNoteView").style.display === "block"){
-            onChangeDisplay([],[],[],["divListBtnNote","divNoteView"]);
+            onChangeDisplay([],[],[],["divListBtnNote","divBtnNewTask","divNoteView"]);
         }else{
-            onChangeDisplay([],[],[],["divListBtnNote"]);
+            onChangeDisplay([],[],[],["divListBtnNote","divBtnNewTask"]);
         }
     
 
@@ -698,7 +726,7 @@ function onCreateNote() {
     onClearNoteEditor();
 
     // Gestion affichage
-    onChangeDisplay(["divNoteView"],["divNoteEditor"],["divListBtnNote"],["divNoteEditor"]);
+    onChangeDisplay(["divNoteView"],["divNoteEditor"],["divListBtnNote","divBtnNewTask"],["divNoteEditor"]);
 
     onDisplayNoteEditor(true);
 }
@@ -711,7 +739,7 @@ function onEditNote() {
     onClearNoteEditor();
 
     // Gestion affichage
-    onChangeDisplay(["divNoteView"],["divNoteEditor"],["divListBtnNote"],["divNoteEditor"]);
+    onChangeDisplay(["divNoteView"],["divNoteEditor"],["divListBtnNote","divBtnNewTask"],["divNoteEditor"]);
 
     onDisplayNoteEditor(false);
 }
@@ -1071,14 +1099,15 @@ function onFormatNote(){
     
 
     //------ Titre ------
-    let tempTitle = onSetToUppercase(inputNoteTitleRef.value);
+    let tempTitle = onRemoveSpecialCaracter(inputNoteTitleRef.value);//suppression accent
+    let upperCaseTitle = onSetToUppercase(tempTitle);//passage en majuscule
 
 
     //  -------------   SECURITY  ----------
 
     let secureTag = securitySearchForbidenItem(tempTag);
     let secureDetail = securitySearchForbidenItem(textareaNoteDetailRef.value);
-    let secureTitle = securitySearchForbidenItem(tempTitle);
+    let secureTitle = securitySearchForbidenItem(upperCaseTitle);
 
 
 
@@ -1266,7 +1295,7 @@ function onInsertModification(e) {
         
         // reactive la div principale Cache la div edition
         // Gestion affichage
-        onChangeDisplay(["divNoteEditor"],[],[],["divListBtnNote","divNoteView"]);
+        onChangeDisplay(["divNoteEditor"],[],[],["divListBtnNote","divBtnNewTask","divNoteView"]);
 
 
     }
@@ -1283,10 +1312,10 @@ function onClickBtnAnnulNoteEditor() {
     // Si ça vient d'une modification réaffiche le visualiseur de note sinon non.
     if (boolEditNoteCreation === true) {
         // Gestion affichage 
-        onChangeDisplay(["divNoteEditor"],[],[],["divListBtnNote"]);
+        onChangeDisplay(["divNoteEditor"],[],[],["divListBtnNote","divBtnNewTask"]);
     }else{
         // Gestion affichage 
-        onChangeDisplay(["divNoteEditor"],["divNoteView"],[],["divListBtnNote","divNoteView"]);
+        onChangeDisplay(["divNoteEditor"],["divNoteView"],[],["divListBtnNote","divBtnNewTask","divNoteView"]);
     }
 }
 
@@ -1447,7 +1476,7 @@ function onClickBtnDeleteNote() {
 
 
     // Gestion affichage
-    onChangeDisplay([],["divPopupDelete"],["divNoteView","divListBtnNote"],[]);
+    onChangeDisplay([],["divPopupDelete"],["divNoteView","divListBtnNote","divBtnNewTask"],[]);
 
 }
 
@@ -1456,14 +1485,14 @@ function onValidSuppression(){
     onDeleteNote(currentKeyNoteInView);
 
     // Gestion affichage
-    onChangeDisplay(["divNoteView","divPopupDelete"],[],[],["divListBtnNote"]);
+    onChangeDisplay(["divNoteView","divPopupDelete"],[],[],["divListBtnNote","divBtnNewTask"]);
 
 }
 
 function onCancelSuppression() {
  
     // Gestion affichage
-    onChangeDisplay(["divPopupDelete"],[],[],["divNoteView","divListBtnNote"]);
+    onChangeDisplay(["divPopupDelete"],[],[],["divNoteView","divListBtnNote","divBtnNewTask"]);
 }
 
 
@@ -1593,7 +1622,7 @@ function quickEventNoteTerminer() {
     inputConfirmDateEndRef.value = currentNoteInView.dateEnd;
 
     // Gestion affichage
-    onChangeDisplay([],["divPopupTerminer"],["divNoteView","divListBtnNote"],[]);
+    onChangeDisplay([],["divPopupTerminer"],["divNoteView","divListBtnNote","divBtnNewTask"],[]);
 
     // insert la fonction pour la sauvegarde du dashboard et la suppression dans le bouton
     btnValidTerminerRef = document.getElementById("btnValidTerminer");
@@ -1612,7 +1641,7 @@ function quickEventNoteTerminer() {
 function onCancelPopupTerminer(isQuickAction) {
     // Gestion affichage
     if(isQuickAction === true){
-        onChangeDisplay(["divPopupTerminer"],[],[],["divNoteView","divListBtnNote"]);
+        onChangeDisplay(["divPopupTerminer"],[],[],["divNoteView","divListBtnNote","divBtnNewTask"]);
     }else{
         onChangeDisplay(["divPopupTerminer"],[],[],["divNoteEditor"]);
     }
@@ -1664,9 +1693,9 @@ function onTermineNote(data,key,isQuickAction) {
     // Gestion affichage*
 
     if (isQuickAction === true) {
-        onChangeDisplay(["divPopupTerminer","divNoteView"],[],[],["divListBtnNote"]);
+        onChangeDisplay(["divPopupTerminer","divNoteView"],[],[],["divListBtnNote","divBtnNewTask"]);
     }else{
-        onChangeDisplay(["divPopupTerminer","divNoteEditor"],[],[],["divListBtnNote"]);
+        onChangeDisplay(["divPopupTerminer","divNoteEditor"],[],[],["divListBtnNote","divBtnNewTask"]);
     }
     
 

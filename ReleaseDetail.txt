@@ -233,3 +233,10 @@ Version fonctionnel
         Dashboard, ajout de la statistique tache la plus longue.
         Dashboard, ajout des top 3.
         Dashboard, refonte du design.
+1.1.0
+    Amelioration
+        Retrait des accents dans le titre pour la faciliter la rechercher par le suite.
+        Deplacement des boutons de création de tâches.
+        Ajout des contacts dans le menu information.
+    Evolution
+        Mise en place du systeme de recherche.

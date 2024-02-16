@@ -55,6 +55,8 @@ div.dateVersion{
 h1 {
 	font-size: 30px;
 	color: #333; /* Couleur du texte du titre */
+	display: inline-block;
+	margin-right: 20px;
 }
 
 
@@ -72,6 +74,12 @@ img.iconeNavigation{
 
 img.iconeCheck{
 	width: 10px;
+}
+
+
+input{
+	border: 2px solid #d1d3d4;
+    border-radius: 5px;
 }
 
 /* -------------------------------       NAVIGATION MAIN MENU BAR           --------------------------------*/
@@ -106,7 +114,10 @@ p.release{
 	color: white;
 }
 
-
+/* Div avec les deux boutons de nouvelle tâches */
+div.btnNewTask{
+	display: inline-block;
+}
 
 
 /* ---------------------------------------------- EDITION de NOTES ------------------------------ */
@@ -188,8 +199,6 @@ p.editorStep{
 .input-field-step{
     display: inline-block;
     width: 350px;
-    border: 2px solid #d1d3d4;
-    border-radius: 5px;
     font-size: 12px;
 }
 
@@ -255,8 +264,6 @@ button.btnAddStep:hover{
     display: inline-block;
     width: 370px;
     padding: 5px;
-    border: 2px solid #d1d3d4;
-    border-radius: 5px;
     font-size: 12px;
 }
 
@@ -266,8 +273,6 @@ button.btnAddStep:hover{
 	margin-left: 5px;
 	margin-right: 5px;
 	width: 50px;
-	border: 2px solid #d1d3d4;
-    border-radius: 5px;
 }
 
 

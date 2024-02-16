@@ -78,7 +78,7 @@ function onClickSelectTemplate() {
 
 
         // Gestion affichage
-        onChangeDisplay(["divNoteView"],["divChoiceTemplate"],["divListBtnNote"],[]);
+        onChangeDisplay(["divNoteView"],["divChoiceTemplate"],["divListBtnNote","divBtnNewTask"],[]);
         
         // Remplissage des options du selecteur de template
 
@@ -103,7 +103,7 @@ function onClickSelectTemplate() {
 
 function onReturnFromChoiceTemplate() {
     // Gestion affichage
-    onChangeDisplay(["divChoiceTemplate"],[],[],["divListBtnNote"]);
+    onChangeDisplay(["divChoiceTemplate"],[],[],["divListBtnNote","divBtnNewTask"]);
     
 
 }
@@ -135,7 +135,7 @@ function onDisplayNoteEditorFromTemplate(keyRef){
     onClearNoteEditor();
 
     // Gestion affichage
-    onChangeDisplay(["divNoteView"],["divNoteEditor"],["divListBtnNote"],["divNoteEditor"]);
+    onChangeDisplay(["divNoteView"],["divNoteEditor"],["divListBtnNote","divBtnNewTask"],["divNoteEditor"]);
 
 
     
@@ -251,7 +251,7 @@ function onInsertNewTemplate(e) {
         console.log("transaction insert Template complete");
         // reactive la div principale Cache la div edition
         // Gestion affichage
-        onChangeDisplay(["divNoteEditor"],[],[],["divListBtnNote","divNoteView"]);
+        onChangeDisplay(["divNoteEditor"],[],[],["divListBtnNote","divBtnNewTask","divNoteView"]);
         onUpdatePage(false);
 
     }
@@ -316,7 +316,7 @@ function onInsertModifiedTemplate(e,keyTarget) {
         console.log("[ TEMPLATE ] transaction insert Template complete");
         // reactive la div principale Cache la div edition
         // Gestion affichage
-        onChangeDisplay(["divNoteEditor"],[],[],["divListBtnNote","divNoteView"]);
+        onChangeDisplay(["divNoteEditor"],[],[],["divListBtnNote","divBtnNewTask","divNoteView"]);
         onUpdatePage(false);
 
     }

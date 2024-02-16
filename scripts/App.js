@@ -179,17 +179,6 @@ function onFormatDateToFr(dateString) {
 }
 
 
-
-
-// Desactivation de la page principale
-let allDivToDisable = [];
-    allDivToDisable.push(document.getElementById("divListBtnNote"));
-    allDivToDisable.push(document.getElementById("divNoteView"));
-
-
-
-
-
 // fonction de gestion de l'affichage
 function onChangeDisplay(toHide,toDisplay,toDisable,toEnable) {
     // Cache les items
@@ -282,6 +271,27 @@ function onlimitNumberLength(input, maxLength, maxValue) {
     input.value = value;
   }
 
+
+
+function onRemoveSpecialCaracter(text) {
+    // Tableau motifs à rempalcer
+    let correctedTitle = text;
+
+    const correctionRef = [
+        [/[éèêë]/gi,"e"],
+        [/[àâä]/gi,"a"],
+        [/[ç]/gi,"c"],
+        [/[ïî]/gi,"i"],
+        [/[ùûü]/gi,"u"],
+        [/ /gi,"-"]
+      ];
+    //Correction
+    for(let i = 0; i < correctionRef.length; i++){
+        correctedTitle = correctedTitle.replace(correctionRef[i][0],correctionRef[i][1])
+    };
+
+    return correctedTitle;
+}
 
 
 //  --------------------------  Animation notification -------------------------------------
@@ -390,7 +400,7 @@ function onClickMenuAccueil() {
 
 function onCloseMenuAccueil() {
     // Remet la page d'accueil dans son affichage initiale et la ferme
-    onChangeDisplay(["divNoteEditor","divNoteView","divPopupDelete","divPopupTerminer","divQuickChangePriority","divAccueil","divChoiceTemplate"],[],[],["divNoteEditor","divNoteView","divListBtnNote"]);
+    onChangeDisplay(["divNoteEditor","divNoteView","divPopupDelete","divPopupTerminer","divQuickChangePriority","divAccueil","divChoiceTemplate"],[],[],["divNoteEditor","divNoteView","divListBtnNote","divBtnNewTask"]);
     // Changement image icone
     document.getElementById("imgIconMainMenuAccueil").src = "./images/IconeHome.png";
 }
