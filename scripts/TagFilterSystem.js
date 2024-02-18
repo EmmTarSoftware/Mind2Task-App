@@ -1,7 +1,10 @@
 
 
 let allTagList = [];
-let genericTAG = "TOUTES LES TACHES";
+    genericTAG = "TOUTES LES TACHES";
+
+
+
 
 
 let currentTagFilter = genericTAG;
@@ -138,3 +141,28 @@ function onSelectorTagChange(){
     currentTagFilter = selectTagFilterRef.value;
     onUpdatePage(false);
 }
+
+
+
+
+
+
+
+// ------------------------------------  RECHERCHE -------------------------------------
+
+
+
+
+
+
+
+
+let inputSearchTextRef = document.getElementById("inputSearchText");//Input de recherche de notes
+
+
+inputSearchTextRef.addEventListener("keypress", function(event) {
+    if (event.key === "Enter") {
+      event.preventDefault();
+      onUpdatePage(false);
+    }
+})

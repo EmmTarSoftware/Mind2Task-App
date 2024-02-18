@@ -69,7 +69,7 @@ div.templateConfirmSupr{
 	height: 150px;
 	background-color: var(--colorBackground2);
 	text-align: center;
-	border-radius: 10px 0px;
+	border-radius: 10px;
 	border: solid 1px var(--blueColor);
 	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Ombre portée */
 	position: absolute;
@@ -93,7 +93,7 @@ div.renameTemplate{
 	height: 150px;
 	background-color: var(--colorBackground2);
 	text-align: center;
-	border-radius: 10px 0px;
+	border-radius: 10px;
 	border: solid 1px var(--blueColor);
 	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Ombre portée */
 	margin-left: auto;

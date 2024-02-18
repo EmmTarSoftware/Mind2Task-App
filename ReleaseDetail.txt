@@ -245,3 +245,6 @@ Version fonctionnel
         Correction du bug ou tous les recherche apparaissent dans "En cours".
         Correction du bug ou les espaces étaient remplacés par des tirets.
         Correction du bug ou le nombre de tâche dans le dashboard était influencé par la recherche en cours.
+1.2.0
+    Amelioration
+        Lorsqu'on est dans la recherche, appuyer sur "entrer" actualise la page.

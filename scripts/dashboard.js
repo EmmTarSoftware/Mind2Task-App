@@ -230,13 +230,19 @@ function onSetMaxTaskDuration(dashboardArray) {
     // remplit la liste :
     let ulDashboardMaxDuration = document.getElementById("ulDashboardMaxTaskList");
 
-    elementsMaxDuration.forEach(e=>{
-        let newLi = document.createElement("li");
-
-        newLi.innerHTML = `${e.title} `;
-
-        ulDashboardMaxDuration.appendChild(newLi);
-    })
+    if (elementsMaxDuration.length > 0) {
+        elementsMaxDuration.forEach(e=>{
+            let newLi = document.createElement("li");
+    
+            newLi.innerHTML = `${e.title} `;
+    
+            ulDashboardMaxDuration.appendChild(newLi);
+        })
+    }else{
+        ulDashboardMaxDuration.innerHTML = "Rien à afficher";
+    }
+    
+    
 
     // Lance les TOP3
     topTagsByDuration(dashboardArray);

@@ -15,6 +15,7 @@ let noteStatus1Array= [],//les notes en cours
     btnNoteStatus0NextRef = document.getElementById("btnNoteStatus0Next"),//les boutons de navigation des notes
     tempStepArray = [],//pour stoquer les étapes temporairement lorsqu'ils sont en mode édition
     previousStepArray = []; // pour stocker les étapes précédentes avant toute modification
+    
 
 let defaultTagValue = "divers",
     maxStep = 10,
@@ -97,6 +98,10 @@ function onUpdatePage(isUpdateTagListRequired) {
     transaction.oncomplete = function (){
         let arrayResult = requestTask.result;
         
+
+        // Traitement des notifications pour les dates
+        onUpdateNotifyDate(arrayResult);
+
         
         // Compte les taches status0 et status1 pour le dashboard
         onCountTaskByStatus(arrayResult);
@@ -130,9 +135,9 @@ function onSortItem(arrayResult) {
 
     // Jonction MODE RECHERCHE ou FILTRE TAG pour l'extraction des résultats
     // Si il y a un texte = filtre TAG + text sinon TAG uniquement
-    if (document.getElementById("inputSearchText").value != "") {
+    if (inputSearchTextRef.value != "") {
 
-        let textTarget = document.getElementById("inputSearchText").value.toUpperCase();
+        let textTarget = inputSearchTextRef.value.toUpperCase();
         
         // MODE RECHERCHE dans STATUS 1
         console.log("Trie des éléments  par recherche" + statusArray[1].systemStatus);
@@ -419,7 +424,7 @@ function onSetListNotes(divNotesTarget,noteArray,indexToStart,thIDRef,currentUse
 
         
         // Set le nombre de tâche
-        currentThRef.innerHTML = `<strong> ${currentUserStatus}  ( ${noteArray.length} )  </strong> <i>${indexToStart + 1} - ${indexToStart + nbreIteration}</i>`;     
+        currentThRef.innerHTML = ` ${currentUserStatus}  <strong>( ${noteArray.length} )  </strong> <i>${indexToStart + 1} - ${indexToStart + nbreIteration}</i>`;     
 
     }else{
         console.log("Aucune note pour " + divNotesTarget);
@@ -688,9 +693,9 @@ let divNoteEditorRef = document.getElementById("divNoteEditor"),
     selectorNoteStatusRef = document.getElementById("selectorNoteStatus"),
     inputNoteDateEndRef = document.getElementById("inputNoteDateEnd"),
     legendNoteEditorRef = document.getElementById("legendNoteEditor"),
-    ulNoteEditorStepRef = document.getElementById("ulNoteEditorStep");
-
-
+    ulNoteEditorStepRef = document.getElementById("ulNoteEditorStep"),
+    checkboxDateStartNotifyRef = document.getElementById("checkboxDateStartNotify"),
+    checkboxDateEndNotifyRef = document.getElementById("checkboxDateEndNotify");
 
 // Generation des options de l'editeur de note
 
@@ -782,8 +787,10 @@ function onSetNoteEditor(e) {
     inputNoteTagRef.value = e.tag;
     inputNoteTitleRef.value = e.title;
     selectorNoteStatusRef.value = e.status;
-    inputNoteDateStartRef.value = e.dateStart;
-    inputNoteDateEndRef.value = e.dateEnd;
+    inputNoteDateStartRef.value = e.dateStart.value;
+    checkboxDateStartNotifyRef.checked = e.dateStart.notify;
+    inputNoteDateEndRef.value = e.dateEnd.value;
+    checkboxDateEndNotifyRef.checked = e.dateEnd.notify;
     textareaNoteDetailRef.value = e.detail;
     selectorNotePriorityRef.value = e.priority;
 
@@ -816,6 +823,8 @@ function onClearNoteEditor() {
     selectorNotePriorityRef.value = priorityArray[0].systemPriority;
     ulNoteEditorStepRef.innerHTML = "";
     tempStepArray = [];
+    checkboxDateStartNotifyRef.checked = false;
+    checkboxDateEndNotifyRef.checked = false;
 
 };
 
@@ -825,7 +834,7 @@ function onClearNoteEditor() {
 // Fonction pour ajouter une étape, vérifie d'abord si le nombre maximal d'étapes n'est pas atteint
 function onAddStep() {
     if (isMaxStepsReached()) {
-        eventNotify(arrayNotify.stepLimite);
+        eventUserMessage(arrayUserMessage.stepLimite);
         return; // Arrête la fonction si le nombre maximal d'étapes est atteint
     }
 
@@ -839,7 +848,7 @@ function onAddStep() {
         tempStepArray.push(newStep);
         onDisplayStep();
     } else {
-        eventNotify(arrayNotify.emptyStepField);
+        eventUserMessage(arrayUserMessage.emptyStepField);
     }
 }
 
@@ -1013,7 +1022,7 @@ function onCheckNoteError() {
     // detection des champs vides obligatoires
     let isEmptyTitleField = onCheckEmptyField(inputNoteTitleRef.value);
     if (isEmptyTitleField === true) {
-        eventNotify(arrayNotify.emptyTitleField);
+        eventUserMessage(arrayUserMessage.emptyTitleField);
     }
     
 
@@ -1021,7 +1030,7 @@ function onCheckNoteError() {
     // detection des champs vide pour les étapes
     let isStepFieldFilled = areAllStepsFilled();
     if (isStepFieldFilled === false) {
-        eventNotify(arrayNotify.emptyStepField);
+        eventUserMessage(arrayUserMessage.emptyStepField);
     }
 
 
@@ -1118,7 +1127,9 @@ function onFormatNote(){
         formatedEditorStepArray.forEach(i=> secureEditorStepArray.push({stepName:securitySearchForbidenItem(i.stepName),stepChecked:i.stepChecked,stepHour:i.stepHour,stepMinutes:i.stepMinutes}));
     }
 
-    
+    // Notification des dates
+    let isDateStartNotify = checkboxDateStartNotifyRef.checked;
+    isDateEndNotify = checkboxDateEndNotifyRef.checked;
 
     
     // Mise en format variable
@@ -1128,8 +1139,8 @@ function onFormatNote(){
         title : secureTitle,
         dateCreated : tempDateCreated,
         dateLastModification : tempDateToday,
-        dateStart : tempDateStart,
-        dateEnd : tempDateEnd,
+        dateStart : {value : tempDateStart, notify : isDateStartNotify},
+        dateEnd :  {value : tempDateEnd, notify : isDateEndNotify},
         status : selectorNoteStatusRef.value,
         stepArray : secureEditorStepArray,
         detail : secureDetail,
@@ -1219,7 +1230,7 @@ function onInsertData(e) {
     insertRequest.onsuccess = function () {
         console.log(e.title + "a été ajouté à la base");
         // evenement de notification
-        eventNotify(arrayNotify.taskCreated + e.title);
+        eventUserMessage(arrayUserMessage.taskCreated + e.title);
 
 
         // Clear l'editeur de note
@@ -1394,8 +1405,8 @@ function onDisplayNote(e) {
 
     // Les dates sont affiché en format francais
     let dateCreatedFR = onFormatDateToFr(e.dateCreated);
-    let dateStartFR = onFormatDateToFr(e.dateStart);
-    let dateEndFR = onFormatDateToFr(e.dateEnd);
+    let dateStartFR = onFormatDateToFr(e.dateStart.value);
+    let dateEndFR = onFormatDateToFr(e.dateEnd.value);
     let dateLastModificationFR = onFormatDateToFr(e.dateLastModification);
 
     noteViewDateInfoRef.innerHTML = "<b>Début : </b>" + dateStartFR +"   - - -   <b>Fin : </b>" + dateEndFR;
@@ -1761,7 +1772,7 @@ function onInsertDataDashboard(data,keyToDelete) {
     insertRequest.onsuccess = function () {
         console.log(data.title + "a été ajouté à la base");
         // evenement de notification
-        eventNotify(arrayNotify.taskDone + data.title);
+        eventUserMessage(arrayUserMessage.taskDone + data.title);
 
 
         // // Clear l'editeur de note

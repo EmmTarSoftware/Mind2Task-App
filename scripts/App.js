@@ -1,8 +1,8 @@
 // Initialisation variables
 // -------------------------------------------------   GLOBAL        ------------------------------------------------
-//  Définition des textes de notification
+//  Définition des textes de message utilisateur
 
-let arrayNotify ={
+let arrayUserMessage ={
     emptyTitleField : "Le champ 'Titre' n'est pas renseignés",
     emptyStepField : "Un champ d'étape est vide",
     errorDate : "Les dates définies sont incorrectes",
@@ -237,14 +237,14 @@ function onCheckEmptyField(e) {
 
 function onCheckDateError(dateDebut, dateFin) {
 
-    // convezrtion des strings en objets Date;
+    // convertion des strings en objets Date;
     let tempDateDebut = new Date(dateDebut);
     let tempDateFin =new Date(dateFin);
 
     if (tempDateDebut > tempDateFin) {
         console.log("Dates choisies incorrecte !");
         // Notification
-        eventNotify(arrayNotify.errorDate);
+        eventUserMessage(arrayUserMessage.errorDate);
     }
     return tempDateDebut > tempDateFin ? true :false;
 
@@ -295,25 +295,25 @@ function onRemoveSpecialCaracter(text) {
 
 //  --------------------------  Animation notification -------------------------------------
 let isNotifyEnabled = false;
-function eventNotify(textToDisplay) {
+function eventUserMessage(textToDisplay) {
 
     if (isNotifyEnabled === false) {
         isNotifyEnabled = true;
 
         let pNotifyTextRef = document.getElementById("pNotifyText");
-        let divNotifyRef = document.getElementById("divNotify");
+        let divUserMessageRef = document.getElementById("divUserMessage");
         pNotifyTextRef.innerHTML =  textToDisplay + " !";
     
 
         // Affiche la div
-        // divNotifyRef.style.visibility = "visible";
-        divNotifyRef.style.display ="block";
+        // divUserMessageRef.style.visibility = "visible";
+        divUserMessageRef.style.display ="block";
 
 
         // Cache la div apres un delay
         setTimeout(() => {
-            // divNotifyRef.style.visibility = "hidden";
-            divNotifyRef.style.display = "none";
+            // divUserMessageRef.style.visibility = "hidden";
+            divUserMessageRef.style.display = "none";
             isNotifyEnabled = false;
         }, 2000);
     }

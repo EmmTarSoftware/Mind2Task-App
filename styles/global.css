@@ -1,7 +1,8 @@
 /* Déclaration variables */
 :root{
 	--gradient-blue:linear-gradient(45deg, #3498db, #6c5ce7);
-	--gradient-yellow:linear-gradient(to right, #e9fa65, #ffd54f);
+	/* --gradient-yellow:linear-gradient(to right, #fff202, #ffd54f); */
+	--gradient-yellow:#ffd54f;
 	--div-note-width: 600px;
 	--colorBackground2: #f0f9ff;
 	--blueColor:#5673e2;
@@ -81,6 +82,29 @@ input{
 	border: 2px solid #d1d3d4;
     border-radius: 5px;
 }
+
+
+/* Style du selecteur de tag */
+select {
+    border: 1px solid #999;
+    color: var(--blueColor);
+    background-color: #eee;
+    border-radius: 5px;
+	text-align: center;
+	cursor: pointer;
+}
+
+/* Style general des POPUP */
+.popup{
+		z-index: 2;
+		/* background-color: var(--colorBackground2); */
+		background-color: #f6dd89;
+		text-align: center;
+		border-radius: 10px;
+		border: solid 1px var(--blueColor);
+		box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Ombre portée */	
+}
+
 
 /* -------------------------------       NAVIGATION MAIN MENU BAR           --------------------------------*/
 
@@ -486,13 +510,7 @@ div.listBtnNote{
 /* Style du selecteur de tag */
 select.selectTag{
 	width: 200px;
-    border: 1px solid #999;
     font-size: 14px;
-    color: var(--blueColor);
-    background-color: #eee;
-    border-radius: 5px;
-	text-align: center;
-	cursor: pointer;
 }
 
 table.tableListNotes{
@@ -673,15 +691,9 @@ div.divQuickChangePriority{
 /* -------------------------------- POPUP SUPPRESSION ----------------------------------- */
 
 div.confirmSupr{
-	z-index: 2;
 	display: none;
 	width: 400px;
 	height: 100px;
-	background-color: var(--colorBackground2);
-	text-align: center;
-	border-radius: 10px 0px;
-	border: solid 1px var(--blueColor);
-	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Ombre portée */
 	position: relative;
 	margin-left: auto;
     margin-right: auto;
@@ -693,15 +705,9 @@ div.confirmSupr{
 
 
 div.popupTerminer{
-	z-index: 2;
 	display: none;
 	width: 500px;
 	height: 230px;
-	background-color: var(--colorBackground2);
-	text-align: center;
-	border-radius: 10px 0px;
-	border: solid 1px var(--blueColor);
-	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Ombre portée */
 	position: relative;
 	margin-left: auto;
     margin-right: auto;
@@ -727,18 +733,9 @@ div.popupTerminer label{
 
 div.notify{
 	z-index: 5;
-	/* visibility: hidden; */
 	display: none;
 	width: 500px;
 	height: 60px;
-	background-color: gainsboro;
-	text-align: center;
-	border-radius: 10px 0px;
-	border: solid 1px var(--blueColor);
-	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Ombre portée */
-	/* position: fixed;
-	margin-left: 200px;
-    top: 30px; */
 	position: relative;
 	margin-left: auto;
     margin-right: auto;
@@ -766,11 +763,11 @@ div.selectTemplate{
 	text-align: center;
 	width: 400px;
 	height: 130px;
-	background-color: gainsboro;
+	background:var(--colorBackground2);
 	z-index: 2;
 	left: 650px;
 	top: 50px;
-	border-radius: 10px 0px;
+	border-radius: 10px;
 	border: solid 1px var(--blueColor);
 	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Ombre portée */
 	
@@ -778,11 +775,5 @@ div.selectTemplate{
 
 select.selectTemplate{
 	width: 350px;
-    border: 1px solid #999;
     font-size: 14px;
-    color: var(--blueColor);
-    background-color: #eee;
-    border-radius: 5px;
-	text-align: center;
-	cursor: pointer;
 }

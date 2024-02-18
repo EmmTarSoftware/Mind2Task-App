@@ -1,0 +1,22 @@
+/* L'icone de notification */
+
+img.notifyDate{
+    width: 5%;
+    cursor: pointer;
+}
+
+/* La div d'affichage */
+
+div.divNotifyAlert{
+    display: none;
+    position: absolute;
+    z-index: 5;
+    left: 220px;top: 80px;
+    width: 500px;
+}
+
+/* Liste affichage des alertes */
+
+li.notifyDate{
+    font-size: 12px;
+}

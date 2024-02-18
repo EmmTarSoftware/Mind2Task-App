@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="./styles/tablette.css">
     <link rel="stylesheet" href="./styles/dashboard.css">
     <link rel="stylesheet" href="./styles/template.css">
+    <link rel="stylesheet" href="./styles/notifyDate.css">
     <title>Mind2Task</title>
 </head>
 <body>
@@ -26,7 +27,7 @@
         <img id="imgIconMainMenuTemplate" onclick="onChangeMenu('Template')" class="iconMainMenu" src="./images/IconeMenuTemplate2.png" alt="Template" srcset="" title="Modèle">
         <img id="imgIconMainMenuInfo" onclick="onChangeMenu('Info')" class="iconMainMenu" src="./images/IconeInfo.png" alt="Icone menu info" srcset="" title="Infos">
         <img onclick="switchFullScreen()" class="iconMainMenu" src="./images/IconeScreen.png" alt="Plein écran" srcset="" title="Plein écran">
-        <p class="release">Release : 1.1.1</p>
+        <p class="release">Release : 1.2.0</p>
 
     </div>
     
@@ -48,12 +49,15 @@
         <div class="dateVersion">
             <h1 id="h1DateDuJour"></h1>
             <div id="divBtnNewTask" class="btnNewTask">
-                <button class="basicBtn basicBtnA" onclick="onCreateNote()" title="actualisation">
-                    <img class="iconeMenu" src="./images/IconeNewTask.png" alt="Nouvelle tâche" srcset="">
-                </button>
+                
                 <button id="btnNewFromTemplete" class="basicBtn basicBtnA" onclick="onClickSelectTemplate()" title="Créer depuis un modèle">
                     <img class="iconeMenu" src="./images/IconeTemplate.png" alt="Nouveau depuis modèle" srcset="">
                 </button>
+
+                <button class="basicBtn basicBtnB" onclick="onCreateNote()" title="actualisation">
+                    <img class="iconeMenu" src="./images/IconeNewTask2.png" alt="Nouvelle tâche" srcset="">
+                </button>
+                
             </div>
             
         </div>
@@ -77,6 +81,10 @@
 
         <!-- ----------------- DIV Tableau d'affichage des boutons de notes--------------------------- -->
         <div class="listBtnNote" id="divListBtnNote">
+
+            <!-- Notification alerte taches -->
+            <img id="imgNotifyAvailable" class="notifyDate" onmouseover="onDisplayNotifyDate(true)" onmouseleave="onDisplayNotifyDate(false)" src="images/IconeNotifyAvailable.png" alt="Notification disponible">
+
             <!-- <h2>Mes tâches</h2> -->
             
             <label class="labelTagFilter" for="selectTagFilter">Filtre : </label>
@@ -85,9 +93,8 @@
             </select>
             <label class="labelTagFilter">Titre :</label>
             <input type="text" id="inputSearchText">
-            <button class="basicBtn basicBtnA" onclick="onUpdatePage(false)" title="Actualiser">
-                <img class="iconeMenu" src="./images/IconeRefresh.png" alt="Actualiser" srcset="">
-            </button>
+                <img class="IconManageStep" src="./images/IconeRefresh.png" onclick="onUpdatePage(false)" alt="Actualiser" srcset="">
+            
            
             
 
@@ -266,8 +273,10 @@
                             <td colspan="3">
                                 <label for="inputNoteDateStart">Date début</label>
                                 <input type="date" name="" id="inputNoteDateStart">
+                                <input type="checkbox" id="checkboxDateStartNotify">
                                 <label for="inputNoteDateEnd">Date fin</label>
                                 <input type="date" name="" id="inputNoteDateEnd">
+                                <input type="checkbox" id="checkboxDateEndNotify">
                             </td>
                         </tr>
                         <tr>
@@ -291,7 +300,7 @@
 
 
         <!-- ----------------- CONFIRMATION SUPPRESSION --------------------->
-        <div class="confirmSupr" id="divPopupDelete">
+        <div class="confirmSupr popup" id="divPopupDelete">
             <p>Etes vous sur de vouloir supprimer cette tâche ?</p>
             <button class="basicBtn basicBtnA" onclick="onValidSuppression()"><img class="iconeMenu" src="./images/IconeDelete.png" alt="Confirmer" srcset=""></button>
             <button class="basicBtn basicBtnB" onclick="onCancelSuppression()"><img class="iconeMenu" src="./images/IconeReturnCancel.png" alt="Annuler" srcset=""></button>
@@ -306,7 +315,7 @@
 
 
         <!-- ----------------- CONFIRMATION NOTE TERMINER --------------------->
-        <div class="popupTerminer" id="divPopupTerminer">
+        <div class="popupTerminer popup" id="divPopupTerminer">
             <h3>Veuillez renseigner le temps passé sur la tâche pour la terminer :</h3>
             <p>
                 <label for="taskDurationHours">Heure(s):</label>
@@ -349,15 +358,33 @@
 
 
 
-        <!-- --------------------------- Div NOTIFY ------------------------------------- -->
+        <!-- --------------------------- Div USER MESSAGE ------------------------------------- -->
 
-        <div class="notify" id="divNotify">
+        <div class="notify popup" id="divUserMessage">
             <p id="pNotifyText">La tâche "bla bla bla" à été créé !</p>
         </div>
-        <!-- --------------------------- FIN Div NOTIFY ------------------------------------- -->
+        <!-- --------------------------- FIN USER MESSAGE ------------------------------------- -->
 
 
-
+        <!-- ----------------------  DIV NOTIFICATION ALERTE DATE-------------------------->
+        <div id="divNotifyAlert" class="divNotifyAlert popup">
+            <h2>Notification</h2>
+            <h3>Aujourd'hui :</h3>
+            <ul id="ulListNotifyToday">
+                <!-- Injection -->
+                <li>
+                    test Today
+                </li>
+            </ul>
+            <h3>En retard :</h3>
+            <ul id="ulListNotifyLate">
+                <!-- Injection -->
+                <li>
+                    Test en retard
+                </li>
+            </ul>
+        </div>
+        <!-- ---------------------- FIN DIV NOTIFICATION ALERTE -------------------------->
 
     </div>
     <!-- --------------------------- FIN Div Accueil ------------------------------------- -->
@@ -488,11 +515,12 @@
                     </tr>
                     <tr>
                         <td>
-                            <button class="basicBtn basicBtnA" onclick="onSaveCustomPriority()">Sauvegarder priorité</button>
+                            
+                            <button class="basicBtn basicBtnA" onclick="onSaveCustomPriority()"><img class="iconeMenu" src="./images/IconeSave.png" alt="Sauvegarder priorité" srcset=""></button>
                             <p id="pNotifySaveChangePriority"></p>
                         </td>
                         <td>
-                            <button class="basicBtn basicBtnA" onclick="onSaveCustomStatus()">Sauvegarder statut</button>
+                            <button class="basicBtn basicBtnA" onclick="onSaveCustomStatus()"><img class="iconeMenu" src="./images/IconeSave.png" alt="Sauvegarder status" srcset=""></button>
                             <p id="pNotifySaveChangeStatus"></p>
                         </td>
                     </tr>
@@ -533,12 +561,12 @@
                         <th colspan="2">GESTION DES DONNEES</th>
                     </tr>
                     <tr>
-                        <td><strong>SAUVEGARDE</strong></td>
+                        <td><strong>EXPORT</strong></td>
                         <td><strong>IMPORT</strong></td>
                     </tr>
                     <tr>
                         <td class="saveSetting">
-                            <p>Lancer la sauvegarde téléchargera 4 fichiers distincts !</p>
+                            <p>Exporter la base vous fera télécharger 4 fichiers distincts !</p>
                             <button class="basicBtn basicBtnA" onclick="exportData()">Sauvegarder la base</button>
                         </td>
                         <td class="importSetting">
@@ -664,7 +692,7 @@
         <h2>INFO</h2>
             <img class="mainLogo" src="./images/Mind2TaskMainLogo.png" alt="">
             
-            <p>Release : 1.1.1</p>
+            <p>Release : 1.2.0</p>
             <h3>
                 Actualité :
             </h3>
@@ -705,6 +733,8 @@
     <!-- -------------------------  FIN div Info----------------------------------- -->
 
 
+    
+    
 
 
 
@@ -721,6 +751,7 @@
     <script src="./scripts/security.js"></script>
     <script src="./scripts/template.js"></script>
     <script src="./scripts/dashboard.js"></script>
+    <script src="./scripts/notify.js"></script>
     <script src="./scripts/App.js"></script>
 </body>
 </html>
