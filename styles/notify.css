@@ -1,0 +1,70 @@
+
+/* -------------------------------- POPUP USER MESSAGE ----------------------------------- */
+
+div.userMessageA{
+	z-index: 5;
+	display: none;
+	width: 500px;
+	height: 40px;
+	position: absolute;
+	left: 500px;top: 20px;
+}
+
+div.userMessageB{
+	z-index: 5;
+	display: none;
+	width: 500px;
+	height: 40px;
+	position: absolute;
+	left: 500px;top: 70px;
+}
+
+
+p.userMessage{
+    display: inline-block;
+}
+
+
+
+
+
+
+
+/* -------------------------------- NOTIFICATION DATE ----------------------------------- */
+
+
+/* style activation toggle dans l'éditeur de note */
+
+img.iconeToggleNotify{
+	cursor: pointer;
+	width: 18px;
+
+}
+
+img.iconeToggleNotify:hover{
+	transform: scale(1.1);
+}
+
+
+/* L'icone de notification */
+
+img.notifyDate{
+    width: 5%;
+    cursor: pointer;
+}
+
+/* La div d'affichage */
+
+div.divNotifyAlert{
+    display: none;
+    position: absolute;
+    z-index: 5;
+    left: 220px;top: 80px;
+    width: 500px;
+}
+
+/* Liste affichage des alertes */
+
+li.notifyDate{
+    font-size: 12px;
+}

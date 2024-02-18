@@ -13,7 +13,7 @@
     <link rel="stylesheet" href="./styles/tablette.css">
     <link rel="stylesheet" href="./styles/dashboard.css">
     <link rel="stylesheet" href="./styles/template.css">
-    <link rel="stylesheet" href="./styles/notifyDate.css">
+    <link rel="stylesheet" href="./styles/notify.css">
     <title>Mind2Task</title>
 </head>
 <body>
@@ -270,13 +270,23 @@
                             </td>
                         </tr>
                         <tr>
+                            <!-- Les dates -->
                             <td colspan="3">
                                 <label for="inputNoteDateStart">Date début</label>
                                 <input type="date" name="" id="inputNoteDateStart">
-                                <input type="checkbox" id="checkboxDateStartNotify">
+
+                                <input type="checkbox" id="checkboxDateStartNotify" onchange="onChangeNotifyStatus(this,'imgCheckboxDateStartNotify')" style="display: none;">
+                                <label for="checkboxDateStartNotify" id="labelChecboxDateStartNotify">
+                                    <img class="iconeToggleNotify" id="imgCheckboxDateStartNotify" src="./images/IconeNotifyDisabled.png" alt="Checkbox Image">
+                                </label>
+
                                 <label for="inputNoteDateEnd">Date fin</label>
                                 <input type="date" name="" id="inputNoteDateEnd">
-                                <input type="checkbox" id="checkboxDateEndNotify">
+
+                                <input type="checkbox" id="checkboxDateEndNotify" onchange="onChangeNotifyStatus(this,'imgCheckboxDateEndNotify')" style="display: none;">
+                                <label for="checkboxDateEndNotify" id="labelChecboxDateEndNotify">
+                                    <img class="iconeToggleNotify" id="imgCheckboxDateEndNotify" src="./images/IconeNotifyDisabled.png" alt="Checkbox Image">
+                                </label>
                             </td>
                         </tr>
                         <tr>
@@ -358,12 +368,7 @@
 
 
 
-        <!-- --------------------------- Div USER MESSAGE ------------------------------------- -->
-
-        <div class="notify popup" id="divUserMessage">
-            <p id="pNotifyText">La tâche "bla bla bla" à été créé !</p>
-        </div>
-        <!-- --------------------------- FIN USER MESSAGE ------------------------------------- -->
+        
 
 
         <!-- ----------------------  DIV NOTIFICATION ALERTE DATE-------------------------->
@@ -687,7 +692,7 @@
 
 
 
-    <!-- -------------------------   div Info ----------------------------------- -->
+    <!-- -------------------------   DIV INFO ----------------------------------- -->
     <div class="divInfo" id="divInfo">
         <h2>INFO</h2>
             <img class="mainLogo" src="./images/Mind2TaskMainLogo.png" alt="">
@@ -730,12 +735,22 @@
         
 
     </div>
-    <!-- -------------------------  FIN div Info----------------------------------- -->
+    <!-- -------------------------  FIN DIV INFO----------------------------------- -->
 
 
     
     
+    <!-- --------------------------- Div USER MESSAGE ------------------------------------- -->
 
+    <div class="userMessageA popup" id="divUserMessageA">
+        <img class="iconeMenu" id="imgUserMsgA" src="./images/IconeUserInfo.png" alt="User Info" srcset="">
+        <p class="userMessage" id="pUserMessageTextA">La tâche A "bla bla bla" à été créé !</p>
+    </div>
+    <div class="userMessageB popup" id="divUserMessageB">
+        <img class="iconeMenu" id="imgUserMsgB" src="./images/IconeUserInfo.png" alt="User Info" srcset="">
+        <p class="userMessage" id="pUserMessageTextB">La tâche B "bla bla bla" à été créé !</p>
+    </div>
+    <!-- --------------------------- FIN DIV USER MESSAGE ------------------------------------- --> 
 
 
 

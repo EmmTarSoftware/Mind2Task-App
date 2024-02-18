@@ -1,20 +1,6 @@
 // Initialisation variables
 // -------------------------------------------------   GLOBAL        ------------------------------------------------
-//  Définition des textes de message utilisateur
 
-let arrayUserMessage ={
-    emptyTitleField : "Le champ 'Titre' n'est pas renseignés",
-    emptyStepField : "Un champ d'étape est vide",
-    errorDate : "Les dates définies sont incorrectes",
-    taskCreated : "Création de la tache : ",
-    taskDone : "Clôture de la tâche : ",
-    templateCreated : "Création du modèle : ",
-    templateModified : "Modification du modèle : ",
-    templateLimite : "Nombre maximal de modèle atteint !",
-    stepLimite : "Nombre maximal d'étape atteint !",
-    templateListEmpty :"Vous n'avez créé aucun modèle."
-};
-    
 
 
 
@@ -244,7 +230,7 @@ function onCheckDateError(dateDebut, dateFin) {
     if (tempDateDebut > tempDateFin) {
         console.log("Dates choisies incorrecte !");
         // Notification
-        eventUserMessage(arrayUserMessage.errorDate);
+        eventUserMessage(arrayUserMessage.errorDate,"error");
     }
     return tempDateDebut > tempDateFin ? true :false;
 
@@ -293,35 +279,7 @@ function onRemoveSpecialCaracter(text) {
 }
 
 
-//  --------------------------  Animation notification -------------------------------------
-let isNotifyEnabled = false;
-function eventUserMessage(textToDisplay) {
 
-    if (isNotifyEnabled === false) {
-        isNotifyEnabled = true;
-
-        let pNotifyTextRef = document.getElementById("pNotifyText");
-        let divUserMessageRef = document.getElementById("divUserMessage");
-        pNotifyTextRef.innerHTML =  textToDisplay + " !";
-    
-
-        // Affiche la div
-        // divUserMessageRef.style.visibility = "visible";
-        divUserMessageRef.style.display ="block";
-
-
-        // Cache la div apres un delay
-        setTimeout(() => {
-            // divUserMessageRef.style.visibility = "hidden";
-            divUserMessageRef.style.display = "none";
-            isNotifyEnabled = false;
-        }, 2000);
-    }
-
-    
-
-
-}
 
 
 // ------------------------------- NAVIGATION MENU PRINCIPAL- -------------------------------------------------

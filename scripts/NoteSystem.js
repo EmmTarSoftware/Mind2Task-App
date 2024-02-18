@@ -695,7 +695,10 @@ let divNoteEditorRef = document.getElementById("divNoteEditor"),
     legendNoteEditorRef = document.getElementById("legendNoteEditor"),
     ulNoteEditorStepRef = document.getElementById("ulNoteEditorStep"),
     checkboxDateStartNotifyRef = document.getElementById("checkboxDateStartNotify"),
-    checkboxDateEndNotifyRef = document.getElementById("checkboxDateEndNotify");
+    checkboxDateEndNotifyRef = document.getElementById("checkboxDateEndNotify"),
+    imgCheckboxDateStartNotifyRef = document.getElementById("imgCheckboxDateStartNotify"),
+    imgCheckboxDateEndNotifyRef = document.getElementById("imgCheckboxDateEndNotify");
+
 
 // Generation des options de l'editeur de note
 
@@ -794,6 +797,11 @@ function onSetNoteEditor(e) {
     textareaNoteDetailRef.value = e.detail;
     selectorNotePriorityRef.value = e.priority;
 
+    // Set les images de demande de notification selon l'état des checkbox
+    imgCheckboxDateStartNotifyRef.src = checkboxDateStartNotifyRef.checked === true ? "./images/IconeNotifyEnabled.png" : "./images/IconeNotifyDisabled.png";
+    imgCheckboxDateEndNotifyRef.src = checkboxDateEndNotifyRef.checked === true ? "./images/IconeNotifyEnabled.png" : "./images/IconeNotifyDisabled.png";
+
+
     // Sauvegarde les étapes actuelles dans previousStepArray
     previousStepArray = e.stepArray.map(step => ({...step})); // Utilise .map() pour créer une nouvelle copie de chaque objet étape
 
@@ -825,6 +833,9 @@ function onClearNoteEditor() {
     tempStepArray = [];
     checkboxDateStartNotifyRef.checked = false;
     checkboxDateEndNotifyRef.checked = false;
+    imgCheckboxDateStartNotifyRef.src = "./images/IconeNotifyDisabled.png";
+    imgCheckboxDateEndNotifyRef.src = "./images/IconeNotifyDisabled.png";
+
 
 };
 
@@ -834,7 +845,7 @@ function onClearNoteEditor() {
 // Fonction pour ajouter une étape, vérifie d'abord si le nombre maximal d'étapes n'est pas atteint
 function onAddStep() {
     if (isMaxStepsReached()) {
-        eventUserMessage(arrayUserMessage.stepLimite);
+        eventUserMessage(arrayUserMessage.stepLimite,"error");
         return; // Arrête la fonction si le nombre maximal d'étapes est atteint
     }
 
@@ -848,7 +859,7 @@ function onAddStep() {
         tempStepArray.push(newStep);
         onDisplayStep();
     } else {
-        eventUserMessage(arrayUserMessage.emptyStepField);
+        eventUserMessage(arrayUserMessage.emptyStepField,"error");
     }
 }
 
@@ -1022,7 +1033,7 @@ function onCheckNoteError() {
     // detection des champs vides obligatoires
     let isEmptyTitleField = onCheckEmptyField(inputNoteTitleRef.value);
     if (isEmptyTitleField === true) {
-        eventUserMessage(arrayUserMessage.emptyTitleField);
+        eventUserMessage(arrayUserMessage.emptyTitleField,"error");
     }
     
 
@@ -1030,7 +1041,7 @@ function onCheckNoteError() {
     // detection des champs vide pour les étapes
     let isStepFieldFilled = areAllStepsFilled();
     if (isStepFieldFilled === false) {
-        eventUserMessage(arrayUserMessage.emptyStepField);
+        eventUserMessage(arrayUserMessage.emptyStepField,"error");
     }
 
 
@@ -1116,11 +1127,11 @@ function onFormatNote(){
 
 
     //  -------------   SECURITY  ----------
-
+    userMsgSecureOnce = false;// voir dans Notify (initialise)
     let secureTag = securitySearchForbidenItem(tempTag);
     let secureDetail = securitySearchForbidenItem(textareaNoteDetailRef.value);
     let secureTitle = securitySearchForbidenItem(upperCaseTitle);
-
+    userMsgSecureOnce = false;// voir dans Notify (reset pour la prochaine fois)
 
 
     if (formatedEditorStepArray.length > 0) {
@@ -1230,16 +1241,21 @@ function onInsertData(e) {
     insertRequest.onsuccess = function () {
         console.log(e.title + "a été ajouté à la base");
         // evenement de notification
-        eventUserMessage(arrayUserMessage.taskCreated + e.title);
+        eventUserMessage(arrayUserMessage.taskCreated + e.title,"info");
 
 
         // Clear l'editeur de note
         onClearNoteEditor();
     }
 
-    insertRequest.onerror = function(){
-        console.log("Error", insertRequest.error);
-        alert(insertRequest.error);
+    insertRequest.onerror = function(event){
+        console.log("Error");
+        let errorMsg = event.target.error.toString();
+        
+        // User message pour titre en doublon
+        if (errorMsg.includes("title")) {
+            eventUserMessage(arrayUserMessage.errorDoubleTitle,"error");
+        }
     }
 
     transaction.oncomplete = function(){
@@ -1409,7 +1425,11 @@ function onDisplayNote(e) {
     let dateEndFR = onFormatDateToFr(e.dateEnd.value);
     let dateLastModificationFR = onFormatDateToFr(e.dateLastModification);
 
-    noteViewDateInfoRef.innerHTML = "<b>Début : </b>" + dateStartFR +"   - - -   <b>Fin : </b>" + dateEndFR;
+
+    let notificationDateStart = e.dateStart.notify === true ? "&#x1F514;" : ""; // Symbole de la cloche
+    notificationDateEnd = e.dateEnd.notify === true ? "&#x1F514;" : ""; // Symbole de la cloche
+
+    noteViewDateInfoRef.innerHTML = `<b>Début : </b> ${dateStartFR} ${notificationDateStart} - - - <b>Fin : </b> ${dateEndFR} ${notificationDateEnd}`;
     noteViewDateCreatedRef.innerHTML = "<b>Note créée le : </b>" + dateCreatedFR + " - - - <b>Modifié le : </b> " + dateLastModificationFR;
 
 
@@ -1541,7 +1561,13 @@ function onDeleteNote(keyTarget) {
 
 
 
+// changement icone activation ou desactivation de notification dans l'éditeur de note
 
+function onChangeNotifyStatus(self,id) {
+    let imgRef = document.getElementById(id);
+
+    imgRef.src = self.checked === true ? "./images/IconeNotifyEnabled.png" : "./images/IconeNotifyDisabled.png";
+}
 
 
 
@@ -1772,7 +1798,7 @@ function onInsertDataDashboard(data,keyToDelete) {
     insertRequest.onsuccess = function () {
         console.log(data.title + "a été ajouté à la base");
         // evenement de notification
-        eventUserMessage(arrayUserMessage.taskDone + data.title);
+        eventUserMessage(arrayUserMessage.taskDone + data.title,"info");
 
 
         // // Clear l'editeur de note

@@ -90,6 +90,9 @@ function onDeleteBDD() {
    
         let requestDelete = indexedDB.deleteDatabase(dbName);
 
+        // User message
+        eventUserMessage(arrayUserMessage.bddDeleted,"info");
+
         document.getElementById("tdResultDeleteBDD").innerHTML = "Base de donnée supprimée ! Veuillez relancer l'application.";
         document.getElementById("divConfirmeBdDSuppr").style.display = "none";
 
@@ -127,7 +130,7 @@ function onSaveCustomPriority() {
 
     // notification
     document.getElementById("pNotifySaveChangePriority").innerHTML = "Priorités sauvegardées !";
-
+    eventUserMessage(arrayUserMessage.savePriority,"info");
 
     // Re génère les options dans l'éditeur de notes
     onSetPriorityOptions();
@@ -161,6 +164,7 @@ function onSaveCustomStatus() {
 
     // notification
     document.getElementById("pNotifySaveChangeStatus").innerHTML = "Statuts sauvegardés !";
+    eventUserMessage(arrayUserMessage.saveStatus,"info");
 
     // Re génère les options dans l'éditeur de notes;
     onSetStatusOption();

@@ -183,7 +183,7 @@ function onClickSaveAsTemplate() {
         // Recheche des erreurs dans la note avant validation
         onCheckNoteError();//dans NoteSystem.js
     }else{
-        eventUserMessage(`${arrayUserMessage.templateLimite} (${maxTemplate})`);
+        eventUserMessage(`${arrayUserMessage.templateLimite} (${maxTemplate})`,"error");
     }   
 }
 
@@ -235,7 +235,7 @@ function onInsertNewTemplate(e) {
     insertRequest.onsuccess = function () {
         console.log(e.title + "a été ajouté à la au template");
         // evenement de notification
-        eventUserMessage(arrayUserMessage.templateCreated + e.title);
+        eventUserMessage(arrayUserMessage.templateCreated + e.title),"info";
 
 
         // Clear l'editeur de note
@@ -291,7 +291,7 @@ function onInsertModifiedTemplate(e,keyTarget) {
 
             console.log("[ TEMPLATE ] " + e.title + "a été Modifié.");
             // evenement de notification
-            eventUserMessage(arrayUserMessage.templateModified + e.title);
+            eventUserMessage(arrayUserMessage.templateModified + e.title,"info");
 
 
             // Clear l'editeur de note

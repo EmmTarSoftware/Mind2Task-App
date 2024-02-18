@@ -1,4 +1,5 @@
 // Detection des données sensibles
+let userMsgSecureOnce = false; //Variable pour ne faire déclencher la notification qu'une seule fois. elle est reset dans NoteSystem
 
 function securitySearchForbidenItem(e) {
     let secureText = e;
@@ -9,6 +10,8 @@ function securitySearchForbidenItem(e) {
 
         // Utilisation de la méthode replace pour remplacer chaque chiffre par "X"
         secureText = secureText.replace(phoneNumberRegex, match => 'X'.repeat(match.length));
+
+        
     };
     
  
@@ -17,6 +20,7 @@ function securitySearchForbidenItem(e) {
         let emailRegex = /\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b/g;
         // Remplacement de l'adresse par "X"
         secureText = secureText.replace(emailRegex, match => 'X'.repeat(match.length));
+        
     };
     
 
@@ -25,6 +29,8 @@ function securitySearchForbidenItem(e) {
         let urlRegex = /(https?:\/\/[^\s]+)/g;
         // Remplacement du lien par "X"
         secureText = secureText.replace(urlRegex, match => 'X'.repeat(match.length));
+        
+
     };
     
 
@@ -34,9 +40,21 @@ function securitySearchForbidenItem(e) {
         let ipRegex = /\b(?:\d{1,3}\.){3}\d{1,3}\b|\b(?:[0-9a-fA-F]{1,4}:){7}[0-9a-fA-F]{1,4}\b/g;
         // Remplacement des ip par "X"
         secureText = secureText.replace(ipRegex, match => 'X'.repeat(match.length));
+        
+ 
     }
     
+
+    // Comparaison pour savoir si il y a eu des modifications pour afficher un user message
+    if (e != secureText && userMsgSecureOnce === false) {
+        onDetectForbidenItem();
+        userMsgSecureOnce = true;
+    }
+
 
     return secureText;
 }
 
+function onDetectForbidenItem() {
+    eventUserMessage(arrayUserMessage.forbidenItem,"warning");
+}

@@ -1,3 +1,147 @@
+// --------------------------------            USER MESSAGES               -----------------------------
+
+
+
+
+
+//  Définition des textes de message utilisateur
+
+let arrayUserMessage ={
+    emptyTitleField : "Le champ 'Titre' n'est pas renseignés",
+    emptyStepField : "Un champ d'étape est vide",
+    errorDate : "Les dates définies sont incorrectes",
+    taskCreated : "Création de la tache : ",
+    taskDone : "Clôture de la tâche : ",
+    templateCreated : "Création du modèle : ",
+    templateModified : "Modification du modèle : ",
+    templateLimite : "Nombre maximal de modèle atteint !",
+    stepLimite : "Nombre maximal d'étape atteint !",
+    templateListEmpty :"Vous n'avez créé aucun modèle.",
+    savePriority : "Priorité sauvegardée",
+    saveStatus : "Statut sauvegardé",
+    bddDeleted : "La base a été supprimée",
+    forbidenItem : "Des données sensibles ont été effacées",
+    errorDoubleTitle : "Ce titre existe déjà dans la base"
+};
+    
+
+//  --------------------------  Animation user message -------------------------------------
+let isNotifyAEnabled = false,
+isNotifyBEnabled = false;
+
+
+// Balancer de userMessage
+function eventUserMessage(textToDisplay,type) {
+    // Verifie la div disponible et lui donne la requette
+    console.log("[ USER-MESSAGE ] requette recu");
+
+    if (isNotifyAEnabled === false) {
+        isNotifyAEnabled = true;
+        ondisplayUserMsgA(textToDisplay,type);
+    }else if (isNotifyBEnabled === false) {
+        isNotifyBEnabled = true;
+        ondisplayUserMsgB(textToDisplay,type);
+    }else{
+        console.log("userMessage mais aucune div de disponible");
+    }
+    
+
+}
+
+
+// Div usermessage A
+function ondisplayUserMsgA(textToDisplay,type) {
+    console.log("[ USER-MESSAGE ] Traitement par div A");
+        let imgUserMsgRef = document.getElementById("imgUserMsgA");
+
+        // Set l'image selon le type d'user message
+        switch (type) {
+            case "info":
+                imgUserMsgRef.src = "./images/IconeUserInfo.png";
+                break;
+            case "warning":
+                imgUserMsgRef.src = "./images/IconeUserWarning.png";
+                break;
+            case "error":
+                imgUserMsgRef.src = "./images/IconeUserError.png";
+                break;
+            default:
+                console.log("Type non configurer pour eventUserMessage");
+                break;
+        }
+
+
+        // Set le texte du message
+        let pUserMessageTextRef = document.getElementById("pUserMessageTextA");
+        let divUserMessageRef = document.getElementById("divUserMessageA");
+        pUserMessageTextRef.innerHTML =  textToDisplay + " !";
+    
+
+        // Affiche la div
+        divUserMessageRef.style.display ="block";
+
+
+        // Cache la div apres un delay
+        setTimeout(() => {
+            divUserMessageRef.style.display = "none";
+            isNotifyAEnabled = false;
+        }, 2000);
+
+}
+
+// Div usermessage B
+function ondisplayUserMsgB(textToDisplay,type) {
+
+    console.log("[ USER-MESSAGE ] Traitement par div B");
+
+        let imgUserMsgRef = document.getElementById("imgUserMsgB");
+
+        // Set l'image selon le type d'user message
+        switch (type) {
+            case "info":
+                imgUserMsgRef.src = "./images/IconeUserInfo.png";
+                break;
+            case "warning":
+                imgUserMsgRef.src = "./images/IconeUserWarning.png";
+                break;
+            case "error":
+                imgUserMsgRef.src = "./images/IconeUserError.png";
+                break;
+            default:
+                console.log("Type non configurer pour eventUserMessage");
+                break;
+        }
+
+
+        // Set le texte du message
+        let pUserMessageTextRef = document.getElementById("pUserMessageTextB");
+        let divUserMessageRef = document.getElementById("divUserMessageB");
+        pUserMessageTextRef.innerHTML =  textToDisplay + " !";
+    
+
+        // Affiche la div
+        divUserMessageRef.style.display ="block";
+
+
+        // Cache la div apres un delay
+        setTimeout(() => {
+            divUserMessageRef.style.display = "none";
+            isNotifyBEnabled = false;
+        }, 2000);
+
+}
+
+
+
+
+// -------------------------------- NOTIFICATION et ALERTE sur les DATES -----------------------------
+
+
+
+
+
+
+
 let notifyTodayArray = [],
     notifyLateArray = [];
 
@@ -81,7 +225,7 @@ function onDisplayNotifyDate(isDisplay) {
         if (notifyTodayArray.length > 0) {
             notifyTodayArray.forEach(e=>{
                 let newLi = document.createElement("li");
-                newLi.innerHTML = `TAG : ${e.tag}, Titre : ${e.title}`;
+                newLi.innerHTML = `<i>${e.tag}</i> : ${e.title}`;
                 newLi.className = "notifyDate";
 
                 ulListNotifyTodayRef.appendChild(newLi);
@@ -94,7 +238,7 @@ function onDisplayNotifyDate(isDisplay) {
         if (notifyLateArray.length > 0) {
             notifyLateArray.forEach(e=>{
                 let newLi = document.createElement("li");
-                newLi.innerHTML = `TAG : ${e.tag}, Titre : ${e.title}, Date : ${e.date}`;
+                newLi.innerHTML = ` <i>${e.tag}</i> : ${e.title} => ${e.date}`;
                 newLi.className = "notifyDate";
 
                 ulListNotifyLateRef.appendChild(newLi);
