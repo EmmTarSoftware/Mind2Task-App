@@ -1,27 +1,39 @@
 
 /* -------------------------------- POPUP USER MESSAGE ----------------------------------- */
 
-div.userMessageA{
-	z-index: 5;
-	display: none;
-	width: 500px;
+
+div.userMessage{
+  z-index: 5;
+  position: absolute;
+  width: 550px;
 	height: 40px;
-	position: absolute;
-	left: 500px;top: 20px;
+  left: 500px;
+  background-color: rgba(246, 221, 137, 0.3);
+	text-align: center;
+	border-radius: 10px;
+	/* border: solid 1px var(--blueColor); */
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Ombre portée */	
+}
+
+
+div.userMessageA{
+	display: none;
+  top: 20px;
 }
 
 div.userMessageB{
-	z-index: 5;
 	display: none;
-	width: 500px;
-	height: 40px;
-	position: absolute;
-	left: 500px;top: 70px;
+  top: 70px;
 }
 
 
-p.userMessage{
-    display: inline-block;
+div.userMsgImg{
+  display: inline-block;
+  width: 5%;
+}
+div.userMsgText{
+  display: inline-block;
+  width: 90%;
 }
 
 
@@ -68,3 +80,45 @@ div.divNotifyAlert{
 li.notifyDate{
     font-size: 12px;
 }
+
+
+
+
+/* ---------------------------- CONDITION ACCEPTATION USER -------------- */
+
+
+div.popupValidationUser{
+	display: none;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+}
+
+.popup-content {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    text-align: center;
+  }
+
+  .popupValidationUser h2 {
+    margin-top: 0;
+  }
+
+  .popupValidationUser button {
+    margin-top: 20px;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+  }
+
+  .popupValidationUser button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }

@@ -416,6 +416,7 @@
             <tr>
                 <th>DIVERS</th>
                 <th>CLASSEMENT TOP 3</th>
+
             </tr>
             <tr>
                 <td>
@@ -458,7 +459,24 @@
         <!-- Legende -->
         <img class="dashboardLegend" src="./images/DashboardLegend.png" alt="" srcset="">
         <!-- <p>Si vous souhaitez générer des statisques plus poussées, veuillez télécharger le dashboard et l'uploader sur le lien suivant : A venir...</p> -->
+
+        <!-- Cloture de session -->
+        <div>
+            <h3>Clôture de session</h3>
+            <p>En cliquant sur le bouton "Clôture de session", vous confirmez votre intention de terminer votre session actuelle. Voici ce qui se passera lors de cette opération :</p>
+            <ol>
+                <li><strong>Extraction de la base de données :</strong> La base de données de l'application sera extraite depuis la tâche la plus ancienne jusqu'à la plus récente. Cela signifie que toutes les informations collectées pendant votre session seront sauvegardées pour référence future.</li>
+                <li><strong>Réinitialisation de la base de données :</strong> Après l'extraction, la base de données de l'application sera réinitialisée. Cela entraînera la suppression de toutes les données de l'application, la remettant à son état initial. Cependant, vos informations extraites seront toujours disponibles pour consultation ultérieure.</li>
+            </ol>
+            <p>Veuillez noter que <u>cette action est irréversible</u> et qu'elle effacera toutes les données de l'application en dehors de la session actuelle. Assurez-vous d'avoir sauvegardé toutes les informations importantes avant de procéder.</p>
+            <button class="basicBtn basicBtnA">Clôturer la session</button>
+        </div>
+
     </div>
+
+   
+
+
     <!-- -------------------------  FIN div Dashboard----------------------------------- -->
 
 
@@ -742,19 +760,47 @@
     
     <!-- --------------------------- Div USER MESSAGE ------------------------------------- -->
 
-    <div class="userMessageA popup" id="divUserMessageA">
-        <img class="iconeMenu" id="imgUserMsgA" src="./images/IconeUserInfo.png" alt="User Info" srcset="">
-        <p class="userMessage" id="pUserMessageTextA">La tâche A "bla bla bla" à été créé !</p>
+    <div class="userMessageA userMessage" id="divUserMessageA">
+
+        <div class="userMsgImg">
+            <img class="iconeMenu" id="imgUserMsgA" src="./images/IconeUserInfo.png" alt="User Info" srcset="">
+        </div>
+            
+        <div class="userMsgText">
+            <p id="pUserMessageTextA">La tâche A "bla bla bla" à été créé pour test bla bla bla bla !</p>
+        </div> 
+
     </div>
-    <div class="userMessageB popup" id="divUserMessageB">
-        <img class="iconeMenu" id="imgUserMsgB" src="./images/IconeUserInfo.png" alt="User Info" srcset="">
-        <p class="userMessage" id="pUserMessageTextB">La tâche B "bla bla bla" à été créé !</p>
+    
+    <div class="userMessageB userMessage" id="divUserMessageB">
+
+        <div class="userMsgImg">
+            <img class="iconeMenu" id="imgUserMsgB" src="./images/IconeUserInfo.png" alt="User Info" srcset="">
+        </div>
+
+        <div class="userMsgText">
+            <p d="pUserMessageTextB">La tâche B "bla bla bla" à été créé !</p>
+        </div>
+        
     </div>
     <!-- --------------------------- FIN DIV USER MESSAGE ------------------------------------- --> 
 
 
 
 
+    <!-- ------------------------------ DIV ACCEPTATION USER----------------------------- -->
+    <div class="popupValidationUser" id="popupValidationUser">
+    <div class="popup-content">
+        <img class="mainLogo" src="./images/Mind2TaskMainLogo.png" alt="" srcset="">
+        <h2>Bienvenue sur l'application</h2>
+        <p>Vos données seront sauvegardées localement, mais veuillez noter que si vous videz votre navigateur ou utilisez des outils de nettoyage, vous risquez de perdre vos données.</p>
+        <label for="accept-checkbox">
+        <input type="checkbox" id="accept-checkbox" onchange="toggleLaunchButton(this)"> J'ai compris et j'accepte
+        </label>
+        <button id="launch-btn" disabled onclick="launchApplication()">Lancer l'application</button>
+    </div>
+    </div>
+    <!-- ------------------------------ FIN DIV ACCEPTATION USER----------------------------- -->
    
     <script src="./scripts/info.js"></script>
     <script src="./scripts/setting.js"></script>

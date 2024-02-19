@@ -229,6 +229,7 @@ function onSetMaxTaskDuration(dashboardArray) {
 
     // remplit la liste :
     let ulDashboardMaxDuration = document.getElementById("ulDashboardMaxTaskList");
+    ulDashboardMaxDuration.innerHTML = "";
 
     if (elementsMaxDuration.length > 0) {
         elementsMaxDuration.forEach(e=>{
@@ -239,7 +240,7 @@ function onSetMaxTaskDuration(dashboardArray) {
             ulDashboardMaxDuration.appendChild(newLi);
         })
     }else{
-        ulDashboardMaxDuration.innerHTML = "Rien à afficher";
+        ulDashboardMaxDuration.innerHTML = "Aucun élément à afficher.";
     }
     
     
@@ -383,4 +384,135 @@ function onClearDashboard() {
     document.getElementById("pDashboardMaxDuration").innerHTML = "";
     document.getElementById("olTop3TAGDuration").innerHTML = "";
     document.getElementById("olTop3TAGNbre").innerHTML = "";
+}
+
+
+
+
+
+
+// --------------------------------------------- Cloture de session ------------------------------------------------
+
+
+
+function onValidClotureSession() {
+    // recupere les éléments dans la base et les stock dans une grosse variable temporaire
+    
+    let transaction = db.transaction([dashBoardStoreName]);//readonly
+    let objectStoreTask = transaction.objectStore(dashBoardStoreName);
+    let indexStoreDashboard = objectStoreTask.index("tag");
+    let requestDashboard = indexStoreDashboard.getAll();
+
+    requestDashboard.onsuccess = function (){
+        console.log("Les éléments ont été récupérés dans le dashboard");
+        console.log("stockage dans le tableau temporaire");
+    }
+
+    requestDashboard.error = function (){
+        console.log("Erreur de requête sur la base");
+    }
+
+    transaction.oncomplete = function (){
+        let arrayResult = requestDashboard.result;
+
+        // Recupere les session de dates
+        let sessionDates =  onFindSessionDate(arrayResult);
+        // export le dashboard
+        exportDashboardSession(sessionDates);
+    }
+}
+
+
+function onFindSessionDate(dashboardArray) {
+        // Convertir les dates de chaînes de caractères en objets Date
+        dashboardArray.forEach(objet => {
+            objet.dateStart = new Date(objet.dateStart);
+        });
+    
+        // Récupérer la date la plus ancienne
+        let olderDate = dashboardArray.reduce((minDate, objet) => {
+            if (objet.dateStart < minDate) {
+                return objet.dateStart;
+            } else {
+                return minDate;
+            }
+        }, dashboardArray[0].dateStart);
+    
+        // Récupérer la date la plus récente
+        let lastDate = dashboardArray.reduce((maxDate, objet) => {
+            if (objet.dateStart > maxDate) {
+                return objet.dateStart;
+            } else {
+                return maxDate;
+            }
+        }, dashboardArray[0].dateStart);
+    
+        // Formatage des dates en format dd-mm-yyyy
+        function formatDateSessionFR(date) {
+            const day = String(date.getDate()).padStart(2, '0');
+            const month = String(date.getMonth() + 1).padStart(2, '0');
+            const year = date.getFullYear();
+            return `${day}-${month}-${year}`;
+        }
+        
+    
+        return {
+            olderDate: formatDateSessionFR(olderDate),
+            lastDate: formatDateSessionFR(lastDate)
+        };
+}
+    
+
+
+// export de la session 
+function exportDashboardSession(sessionDates) {
+    console.log("Demande d'export data");
+    var transaction = db.transaction([dashBoardStoreName], 'readonly');
+    var store = transaction.objectStore(dashBoardStoreName);
+
+    var exportRequest = store.getAll();
+
+    exportRequest.onsuccess = function() {
+        var data = exportRequest.result;
+        downloadJSON(data, `Mind2Task_Session_du_${sessionDates.olderDate}_au_${sessionDates.lastDate}.json`);
+        eventUserMessage("La session a été exportée !","info");
+        // Vide le dashboard
+        onClearDashboardStore();
+    };
+
+    exportRequest.onerror = function(error) {
+        console.log('Erreur lors de l\'export des données : ', error);
+    };
+
+    transaction.oncomplete = function (){
+        
+
+    }
+
+};
+
+
+
+
+// Vide la base de donnée du dashboard
+
+function onClearDashboardStore() {
+    let transaction = db.transaction([dashBoardStoreName],'readwrite');
+    let objectStore = transaction.objectStore(dashBoardStoreName);
+
+    objectStore.clear();
+
+
+    transaction.oncomplete = function (){
+        console.log("Le dashboard a été vidé avec succès.");
+        eventUserMessage("Le dashboard a été réinitialisé avec succès.","info");
+
+        // Regénère le dashboard
+        onOpenDashboard();
+    }
+
+    // Gérer les erreurs éventuelles
+    transaction.onerror = function(event) {
+    console.error("Erreur lors de la tentative de vidage du store :", event.target.error);
+};
 }

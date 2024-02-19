@@ -1,10 +1,10 @@
 //  ----------------------------------- SECURITE ----------------------------------------
 
 // Le nom des cookies
-let cookiesEnablePhoneNumberName = "Planning-PhoneNumber",
-cookiesEnableIPAdressName = "Planning-IPAdress",
-cookiesEnableEmailName = "Planning-Email",
-cookiesEnableWebLinkName = "Planning-WebLink";
+let cookiesEnablePhoneNumberName = "Mind2Task-PhoneNumber",
+cookiesEnableIPAdressName = "Mind2Task-IPAdress",
+cookiesEnableEmailName = "Mind2Task-Email",
+cookiesEnableWebLinkName = "Mind2Task-WebLink";
 
 
 
@@ -103,9 +103,9 @@ function onDeleteBDD() {
 
 // PRIORITE
 // Le nom des cookies
-let cookiesPriorityCName = "Planning-priority-C",
-    cookiesPriorityBName = "Planning-priority-B",
-    cookiesPriorityAName = "Planning-priority-A";
+let cookiesPriorityCName = "Mind2Task-priority-C",
+    cookiesPriorityBName = "Mind2Task-priority-B",
+    cookiesPriorityAName = "Mind2Task-priority-A";
 
 
 
@@ -141,9 +141,9 @@ function onSaveCustomPriority() {
 
 // STATUT
 // Le nom des cookies
-let cookiesStatus0Name = "Planning-Status0",
-cookiesStatus1Name = "Planning-Status1",
-cookiesStatus2Name = "Planning-Status2";
+let cookiesStatus0Name = "Mind2Task-Status0",
+cookiesStatus1Name = "Mind2Task-Status1",
+cookiesStatus2Name = "Mind2Task-Status2";
 
 // Set les status avec la valeur des cookies ou la valeur par défaut
 let statusArray = [

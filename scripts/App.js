@@ -46,7 +46,7 @@ let db,
     tagStoreName = "TAGList",
     dashBoardStoreName = "dashboard",
     templateStoreName = "template",
-    version = 2;
+    version = 3;
 
 
 // Lancement /création de la base de donnée
@@ -68,8 +68,8 @@ function onStartDataBase() {
             console.log("Creation du magasin " + taskStoreName);
 
             noteStore.createIndex('title','title',{unique:true});
-            noteStore.createIndex('dateStart','dateStart',{unique:false});
-            noteStore.createIndex('dateEnd','dateEnd',{unique:false});
+            noteStore.createIndex('dateStart','dateStart.value',{unique:false});
+            noteStore.createIndex('dateEnd','dateEnd.value',{unique:false});
             noteStore.createIndex('status','status',{unique:false});
             noteStore.createIndex('tag','tag',{unique:false});
             noteStore.createIndex('priority','priority',{unique:false});
@@ -446,8 +446,39 @@ function onCloseMenuTemplate() {
 }
 
 
+
+
+
 // Lancement de la database
 onStartDataBase();
+
+
+
+
+
+// ---------------------- ACCEPTATION UTILISATEUR --------------------------
+
+// Vérifier si l'utilisateur a déjà accepté
+let accepted = localStorage.getItem("Mind2Task-accepted");
+if (accepted === "true") {
+    document.getElementById("popupValidationUser").style.display = "none";
+} else {
+    document.getElementById("popupValidationUser").style.display = "flex";
+}
+
+
+function toggleLaunchButton(checkbox) {
+let launchBtn = document.getElementById("launch-btn");
+launchBtn.disabled = !checkbox.checked;
+}
+
+function launchApplication() {
+let popupValidationUserRef = document.getElementById("popupValidationUser");
+popupValidationUserRef.style.display = "none";
+localStorage.setItem("Mind2Task-accepted", "true");
+}
+
+
 
 
 

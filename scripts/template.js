@@ -183,7 +183,7 @@ function onClickSaveAsTemplate() {
         // Recheche des erreurs dans la note avant validation
         onCheckNoteError();//dans NoteSystem.js
     }else{
-        eventUserMessage(`${arrayUserMessage.templateLimite} (${maxTemplate})`,"error");
+        eventUserMessage(`${arrayUserMessage.templateLimit} (${maxTemplate})`,"error");
     }   
 }
 

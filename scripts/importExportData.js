@@ -17,7 +17,7 @@ function exportData() {
 
         exportRequest.onsuccess = function() {
             var data = exportRequest.result;
-            downloadJSON(data, `${exportDate}_exported_Task.json`);
+            downloadJSON(data, `Mind2Task_${exportDate}_exported_Task.json`);
         };
 
         exportRequest.onerror = function(error) {
@@ -43,7 +43,7 @@ function exportDataTAG() {
 
         exportRequest.onsuccess = function() {
             var data = exportRequest.result;
-            downloadJSON(data, `${exportDate}_exported_TAG.json`);
+            downloadJSON(data, `Mind2Task_${exportDate}_exported_TAG.json`);
         };
 
         exportRequest.onerror = function(error) {
@@ -68,7 +68,7 @@ function exportDataDashboard() {
 
     exportRequest.onsuccess = function() {
         var data = exportRequest.result;
-        downloadJSON(data, `${exportDate}_exported_Dashboard.json`);
+        downloadJSON(data, `Mind2Task_${exportDate}_exported_Dashboard.json`);
     };
 
     exportRequest.onerror = function(error) {
@@ -91,7 +91,7 @@ function exportDataTemplate() {
 
     exportRequest.onsuccess = function() {
         var data = exportRequest.result;
-        downloadJSON(data, `${exportDate}_exported_Template.json`);
+        downloadJSON(data, `Mind2Task_${exportDate}_exported_Template.json`);
     };
 
     exportRequest.onerror = function(error) {

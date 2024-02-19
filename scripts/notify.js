@@ -6,43 +6,70 @@
 
 //  Définition des textes de message utilisateur
 
-let arrayUserMessage ={
-    emptyTitleField : "Le champ 'Titre' n'est pas renseignés",
-    emptyStepField : "Un champ d'étape est vide",
-    errorDate : "Les dates définies sont incorrectes",
-    taskCreated : "Création de la tache : ",
-    taskDone : "Clôture de la tâche : ",
-    templateCreated : "Création du modèle : ",
-    templateModified : "Modification du modèle : ",
-    templateLimite : "Nombre maximal de modèle atteint !",
-    stepLimite : "Nombre maximal d'étape atteint !",
-    templateListEmpty :"Vous n'avez créé aucun modèle.",
-    savePriority : "Priorité sauvegardée",
-    saveStatus : "Statut sauvegardé",
-    bddDeleted : "La base a été supprimée",
-    forbidenItem : "Des données sensibles ont été effacées",
-    errorDoubleTitle : "Ce titre existe déjà dans la base"
+let arrayUserMessage = {
+    emptyTitleField: "Le champ 'Titre' n'est pas renseigné.",
+    emptyStepField: "Un champ d'étape est vide.",
+    errorDate: "Les dates définies sont incorrectes.",
+    taskCreated: "Tâche créée : ",
+    taskDone: "Tâche clôturée : ",
+    templateCreated: "Modèle créé : ",
+    templateModified: "Modèle modifié : ",
+    templateLimit: "Nombre maximal de modèles atteint !",
+    stepLimit: "Nombre maximal d'étapes atteint !",
+    templateListEmpty: "Vous n'avez créé aucun modèle.",
+    savePriority: "Priorité sauvegardée.",
+    saveStatus: "Statut sauvegardé.",
+    bddDeleted: "La base de données a été supprimée.",
+    forbiddenItem: "Des données sensibles ont été effacées.",
+    errorDoubleTitle: "Ce titre existe déjà dans la base de données."
 };
+
     
 
 //  --------------------------  Animation user message -------------------------------------
-let isNotifyAEnabled = false,
-isNotifyBEnabled = false;
-
+let isNotifyAFree = true,
+isNotifyBFree = true,
+userMsgCueArray = [];
 
 // Balancer de userMessage
 function eventUserMessage(textToDisplay,type) {
-    // Verifie la div disponible et lui donne la requette
     console.log("[ USER-MESSAGE ] requette recu");
+    
 
-    if (isNotifyAEnabled === false) {
-        isNotifyAEnabled = true;
-        ondisplayUserMsgA(textToDisplay,type);
-    }else if (isNotifyBEnabled === false) {
-        isNotifyBEnabled = true;
-        ondisplayUserMsgB(textToDisplay,type);
+    
+
+    // Set l'image selon le type d'user message
+    let imageSrc = "";
+    switch (type) {
+        case "info":
+            imageSrc = "./images/IconeUserInfo.png";
+            break;
+        case "warning":
+            imageSrc = "./images/IconeUserWarning.png";
+            break;
+        case "error":
+            imageSrc = "./images/IconeUserError.png";
+            break;
+        default:
+            console.log("Type d'image non configurer pour eventUserMessage");
+            break;
+    }
+
+
+
+
+    
+    // Verifie la div disponible et lui donne la requette
+    // Pour activer la double notification il faut retirer les commentaires ci-dessous.
+    if (isNotifyAFree === true) {
+        isNotifyAFree = false;
+        ondisplayUserMsgA(textToDisplay,imageSrc);
+    // }else if (isNotifyBFree === true) {
+    //     isNotifyBFree = false;
+    //     ondisplayUserMsgB(textToDisplay,imageSrc);
     }else{
-        console.log("userMessage mais aucune div de disponible");
+        console.log("userMessage mais aucune div de stockage en liste d'attente");
+        userMsgCueArray.push({text: textToDisplay,img : imageSrc});
     }
     
 
@@ -50,86 +77,97 @@ function eventUserMessage(textToDisplay,type) {
 
 
 // Div usermessage A
-function ondisplayUserMsgA(textToDisplay,type) {
+function ondisplayUserMsgA(textToDisplay,img) {
     console.log("[ USER-MESSAGE ] Traitement par div A");
-        let imgUserMsgRef = document.getElementById("imgUserMsgA");
 
-        // Set l'image selon le type d'user message
-        switch (type) {
-            case "info":
-                imgUserMsgRef.src = "./images/IconeUserInfo.png";
-                break;
-            case "warning":
-                imgUserMsgRef.src = "./images/IconeUserWarning.png";
-                break;
-            case "error":
-                imgUserMsgRef.src = "./images/IconeUserError.png";
-                break;
-            default:
-                console.log("Type non configurer pour eventUserMessage");
-                break;
-        }
+    let imgUserMsgRef = document.getElementById("imgUserMsgA");
+    imgUserMsgRef.src = img;
 
-
-        // Set le texte du message
-        let pUserMessageTextRef = document.getElementById("pUserMessageTextA");
-        let divUserMessageRef = document.getElementById("divUserMessageA");
-        pUserMessageTextRef.innerHTML =  textToDisplay + " !";
+    // Set le texte du message
+    let pUserMessageTextRef = document.getElementById("pUserMessageTextA");
+    let divUserMessageRef = document.getElementById("divUserMessageA");
+    pUserMessageTextRef.innerHTML =  textToDisplay;
     
 
-        // Affiche la div
-        divUserMessageRef.style.display ="block";
+    // Affiche la div
+    divUserMessageRef.style.display ="block";
 
 
-        // Cache la div apres un delay
-        setTimeout(() => {
-            divUserMessageRef.style.display = "none";
-            isNotifyAEnabled = false;
-        }, 2000);
+    // Cache la div apres un delay
+    setTimeout(() => {
+       // Verifie si encore des elements en liste d'attente
+
+       if (userMsgCueArray.length > 0) {
+        let msgExtraction = onExtractUserMessage();
+        ondisplayUserMsgA(msgExtraction.text,msgExtraction.img);
+    }else{
+        // Si plus d'élément met fin 
+        divUserMessageRef.style.display = "none";
+        isNotifyAFree = true;
+    }
+
+    }, 2000);
 
 }
 
 // Div usermessage B
-function ondisplayUserMsgB(textToDisplay,type) {
-
+function ondisplayUserMsgB(textToDisplay,img) {
     console.log("[ USER-MESSAGE ] Traitement par div B");
 
-        let imgUserMsgRef = document.getElementById("imgUserMsgB");
+    let imgUserMsgRef = document.getElementById("imgUserMsgB");
+    imgUserMsgRef.src = img;
 
-        // Set l'image selon le type d'user message
-        switch (type) {
-            case "info":
-                imgUserMsgRef.src = "./images/IconeUserInfo.png";
-                break;
-            case "warning":
-                imgUserMsgRef.src = "./images/IconeUserWarning.png";
-                break;
-            case "error":
-                imgUserMsgRef.src = "./images/IconeUserError.png";
-                break;
-            default:
-                console.log("Type non configurer pour eventUserMessage");
-                break;
-        }
-
-
-        // Set le texte du message
-        let pUserMessageTextRef = document.getElementById("pUserMessageTextB");
-        let divUserMessageRef = document.getElementById("divUserMessageB");
-        pUserMessageTextRef.innerHTML =  textToDisplay + " !";
+    // Set le texte du message
+    let pUserMessageTextRef = document.getElementById("pUserMessageTextB");
+    let divUserMessageRef = document.getElementById("divUserMessageB");
+    pUserMessageTextRef.innerHTML =  textToDisplay + " !";
     
 
-        // Affiche la div
-        divUserMessageRef.style.display ="block";
+    // Affiche la div
+    divUserMessageRef.style.display ="block";
 
 
-        // Cache la div apres un delay
-        setTimeout(() => {
+    // action lorsque fin de traitement
+    setTimeout(() => {
+        // Verifie si encore des elements en liste d'attente
+
+        if (userMsgCueArray.length > 0) {
+            let msgExtraction = onExtractUserMessage();
+            ondisplayUserMsgB(msgExtraction.text,msgExtraction.img);
+        }else{
+            // Si plus d'élément met fin 
             divUserMessageRef.style.display = "none";
-            isNotifyBEnabled = false;
-        }, 2000);
+            isNotifyBFree = true;
+        }
+
+        
+    }, 2000);
 
 }
+
+// Fonction pour récupérer un item dans la liste d'attente
+
+
+function onExtractUserMessage() {
+    // Recupere le message
+    let msgExtracted = userMsgCueArray[0];
+
+    // Retire le message de la liste
+    userMsgCueArray.splice(0,1);
+
+    return msgExtracted
+
+}
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -166,8 +204,6 @@ function onNotifyDateToday(array,dateTarget) {
         }
     });
 
-    console.log("liste des titre à notifier :");
-    console.log( notifyTodayArray);
 
 
 
@@ -185,9 +221,6 @@ function onNotifyDateLate(array,dateToday) {
             notifyLateArray.push({tag: e.tag, title :e.title , date: e.dateEnd.value});
         }
     });
-
-    console.log("liste des titre en retard à notifier :");
-    console.log( notifyLateArray);
 
 
     // Traitement de l'affichage

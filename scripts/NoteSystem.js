@@ -146,7 +146,7 @@ function onSortItem(arrayResult) {
             if (currentTagFilter === genericTAG) {
                 return item.title.includes(textTarget) && item.status === statusArray[1].systemStatus;// Si toutes les taches (genericTAG) récupere tout
             }else{
-                return item.title.includes(textTarget) && item.tag === currentTagFilter;  // Si un tag en cours, ne recupere que ceux du tag en cours
+                return item.title.includes(textTarget) && item.tag === currentTagFilter && item.status === statusArray[1].systemStatus;  // Si un tag en cours, ne recupere que ceux du tag en cours
             }   
 
         })
@@ -157,7 +157,7 @@ function onSortItem(arrayResult) {
             if (currentTagFilter === genericTAG) {
                 return item.title.includes(textTarget) && item.status === statusArray[0].systemStatus;// Si toutes les taches (genericTAG) récupere tout
             }else{
-                return item.title.includes(textTarget) && item.tag === currentTagFilter;  // Si un tag en cours, ne recupere que ceux du tag en cours
+                return item.title.includes(textTarget) && item.tag === currentTagFilter && item.status === statusArray[0].systemStatus;  // Si un tag en cours, ne recupere que ceux du tag en cours
             }       
         })
 
@@ -845,7 +845,7 @@ function onClearNoteEditor() {
 // Fonction pour ajouter une étape, vérifie d'abord si le nombre maximal d'étapes n'est pas atteint
 function onAddStep() {
     if (isMaxStepsReached()) {
-        eventUserMessage(arrayUserMessage.stepLimite,"error");
+        eventUserMessage(arrayUserMessage.stepLimit,"error");
         return; // Arrête la fonction si le nombre maximal d'étapes est atteint
     }
 
@@ -1128,14 +1128,14 @@ function onFormatNote(){
 
     //  -------------   SECURITY  ----------
     userMsgSecureOnce = false;// voir dans Notify (initialise)
-    let secureTag = securitySearchForbidenItem(tempTag);
-    let secureDetail = securitySearchForbidenItem(textareaNoteDetailRef.value);
-    let secureTitle = securitySearchForbidenItem(upperCaseTitle);
+    let secureTag = securitySearchforbiddenItem(tempTag);
+    let secureDetail = securitySearchforbiddenItem(textareaNoteDetailRef.value);
+    let secureTitle = securitySearchforbiddenItem(upperCaseTitle);
     userMsgSecureOnce = false;// voir dans Notify (reset pour la prochaine fois)
 
 
     if (formatedEditorStepArray.length > 0) {
-        formatedEditorStepArray.forEach(i=> secureEditorStepArray.push({stepName:securitySearchForbidenItem(i.stepName),stepChecked:i.stepChecked,stepHour:i.stepHour,stepMinutes:i.stepMinutes}));
+        formatedEditorStepArray.forEach(i=> secureEditorStepArray.push({stepName:securitySearchforbiddenItem(i.stepName),stepChecked:i.stepChecked,stepHour:i.stepHour,stepMinutes:i.stepMinutes}));
     }
 
     // Notification des dates
@@ -1610,8 +1610,8 @@ function eventNoteTerminer(dataToSave,keyToDelete) {
     let inputConfirmDateStartRef = document.getElementById("inputConfirmDateStart"),
     inputConfirmDateEndRef = document.getElementById("inputConfirmDateEnd");
 
-    inputConfirmDateStartRef.value = dataToSave.dateStart;
-    inputConfirmDateEndRef.value = dataToSave.dateEnd;
+    inputConfirmDateStartRef.value = dataToSave.dateStart.value;
+    inputConfirmDateEndRef.value = dataToSave.dateEnd.value;
 
     // Gestion affichage
     onChangeDisplay([],["divPopupTerminer"],["divNoteEditor"],[]);
@@ -1658,8 +1658,8 @@ function quickEventNoteTerminer() {
     let inputConfirmDateStartRef = document.getElementById("inputConfirmDateStart"),
     inputConfirmDateEndRef = document.getElementById("inputConfirmDateEnd");
 
-    inputConfirmDateStartRef.value = currentNoteInView.dateStart;
-    inputConfirmDateEndRef.value = currentNoteInView.dateEnd;
+    inputConfirmDateStartRef.value = currentNoteInView.dateStart.value;
+    inputConfirmDateEndRef.value = currentNoteInView.dateEnd.value;
 
     // Gestion affichage
     onChangeDisplay([],["divPopupTerminer"],["divNoteView","divListBtnNote","divBtnNewTask"],[]);

@@ -1,7 +1,7 @@
 // Detection des données sensibles
 let userMsgSecureOnce = false; //Variable pour ne faire déclencher la notification qu'une seule fois. elle est reset dans NoteSystem
 
-function securitySearchForbidenItem(e) {
+function securitySearchforbiddenItem(e) {
     let secureText = e;
 
     // Expression régulière pour détecter un numéro de téléphone
@@ -47,7 +47,7 @@ function securitySearchForbidenItem(e) {
 
     // Comparaison pour savoir si il y a eu des modifications pour afficher un user message
     if (e != secureText && userMsgSecureOnce === false) {
-        onDetectForbidenItem();
+        onDetectforbiddenItem();
         userMsgSecureOnce = true;
     }
 
@@ -55,6 +55,6 @@ function securitySearchForbidenItem(e) {
     return secureText;
 }
 
-function onDetectForbidenItem() {
-    eventUserMessage(arrayUserMessage.forbidenItem,"warning");
+function onDetectforbiddenItem() {
+    eventUserMessage(arrayUserMessage.forbiddenItem,"warning");
 }
