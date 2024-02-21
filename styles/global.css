@@ -121,20 +121,30 @@ div.navBar{
 	text-align: center;
 }
 
-
-
-img.iconMainMenu{
-	width: 40px;
+div.mainMenuIcon{
 	cursor: pointer;
+	display: flex; 
+    align-items: center;
 	margin-top: 10px;
 	margin-bottom: 10px;
+	margin-left: 10px;
 }
-
-img.iconMainMenu:hover{
+div.mainMenuIcon:hover{
 	transform: scale(1.1);
 }
 
+
+img.mainMenuIcon{
+	width: 40px;
+}
+
+p.textMainMenu{
+	display: none;
+}
+
+
 p.release{
+	margin-top: 50px;
 	color: white;
 }
 
@@ -328,7 +338,7 @@ div.noteViewArea {
     position: absolute;
     left: var(--divNoteViewEditorleft);top: var(--divNoteViewEditortop);
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-    width:var(--divNoteViewEditorWidth);height: var(--divNoteViewEditorHeight);
+    width:var(--divNoteViewEditorWidth);min-height: var(--divNoteViewEditorHeight);
     text-align: center;
     color: #333; /* Couleur du texte */
     border-radius: var(--divNoteViewEditorRadius);
@@ -663,19 +673,17 @@ button.btnListNote:hover{
 /* ---------------------------- QUICK CHANGE PRIORITY   ----------------------------- */
 
 /* la selection de la nouvelle priorité */
-div.divQuickChangePriority{
-	display: none;
-	z-index: 2;
-	width: 200px;height: 50px;
-	padding-top: 10px;
-	position: relative;
-	margin-left: 350px;
-	top: -500px;
-	background-color: var(--colorBackground2);
-	text-align: center;
-	border-radius: 10px 0px;
-	border: solid 1px var(--blueColor);
-	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Ombre portée */
+div.divQuickChangePriority {
+    display: none;
+    z-index: 2;
+    width: 200px;
+    height: 50px;
+    position: absolute; /* Utiliser position absolue pour positionner dynamiquement */
+    background-color: var(--colorBackground2);
+    text-align: center;
+    border-radius: 10px;
+    border: solid 1px var(--blueColor);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Ombre portée */
 }
 
 

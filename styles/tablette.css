@@ -1,11 +1,12 @@
 
 
-@media screen and (max-width:1280px) {
+@media screen and (max-width:1470px) {
 
     /* ---------------------       DATE     --------------------------------- */
     div.dateVersion{
         width: 300px;
         left: -50px;
+
     }
 
 	h1 {
@@ -170,3 +171,119 @@
 
 }
 
+/* ----------------   Grand ecrans ------------------- */
+
+@media screen and (min-width:1850px) {
+
+    div.dateVersion{
+        width: 500px;
+        left: 150px;
+    }
+
+
+
+
+
+
+    /* Menu principal */
+    div.navBar{
+        width: 200px;height: 100%;
+    }
+
+    div.mainMenuIcon{
+        margin-left: 10px;
+    }
+
+    p.textMainMenu{
+        display: inline-block;
+        margin-left: 10px;
+        color: white;
+        /* margin-bottom: 50px; */
+    }
+    
+
+    /* Liste des tâches */
+    div.listBtnNote{
+        left: 280px; top: 150px;
+    
+    }
+
+    /* Visionneuse de note */
+    div.noteViewArea {
+        
+        left: 1000px;top: 100px;
+        
+       
+    }
+    /* Editeur de note */
+    .divNoteEditor {
+       
+        left: 1000px;top: 100px;
+        
+    }
+
+    /* UserMessages */
+
+    div.userMessage{
+        left: 680px;
+       }
+    div.userMessageA{
+      top: 40px;
+    }
+
+
+
+    /* Notification */
+
+    img.notifyDate{
+        
+        margin-right: 10px;
+    }
+
+    /* La div d'affichage */
+
+    div.divNotifyAlert{
+        left: 370px;top: 80px;
+    }
+
+    /* Dashboard */
+    div.divDashboard{
+        padding-left: 250px;
+        width: 80%
+    }
+
+
+
+    /* Setting */
+    div.divSetting{      
+        padding-left: 250px;
+    
+    }
+
+    /* Modèles */
+    div.template{
+    
+        padding-left: 250px;
+        width: 80%;
+        height: 80%;
+        text-align: left;
+    
+    }
+    
+    /* Information */
+
+    
+    div.divInfo{
+        left: 250px;
+        width: 80%;
+        height:90%;
+    }
+
+
+
+
+
+
+
+
+}

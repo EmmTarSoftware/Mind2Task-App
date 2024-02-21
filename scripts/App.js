@@ -377,7 +377,7 @@ function onClickMenuDashboard() {
 
 function onCloseMenuDashboard() {
     // Gestion affichage
-    onChangeDisplay(["divDashboard"],[],[],[]);
+    onChangeDisplay(["divDashboard","divPopupCloture"],[],[],["divDashboardContent"]);
     // Changement image icone
     document.getElementById("imgIconMainMenuDashboard").src = "./images/IconeDashboard.png";
     onClearDashboard();

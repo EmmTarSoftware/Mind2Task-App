@@ -10,10 +10,10 @@
     <link rel="stylesheet" href="./styles/dashboard.css">
     <link rel="stylesheet" href="./styles/setting.css">
     <link rel="stylesheet" href="./styles/info.css">
-    <link rel="stylesheet" href="./styles/tablette.css">
     <link rel="stylesheet" href="./styles/dashboard.css">
     <link rel="stylesheet" href="./styles/template.css">
     <link rel="stylesheet" href="./styles/notify.css">
+    <link rel="stylesheet" href="./styles/tablette.css">
     <title>Mind2Task</title>
 </head>
 <body>
@@ -21,12 +21,30 @@
 
     
     <div class="navBar">
-        <img id="imgIconMainMenuAccueil" onclick="onChangeMenu('Accueil')" class="iconMainMenu" src="./images/IconeHomeSelected.png" alt="Accueil" srcset="" title="Menu principal">
-        <img id="imgIconMainMenuDashboard" onclick="onChangeMenu('Dashboard')" class="iconMainMenu" src="./images/IconeDashboard.png" alt="Dashboard" srcset="" title="Dashboard">
-        <img id="imgIconMainMenuSetting" onclick="onChangeMenu('Setting')" class="iconMainMenu" src="./images/IconeSetting.png" alt="Setting" srcset="" title="Paramètres">
-        <img id="imgIconMainMenuTemplate" onclick="onChangeMenu('Template')" class="iconMainMenu" src="./images/IconeMenuTemplate2.png" alt="Template" srcset="" title="Modèle">
-        <img id="imgIconMainMenuInfo" onclick="onChangeMenu('Info')" class="iconMainMenu" src="./images/IconeInfo.png" alt="Icone menu info" srcset="" title="Infos">
-        <img onclick="switchFullScreen()" class="iconMainMenu" src="./images/IconeScreen.png" alt="Plein écran" srcset="" title="Plein écran">
+        <div class="mainMenuIcon" onclick="onChangeMenu('Accueil')" >
+            <img id="imgIconMainMenuAccueil" class="mainMenuIcon" src="./images/IconeHomeSelected.png" alt="Accueil" srcset="" title="Menu principal">
+            <p class="textMainMenu">Mes tâches</p>
+        </div>
+        <div class="mainMenuIcon"  onclick="onChangeMenu('Dashboard')" >
+            <img id="imgIconMainMenuDashboard"class="mainMenuIcon" src="./images/IconeDashboard.png" alt="Dashboard" srcset="" title="Dashboard">
+            <p class="textMainMenu">Tableau de bord</p>
+        </div>
+        <div class="mainMenuIcon"  onclick="onChangeMenu('Setting')" >
+            <img id="imgIconMainMenuSetting"class="mainMenuIcon" src="./images/IconeSetting.png" alt="Setting" srcset="" title="Paramètres">
+            <p class="textMainMenu">Paramètres</p>
+        </div>
+        <div class="mainMenuIcon" onclick="onChangeMenu('Template')" >
+            <img id="imgIconMainMenuTemplate" class="mainMenuIcon" src="./images/IconeMenuTemplate2.png" alt="Template" srcset="" title="Modèle">
+            <p class="textMainMenu">Modèles</p>
+        </div>
+        <div class="mainMenuIcon" onclick="onChangeMenu('Info')" >
+            <img id="imgIconMainMenuInfo" class="mainMenuIcon" src="./images/IconeInfo.png" alt="Icone menu info" srcset="" title="Infos">
+            <p class="textMainMenu">A propos</p>
+        </div>
+        <div class="mainMenuIcon" onclick="switchFullScreen()" >
+            <img class="mainMenuIcon" src="./images/IconeScreen.png" alt="Plein écran" srcset="" title="Plein écran">
+            <p class="textMainMenu">Plein écran</p>
+        </div>
         <p class="release">Release : 1.2.0</p>
 
     </div>
@@ -54,7 +72,7 @@
                     <img class="iconeMenu" src="./images/IconeTemplate.png" alt="Nouveau depuis modèle" srcset="">
                 </button>
 
-                <button class="basicBtn basicBtnB" onclick="onCreateNote()" title="actualisation">
+                <button class="basicBtn basicBtnB" onclick="onCreateNote()" title="Nouvelle tâche">
                     <img class="iconeMenu" src="./images/IconeNewTask2.png" alt="Nouvelle tâche" srcset="">
                 </button>
                 
@@ -409,59 +427,65 @@
     
     <!-- -------------------------   div Dashboard----------------------------------- -->
     <div class="divDashboard" id="divDashboard">
-        <h2>TABLEAU DE BORD</h2>
+        <div id="divDashboardContent">
+            <h2>TABLEAU DE BORD</h2>
 
 
-        <table class="statisticDivers">
-            <tr>
-                <th>DIVERS</th>
-                <th>CLASSEMENT TOP 3</th>
+            <table class="statisticDivers">
+                <tr>
+                    <th>DIVERS</th>
+                    <th>CLASSEMENT TOP 3</th>
 
-            </tr>
-            <tr>
-                <td>
-                    <p id="pDashboardStatus0">
-                        <!-- Injection -->
-                    </p>
-                    <p id="pDashboardStatus1">
-                        <!-- Injection -->
-                    </p>
-                    <p id="pDashboardStatus2">
-                        <!-- Injection -->
-                    </p>
-                    <p id="pDashboardMaxDuration">
-                        <!-- Injection -->
-                    </p>
-                    <ul id="ulDashboardMaxTaskList">
-                        <!-- Injection -->
-                    </ul>
-                </td>
-                <td>
-                    <h4>TAG cumulant le plus grand nombre d'heures :</h4>
-                    <ol id="olTop3TAGDuration">
-                        <!-- Injection -->
-                    </ol>
-                    <h4>TAG cumulant le plus grand nombre de tâches :</h4>
-                    <ol id="olTop3TAGNbre">
-                        <!-- Injection -->
-                    </ol>
-                </td>
-            </tr>
-        </table>
+                </tr>
+                <tr>
+                    <td>
+                        <p id="pDashboardStatus0">
+                            <!-- Injection -->
+                        </p>
+                        <p id="pDashboardStatus1">
+                            <!-- Injection -->
+                        </p>
+                        <p id="pDashboardStatus2">
+                            <!-- Injection -->
+                        </p>
+                        <p id="pDashboardMaxDuration">
+                            <!-- Injection -->
+                        </p>
+                        <ul id="ulDashboardMaxTaskList">
+                            <!-- Injection -->
+                        </ul>
+                    </td>
+                    <td>
+                        <h4>TAG cumulant le plus grand nombre d'heures :</h4>
+                        <ol id="olTop3TAGDuration">
+                            <!-- Injection -->
+                        </ol>
+                        <h4>TAG cumulant le plus grand nombre de tâches :</h4>
+                        <ol id="olTop3TAGNbre">
+                            <!-- Injection -->
+                        </ol>
+                    </td>
+                </tr>
+            </table>
 
-        <h3>Analyses mensuelles des tâches traitées :</h3>
-        <div class="dashboard-table-container" id="divStatisticContainer">
-      
+            <h3>Analyses mensuelles des tâches traitées :</h3>
+            <div class="dashboard-table-container" id="divStatisticContainer">
+        
 
-            <!-- Injection -->
-    
+                <!-- Injection -->
+        
+            </div>
+            <!-- Legende -->
+            <img class="dashboardLegend" src="./images/DashboardLegend.png" alt="" srcset="">
+            <!-- <p>Si vous souhaitez générer des statisques plus poussées, veuillez télécharger le dashboard et l'uploader sur le lien suivant : A venir...</p> -->
+
+            <!-- Cloture de session -->
+            <div>
+                <button class="basicBtn basicBtnA" onclick="onClickClotureSession()">Clôturer la session</button>
+        
+            </div>
         </div>
-        <!-- Legende -->
-        <img class="dashboardLegend" src="./images/DashboardLegend.png" alt="" srcset="">
-        <!-- <p>Si vous souhaitez générer des statisques plus poussées, veuillez télécharger le dashboard et l'uploader sur le lien suivant : A venir...</p> -->
-
-        <!-- Cloture de session -->
-        <div>
+        <div id="divPopupCloture" class="divPopupCloture popup">
             <h3>Clôture de session</h3>
             <p>En cliquant sur le bouton "Clôture de session", vous confirmez votre intention de terminer votre session actuelle. Voici ce qui se passera lors de cette opération :</p>
             <ol>
@@ -469,7 +493,8 @@
                 <li><strong>Réinitialisation de la base de données :</strong> Après l'extraction, la base de données de l'application sera réinitialisée. Cela entraînera la suppression de toutes les données de l'application, la remettant à son état initial. Cependant, vos informations extraites seront toujours disponibles pour consultation ultérieure.</li>
             </ol>
             <p>Veuillez noter que <u>cette action est irréversible</u> et qu'elle effacera toutes les données de l'application en dehors de la session actuelle. Assurez-vous d'avoir sauvegardé toutes les informations importantes avant de procéder.</p>
-            <button class="basicBtn basicBtnA">Clôturer la session</button>
+            <button class="basicBtn basicBtnA" onclick="onValidClotureSession()">Confirmer</button>
+            <button class="basicBtn basicBtnA" onclick="onCancelClotureSession()">Annuler</button>
         </div>
 
     </div>
@@ -539,11 +564,11 @@
                     <tr>
                         <td>
                             
-                            <button class="basicBtn basicBtnA" onclick="onSaveCustomPriority()"><img class="iconeMenu" src="./images/IconeSave.png" alt="Sauvegarder priorité" srcset=""></button>
+                            <button class="basicBtn basicBtnA" onclick="onSaveCustomPriority()"><img class="iconeMenu" src="./images/IconeSave.png" alt="Sauvegarder priorité" srcset=""> Sauvegarder Priorités</button>
                             <p id="pNotifySaveChangePriority"></p>
                         </td>
                         <td>
-                            <button class="basicBtn basicBtnA" onclick="onSaveCustomStatus()"><img class="iconeMenu" src="./images/IconeSave.png" alt="Sauvegarder status" srcset=""></button>
+                            <button class="basicBtn basicBtnA" onclick="onSaveCustomStatus()"><img class="iconeMenu" src="./images/IconeSave.png" alt="Sauvegarder status" srcset=""> Sauvegarder Statuts</button>
                             <p id="pNotifySaveChangeStatus"></p>
                         </td>
                     </tr>
@@ -590,14 +615,14 @@
                     <tr>
                         <td class="saveSetting">
                             <p>Exporter la base vous fera télécharger 4 fichiers distincts !</p>
-                            <button class="basicBtn basicBtnA" onclick="exportData()">Sauvegarder la base</button>
+                            <button class="basicBtn basicBtnA" onclick="exportData()"><img class="iconeMenu" src="./images/IconeDownload.png" alt="Valider" srcset=""> Télécharger la base</button>
                         </td>
                         <td class="importSetting">
                             <!-- Import TASK -->
                             <p>
                                 <label class="labelSetting" for="fileInputJsonTask">Tâches :</label>
                                 <input type="file" id="fileInputJsonTask" accept=".json">
-                                <button class="basicBtn basicBtnA" onclick="importTask('fileInputJsonTask','taskList','pImportTaskResult')">Import Tache</button>
+                                <button class="basicBtn basicBtnA" onclick="importTask('fileInputJsonTask','taskList','pImportTaskResult')"><img class="iconeMenu" src="./images/IconeUpload.png" alt="Valider" srcset=""> Import tâches</button>
                             </p>
                             <p id="pImportTaskResult">
                                 <!-- Injection resultat import -->
@@ -607,7 +632,7 @@
                             <p>
                                 <label class="labelSetting" for="fileInputJsonTag">TAG :</label>
                                 <input type="file" id="fileInputJsonTag" accept=".json">
-                                <button class="basicBtn basicBtnA" onclick="importTask('fileInputJsonTag','TAGList','pImportTagResult')">Import TAG</button>
+                                <button class="basicBtn basicBtnA" onclick="importTask('fileInputJsonTag','TAGList','pImportTagResult')"><img class="iconeMenu" src="./images/IconeUpload.png" alt="Valider" srcset=""> Import TAG</button>
                             </p>
                             <p id="pImportTagResult">
                                 <!-- Injection resultat import -->
@@ -617,7 +642,7 @@
                             <p>
                                 <label class="labelSetting" for="fileInputJsonDashboard">Dashboard : </label>
                                 <input type="file" id="fileInputJsonDashboard" accept=".json">
-                                <button class="basicBtn basicBtnA" onclick="importTask('fileInputJsonDashboard','dashboard','pImportDashboardResult')">Import Dashboard</button>
+                                <button class="basicBtn basicBtnA" onclick="importTask('fileInputJsonDashboard','dashboard','pImportDashboardResult')"><img class="iconeMenu" src="./images/IconeUpload.png" alt="Valider" srcset=""> Import Dashboard</button>
                             </p>
                             <p id="pImportDashboardResult">
                                 <!-- Injection resultat import -->
@@ -626,7 +651,7 @@
                              <p>
                                 <label class="labelSetting" for="fileInputJsonTemplate">Template : </label>
                                 <input type="file" id="fileInputJsonTemplate" accept=".json">
-                                <button class="basicBtn basicBtnA" onclick="importTask('fileInputJsonTemplate','template','pImportTemplateResult')">Import Template</button>
+                                <button class="basicBtn basicBtnA" onclick="importTask('fileInputJsonTemplate','template','pImportTemplateResult')"><img class="iconeMenu" src="./images/IconeUpload.png" alt="Valider" srcset=""> Import Template</button>
                             </p>
                             <p id="pImportTemplateResult">
                                 <!-- Injection resultat import -->
@@ -643,7 +668,7 @@
                         <th colspan="3">BASE DE DONNEES</th>
                     </tr>
                     <tr>
-                        <td><button class="basicBtn bddSuppr" onclick="onClickDeleteBDD()">Supprimer la base</button></td>
+                        <td><button class="basicBtn bddSuppr" onclick="onClickDeleteBDD()"><img class="iconeMenu" src="./images/IconeDelete.png" alt="Valider" srcset=""> Supprimer la base</button></td>
                         <td>
                             <div class="confirmeBdDSuppr" id="divConfirmeBdDSuppr">
                                 <p>Valider la suppression :</p>
@@ -679,7 +704,7 @@
         </div>
 
         <!-- div rename template -->
-        <div class="renameTemplate" id="divRenameTemplate">
+        <div class="renameTemplate popup" id="divRenameTemplate">
             <p>Renommez votre modèle :</p>
             <input class="renameTemplate" id="inputRenameTemplateTitle" type="text">
             <!-- onclick du bouton injecter en JS -->
@@ -689,7 +714,7 @@
 
         <!-- div confirme delete -->
 
-        <div class="templateConfirmSupr" id="divPopupDeleteTemplate">
+        <div class="templateConfirmSupr popup" id="divPopupDeleteTemplate">
             <p>Etes vous sur de vouloir supprimer ce modèle ?</p>
             <p id="pTemplateToDeleteTitle"></p>
             <button id="btnValidTemplateSuppression" class="basicBtn basicBtnA"><img class="iconeMenu" src="./images/IconeDelete.png" alt="Confirmer" srcset=""></button>
@@ -779,7 +804,7 @@
         </div>
 
         <div class="userMsgText">
-            <p d="pUserMessageTextB">La tâche B "bla bla bla" à été créé !</p>
+            <p id="pUserMessageTextB">La tâche B "bla bla bla" à été créé !</p>
         </div>
         
     </div>

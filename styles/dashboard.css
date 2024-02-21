@@ -3,7 +3,7 @@
 div.divDashboard{
     padding-left: 120px;
     display: none;
-    width: 1000px;
+    width: 90%;
     text-align: left;
 }
 
@@ -92,4 +92,18 @@ img.dashboardLegend{
 
 .statisticDivers th {
    text-align: center;
+}
+
+
+
+/* Cloture de session */
+
+div.divPopupCloture{
+    position: relative;
+    display: none;
+    margin-left: auto;
+    margin-right: auto;
+    width: 800px;
+    top: -600px;
+
 }

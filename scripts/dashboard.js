@@ -86,8 +86,6 @@ function countTasksByMonth(tasks) {
     // Trouve le mois avec le plus d'heures (mois de référence pour les 100%)
     const maxHoursMonth = Object.keys(dataByMonth).reduce((a, b) => dataByMonth[a].totalDuration > dataByMonth[b].totalDuration ? a : b);
 
-    console.log("valeur de dataByMonth");
-    console.log(dataByMonth);
 
     // Génération du résultat
     // Utilise le mois de référence ayant le max de tache ou d'heure pour calculer le pourcentage
@@ -395,6 +393,28 @@ function onClearDashboard() {
 
 
 
+
+// Demande de cloture
+function onClickClotureSession() {
+    // Affiche popup et grise le reste
+    onChangeDisplay([],["divPopupCloture"],["divDashboardContent"],[]);
+
+}
+
+
+
+
+
+// Annulation de la cloture
+function onCancelClotureSession() {
+    // Affiche popup et grise le reste
+    onChangeDisplay(["divPopupCloture"],[],[],["divDashboardContent"]);
+}
+
+
+
+
+// Validation de la cloture
 function onValidClotureSession() {
     // recupere les éléments dans la base et les stock dans une grosse variable temporaire
     
@@ -415,10 +435,18 @@ function onValidClotureSession() {
     transaction.oncomplete = function (){
         let arrayResult = requestDashboard.result;
 
-        // Recupere les session de dates
-        let sessionDates =  onFindSessionDate(arrayResult);
-        // export le dashboard
-        exportDashboardSession(sessionDates);
+
+        // filtre si il y a des données ou non
+        if (arrayResult.length > 0) {
+            // Recupere les session de dates
+            let sessionDates =  onFindSessionDate(arrayResult);
+            // export le dashboard
+            exportDashboardSession(sessionDates);
+        }else{
+            eventUserMessage(arrayUserMessage.dasboardEmpty,"error");
+        }
+
+        
     }
 }
 
@@ -506,6 +534,10 @@ function onClearDashboardStore() {
     transaction.oncomplete = function (){
         console.log("Le dashboard a été vidé avec succès.");
         eventUserMessage("Le dashboard a été réinitialisé avec succès.","info");
+
+        // Reset l'affichage
+        // Affiche popup et grise le reste
+        onChangeDisplay(["divPopupCloture"],[],[],["divDashboardContent"]);
 
         // Regénère le dashboard
         onOpenDashboard();

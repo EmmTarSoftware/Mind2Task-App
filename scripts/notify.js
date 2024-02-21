@@ -21,7 +21,9 @@ let arrayUserMessage = {
     saveStatus: "Statut sauvegardé.",
     bddDeleted: "La base de données a été supprimée.",
     forbiddenItem: "Des données sensibles ont été effacées.",
-    errorDoubleTitle: "Ce titre existe déjà dans la base de données."
+    errorDoubleTitle: "Ce titre existe déjà dans la base de données.",
+    dasboardEmpty:"Aucune donnée à exporter !",
+    taskDeleted:"Note supprimée !"
 };
 
     
@@ -68,7 +70,7 @@ function eventUserMessage(textToDisplay,type) {
     //     isNotifyBFree = false;
     //     ondisplayUserMsgB(textToDisplay,imageSrc);
     }else{
-        console.log("userMessage mais aucune div de stockage en liste d'attente");
+        console.log("[ USER-MESSAGE ] aucune div disponible mise en liste d'attente");
         userMsgCueArray.push({text: textToDisplay,img : imageSrc});
     }
     
@@ -120,7 +122,9 @@ function ondisplayUserMsgB(textToDisplay,img) {
     // Set le texte du message
     let pUserMessageTextRef = document.getElementById("pUserMessageTextB");
     let divUserMessageRef = document.getElementById("divUserMessageB");
-    pUserMessageTextRef.innerHTML =  textToDisplay + " !";
+    console.log("[ USER-MESSAGE ] textToDisplayB = ");
+    console.log(textToDisplay);
+    pUserMessageTextRef.innerHTML =  textToDisplay;
     
 
     // Affiche la div

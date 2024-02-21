@@ -338,7 +338,7 @@ function onSetListNotes(divNotesTarget,noteArray,indexToStart,thIDRef,currentUse
             if (e.priority === priorityArray[2].systemPriority) { newImgPriority.src ="./images/IconePriorityA.png" }
 
             newImgPriority.onclick = function(){
-                onClickQuickChangePriority(e.key,e.priority);
+                onClickQuickChangePriority(this,e.key,e.priority);
             }
 
 
@@ -569,8 +569,17 @@ function onQuickChangeNoteStatus(keyTarget, newStatusTarget) {
 let quickPriorityKeyTarget,// variable pour stocker la key de l'item à modifier
 quickCurrentPriority;// variable pour stocker la priorité actuelle de l'item à modifier
 // Affiche le choix de priorité pour les actions rapides
-function onClickQuickChangePriority(keyTarget,currentPriority){
-    document.getElementById("divQuickChangePriority").style.display = "block";
+function onClickQuickChangePriority(imgRef,keyTarget,currentPriority){
+    let popupQuickChangePriorityRef  = document.getElementById("divQuickChangePriority")
+
+    // Recupere la position du bouton sur lequel j'ai cliqué
+    let location = imgRef.getBoundingClientRect();
+
+    // Set la position du popup
+    popupQuickChangePriorityRef.style.left = (location.left + window.scrollX) + "px";
+    popupQuickChangePriorityRef.style.top = (location.bottom + window.scrollY) + "px";
+    // Affiche le popup
+    popupQuickChangePriorityRef.style.display = "block";
 
     // Grise les div qui sont visible
     if(document.getElementById("divNoteView").style.display === "block"){
@@ -579,6 +588,7 @@ function onClickQuickChangePriority(keyTarget,currentPriority){
         onChangeDisplay([],[],["divListBtnNote","divBtnNewTask"],[]);
     }
 
+    
     
     
     quickPriorityKeyTarget = keyTarget;// stocke la key pour le changement par la suite
@@ -1541,7 +1551,7 @@ function onDeleteNote(keyTarget) {
     
     request.onsuccess = function (){
         console.log("Requete de suppression réussit");
-        
+        eventUserMessage(arrayUserMessage.taskDeleted,"info")
         onUpdatePage(true);
     };
 

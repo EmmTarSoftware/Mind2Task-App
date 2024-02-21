@@ -62,20 +62,13 @@ p.gestionTemplateTitle{
 
 /* Suppression */
 div.templateConfirmSupr{
-	left: 400px;
-    z-index: 2;
 	display: none;
 	width: 400px;
 	height: 150px;
-	background-color: var(--colorBackground2);
-	text-align: center;
-	border-radius: 10px;
-	border: solid 1px var(--blueColor);
-	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Ombre portée */
-	position: absolute;
+	position: relative;
 	margin-left: auto;
     margin-right: auto;
-	top: 100px;
+	top: -400px;
 }
 
 
@@ -85,20 +78,13 @@ div.templateConfirmSupr{
 
 
 div.renameTemplate{
-	left: 400px;
-    z-index: 2;
 	display: none;
-    position: absolute;
+    position: relative;
 	width: 500px;
 	height: 150px;
-	background-color: var(--colorBackground2);
-	text-align: center;
-	border-radius: 10px;
-	border: solid 1px var(--blueColor);
-	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Ombre portée */
 	margin-left: auto;
     margin-right: auto;
-    top: 100px;
+    top: -400px;
 }
 
 input.renameTemplate{
