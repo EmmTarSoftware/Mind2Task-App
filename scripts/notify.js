@@ -92,11 +92,15 @@ function ondisplayUserMsgA(textToDisplay,img) {
     
 
     // Affiche la div
-    divUserMessageRef.style.display ="block";
+    divUserMessageRef.classList.add('show');
 
 
     // Cache la div apres un delay
     setTimeout(() => {
+
+        // Fin de l'animation
+        divUserMessageRef.classList.remove('show');
+
        // Verifie si encore des elements en liste d'attente
 
        if (userMsgCueArray.length > 0) {
@@ -104,7 +108,6 @@ function ondisplayUserMsgA(textToDisplay,img) {
         ondisplayUserMsgA(msgExtraction.text,msgExtraction.img);
     }else{
         // Si plus d'élément met fin 
-        divUserMessageRef.style.display = "none";
         isNotifyAFree = true;
     }
 
@@ -128,11 +131,14 @@ function ondisplayUserMsgB(textToDisplay,img) {
     
 
     // Affiche la div
-    divUserMessageRef.style.display ="block";
+    divUserMessageRef.classList.add('show');
 
 
     // action lorsque fin de traitement
     setTimeout(() => {
+        // Fin de l'animation
+        divUserMessageRef.classList.remove('show');
+
         // Verifie si encore des elements en liste d'attente
 
         if (userMsgCueArray.length > 0) {
@@ -140,7 +146,6 @@ function ondisplayUserMsgB(textToDisplay,img) {
             ondisplayUserMsgB(msgExtraction.text,msgExtraction.img);
         }else{
             // Si plus d'élément met fin 
-            divUserMessageRef.style.display = "none";
             isNotifyBFree = true;
         }
 

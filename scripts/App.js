@@ -46,13 +46,14 @@ let db,
     tagStoreName = "TAGList",
     dashBoardStoreName = "dashboard",
     templateStoreName = "template",
-    version = 3;
+    currentBaseVersion = 3;
+    cookiesBddVersionName = "Mind2Task-bddVersion"
 
 
 // Lancement /création de la base de donnée
 
 function onStartDataBase() {
-    let openRequest = indexedDB.open(dbName,version);
+    let openRequest = indexedDB.open(dbName,currentBaseVersion);
 
     // Traitement selon résultat
 
@@ -100,6 +101,9 @@ function onStartDataBase() {
 
             templateStore.createIndex('title','title',{unique:true});
         }
+
+        // Stoque le numéro de version de base de l'application
+        localStorage.setItem(cookiesBddVersionName, currentBaseVersion.toString());
 
     };
 

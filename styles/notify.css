@@ -11,18 +11,22 @@ div.userMessage{
   background-color: rgba(246, 221, 137, 0.3);
 	text-align: center;
 	border-radius: 10px;
-	/* border: solid 1px var(--blueColor); */
+	border: solid 1px var(--blueColor);
 	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Ombre portée */	
 }
 
 
 div.userMessageA{
-	display: none;
+	visibility: hidden;
+  opacity: 0;
+  transition: visibility 0s, opacity 0.5s linear;
   top: 20px;
 }
 
 div.userMessageB{
-	display: none;
+	visibility: hidden;
+  opacity: 0;
+  transition: visibility 0s, opacity 0.5s linear;
   top: 70px;
 }
 
@@ -38,7 +42,10 @@ div.userMsgText{
 
 
 
-
+.userMessageA.show {
+  visibility: visible;
+  opacity: 1;
+}
 
 
 
