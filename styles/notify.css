@@ -8,7 +8,7 @@ div.userMessage{
   width: 600px;
 	min-height: 40px;
   left: 450px;
-  background-color: rgba(246, 221, 137, 0.3);
+  background-color: rgba(246, 221, 137, 0.8);
 	text-align: center;
 	border-radius: 10px;
 	border: solid 1px var(--blueColor);

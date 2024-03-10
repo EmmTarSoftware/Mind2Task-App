@@ -7,7 +7,7 @@
 	--colorBackground2: #f0f9ff;
 	--blueColor:#5673e2;
 	--yellowColor:#ffd54f;
-
+	--btnListNoteColor : rgb(232, 231, 231);
 
 	/* Style des div editeur et visionneuse de note */
 	--divNoteViewEditorWidth:650px;
@@ -509,8 +509,8 @@ div.mainMenu{
 div.listBtnNote{
 	position: relative;
 	text-align: center;
-	left: 140px; top: 80px;
-	width: 620px;height: 600px;
+	left: 130px; top: 80px;
+	width: 640px;height: 600px;
 
 }
 
@@ -595,7 +595,7 @@ p.btnPreviousNext{
 	align-items: center;
 	border: solid 1px rgb(195, 195, 195);
 	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-	background-color: rgb(232, 231, 231);
+	background-color: var(--btnListNoteColor);
 	border-radius: 5px;
 	margin-bottom: 0px;
 	margin-left: 10px;
@@ -637,8 +637,21 @@ button.btnListNote{
 	text-align: left;
 	font-size: 12px;
 	font-weight: bold;
-	background-color: rgb(232, 231, 231);
+	background-color: var(--btnListNoteColor);
 }
+
+/* Texte pourcentage evolution */
+div.progress-number-container{
+	padding-right: 10px;
+}
+
+
+p.textNumberProgress{
+	color: #535353;
+	font-size: 12px;
+	font-style: italic;
+}
+
 
 
 .listBtnChangeStatus{

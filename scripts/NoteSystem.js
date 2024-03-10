@@ -70,10 +70,10 @@ function onUpdatePage(isUpdateTagListRequired) {
         console.log("Les éléments ont été récupéré dans la base");
         console.log("stockage dans le tableau temporaire");
 
-    }
+    };
     requestTask.error = function (){
         console.log("Erreur de requete sur la base");
-    }
+    };
 
 
     // les TAG COMPLETION
@@ -88,7 +88,7 @@ function onUpdatePage(isUpdateTagListRequired) {
         // actualise les TAG de complétion
         let tagCompletionResult = requestTag.result;
         allTagCompletion = tagCompletionResult.sort();
-    }
+    };
 
 
 
@@ -115,13 +115,13 @@ function onUpdatePage(isUpdateTagListRequired) {
             // fonction de répartition des taches dans le visualiseur
             onSortItem(arrayResult);
         
-        }
+        };
 
         //Actualisation des templates dans la page d'accueil
         onUpdateTemplateToHome();
         
-    }
-}
+    };
+};
 
 
 
@@ -149,7 +149,7 @@ function onSortItem(arrayResult) {
                 return item.title.includes(textTarget) && item.tag === currentTagFilter && item.status === statusArray[1].systemStatus;  // Si un tag en cours, ne recupere que ceux du tag en cours
             }   
 
-        })
+        });
 
         // MODE RECHERCHE dans STATUS 0
         console.log("Trie des éléments  par recherche" + statusArray[0].systemStatus);
@@ -158,8 +158,8 @@ function onSortItem(arrayResult) {
                 return item.title.includes(textTarget) && item.status === statusArray[0].systemStatus;// Si toutes les taches (genericTAG) récupere tout
             }else{
                 return item.title.includes(textTarget) && item.tag === currentTagFilter && item.status === statusArray[0].systemStatus;  // Si un tag en cours, ne recupere que ceux du tag en cours
-            }       
-        })
+            };       
+        });
 
 
     }else{
@@ -172,23 +172,23 @@ function onSortItem(arrayResult) {
                 return item.status === statusArray[1].systemStatus;// Si toutes les taches (genericTAG) récupere tout
             }else{
                 return item.status === statusArray[1].systemStatus && item.tag === currentTagFilter;  // Si un tag en cours, ne recupere que ceux du tag en cours
-            }   
-        })
+            };
+        });
 
         // STATUS 0
         //Filtre sur les notes A FAIRE avec le filtre du tag
         console.log("Trie des éléments " + statusArray[0].systemStatus);
         tempNoteStatus0Array = arrayResult.filter((item) =>{
 
-        if (currentTagFilter === genericTAG) {
-            return item.status === statusArray[0].systemStatus;// Si toutes les taches (genericTAG) récupere tout
-        }else{
-            return item.status === statusArray[0].systemStatus && item.tag === currentTagFilter;// Si un tag en cours, ne recupere que ceux du tag en cours
-            
-        }
+            if (currentTagFilter === genericTAG) {
+                return item.status === statusArray[0].systemStatus;// Si toutes les taches (genericTAG) récupere tout
+            }else{
+                return item.status === statusArray[0].systemStatus && item.tag === currentTagFilter;// Si un tag en cours, ne recupere que ceux du tag en cours
+                
+            };
         
-    })
-    }
+        });
+    };
     
 
 
@@ -208,12 +208,12 @@ function onSortItem(arrayResult) {
             })
             // Calcul le pourcentage de d'étape accomplit pour la tache
             percentStepCheckedValue = Math.abs((tempStepArrayChecked / e.stepArray.length) * 100);
-        }
+        };
 
         
         noteStatus1Array.push({key:e.key,title:e.title,priority:e.priority,tag:e.tag,percentStepChecked:percentStepCheckedValue});
 
-    })
+    });
 
 
 
@@ -232,15 +232,15 @@ function onSortItem(arrayResult) {
                 if(e.stepChecked === true){
                     tempStepArrayChecked++;
                 }
-            })
+            });
             // Calcul le pourcentage de d'étape accomplit pour la tache
             percentStepCheckedValue = Math.abs((tempStepArrayChecked / e.stepArray.length) * 100);
-        }
+        };
 
 
         notesStatus0Array.push({key:e.key,title:e.title,priority:e.priority,tag:e.tag,percentStepChecked:percentStepCheckedValue});
 
-    })
+    });
 
 
 
@@ -261,7 +261,7 @@ function onSortItem(arrayResult) {
     notesStatus0Array.sort((a, b) => {
         if (a.priority === b.priority) {
             return a.tag.localeCompare(b.tag);
-        }
+        };
         return 0; // Ne change rien si les priorités sont différentes
     });
 
@@ -269,7 +269,7 @@ function onSortItem(arrayResult) {
     notesStatus0Array.sort((a, b) => {
         if (a.priority === b.priority && a.tag === b.tag) {
         return a.title.localeCompare(b.title);
-        }
+        };
         return 0; // Ne change rien si les priorités ou les TAG sont différents
     });
 
@@ -283,7 +283,7 @@ function onSortItem(arrayResult) {
     noteStatus1Array.sort((a, b) => {
         if (a.priority === b.priority) {
             return a.tag.localeCompare(b.tag);
-        }
+        };
         return 0; // Ne change rien si les priorités sont différentes
     });
 
@@ -292,7 +292,7 @@ function onSortItem(arrayResult) {
     noteStatus1Array.sort((a, b) => {
       if (a.priority === b.priority && a.tag === b.tag) {
         return a.title.localeCompare(b.title);
-      }
+      };
       return 0; // Ne change rien si les priorités ou les TAG sont différents
     });
 
@@ -300,7 +300,7 @@ function onSortItem(arrayResult) {
     // Creation des liste de notes par catégories
     onSetListNotes("divBtnNoteStatus1",noteStatus1Array,noteStatus1IndexToStart,"pTxtStatus1",statusArray[1].userStatus,statusArray[1].systemStatus);
     onSetListNotes("divBtnNoteStatus0",notesStatus0Array,noteStatus0IndexToStart,"pTxtStatus0",statusArray[0].userStatus,statusArray[0].systemStatus);
-}
+};
 
 
 
@@ -339,7 +339,7 @@ function onSetListNotes(divNotesTarget,noteArray,indexToStart,thIDRef,currentUse
 
             newImgPriority.onclick = function(){
                 onClickQuickChangePriority(this,e.key,e.priority);
-            }
+            };
 
 
 
@@ -365,8 +365,8 @@ function onSetListNotes(divNotesTarget,noteArray,indexToStart,thIDRef,currentUse
                     onSearchNotesToDisplay(e.key);
                 }else{
                     console.log("Cette note est déjà en cours d'affichage !");
-                }
-            }
+                };
+            };
 
             // STATUT
             let newBtnChangeStatus = document.createElement("img");
@@ -377,26 +377,38 @@ function onSetListNotes(divNotesTarget,noteArray,indexToStart,thIDRef,currentUse
             if (currentSystemStatus === statusArray[0].systemStatus) {
                 newBtnChangeStatus.onclick = function(){
                     onQuickChangeNoteStatus(e.key,statusArray[1].systemStatus)
-                }
-            }
+                };
+            };
 
             if (currentSystemStatus === statusArray[1].systemStatus) {
                 newBtnChangeStatus.onclick = function(){
                     onQuickChangeNoteStatus(e.key,statusArray[0].systemStatus)
-                }
-            }
+                };
+            };
            
+
+            // progression mode numérique
+            let newDivPercentNumber = document.createElement("div");
+            newDivPercentNumber.className = "progress-number-container";
+            
+            let newTextProgress = document.createElement("p");
+            newTextProgress.className = "textNumberProgress";
+            newTextProgress.innerHTML = Math.round(e.percentStepChecked) + '%';
+            
+            newDivPercentNumber.appendChild(newTextProgress);
+
 
 
             // insere les td dans le tr
             newMainDiv.appendChild(newImgPriority);
             newMainDiv.appendChild(newDivTAG);
             newMainDiv.appendChild(newButtonView);
+            newMainDiv.appendChild(newDivPercentNumber);
             newMainDiv.appendChild(newBtnChangeStatus);
 
 
 
-            // progress bar
+            // Progression en mode progress bar
             let newDivProgressBarExt = document.createElement("div");
             newDivProgressBarExt.className = "progress-bar-container";
 
@@ -411,6 +423,10 @@ function onSetListNotes(divNotesTarget,noteArray,indexToStart,thIDRef,currentUse
 
 
 
+
+
+
+
             CurrentDivNotesRef.appendChild(newMainDiv);
             CurrentDivNotesRef.appendChild(newDivProgressBarExt);
 
@@ -418,9 +434,9 @@ function onSetListNotes(divNotesTarget,noteArray,indexToStart,thIDRef,currentUse
             // Met fin a la generation si atteind le nbre d'iteration max d'affichage
             if ( nbreIteration === maxBtnNoteToDisplay) {
                 break;
-            }
+            };
             
-        }
+        };
 
         
         // Set le nombre de tâche
@@ -431,11 +447,11 @@ function onSetListNotes(divNotesTarget,noteArray,indexToStart,thIDRef,currentUse
         CurrentDivNotesRef.innerHTML = "Aucune note";
         // Set le nombre de tâche à zero
         currentThRef.innerHTML = `${currentUserStatus} ( 0 )   <i> 0 - 0 </i>`;
-    }
+    };
 
     // Gestion de visibilité des boutons de notes
     onSetBtnNavNotesVisibility();
-}
+};
 
 
 
@@ -443,7 +459,7 @@ function onSetListNotes(divNotesTarget,noteArray,indexToStart,thIDRef,currentUse
 function onClearDIV(divID) {
     let currentDivRef = document.getElementById(divID);
     currentDivRef.innerHTML = "";
-}
+};
 
 
 // Gestion des boutons de navigation de notes
@@ -462,7 +478,7 @@ function onSetBtnNavNotesVisibility() {
     // Bouton note En cours "précédent"
     btnNoteStatus1PreviousRef.style.visibility = noteStatus1IndexToStart === 0 ? "hidden" : "visible";
 
-}
+};
 
 
 // Navigation dans les boutons de notes
@@ -470,23 +486,23 @@ function onSetBtnNavNotesVisibility() {
 function onClickNavNoteStatus1Previous() {
     noteStatus1IndexToStart -= maxBtnNoteToDisplay;
     onSetListNotes("divBtnNoteStatus1",noteStatus1Array,noteStatus1IndexToStart,"pTxtStatus1",statusArray[1].userStatus,statusArray[1].systemStatus);
-}
+};
 
 function onClickNavNoteStatus1Next() {
     noteStatus1IndexToStart += maxBtnNoteToDisplay;
     onSetListNotes("divBtnNoteStatus1",noteStatus1Array,noteStatus1IndexToStart,"pTxtStatus1",statusArray[1].userStatus,statusArray[1].systemStatus);
-}
+};
 
 // Notes à faire
 function onClickNavNoteStatus0Previous() {
     noteStatus0IndexToStart -= maxBtnNoteToDisplay;
     onSetListNotes("divBtnNoteStatus0",notesStatus0Array,noteStatus0IndexToStart,"pTxtStatus0",statusArray[0].userStatus,statusArray[0].systemStatus);
-}
+};
 
 function onClickNavNoteStatus0Next() {
     noteStatus0IndexToStart += maxBtnNoteToDisplay;
     onSetListNotes("divBtnNoteStatus0",notesStatus0Array,noteStatus0IndexToStart,"pTxtStatus0",statusArray[0].userStatus,statusArray[0].systemStatus);
-}
+};
 
 
 
@@ -531,19 +547,19 @@ function onQuickChangeNoteStatus(keyTarget, newStatusTarget) {
 
             insertQuickModifiedData.onsuccess = function () {
                 console.log("insertQuickModifiedData = success");
-            }
+            };
 
             insertQuickModifiedData.onerror = function () {
                 console.log("insertQuickModifiedData = error", insertQuickModifiedData.error);
-            }
+            };
         } else {
             console.log("L'objet à mettre à jour n'a pas été trouvé.");
-        }
-    }
+        };
+    };
 
     modifyRequest.onerror = function () {
         console.log("QuickModifyRequest = error", modifyRequest.error);
-    }
+    };
 
     transaction.oncomplete = function () {
 
@@ -552,14 +568,14 @@ function onQuickChangeNoteStatus(keyTarget, newStatusTarget) {
         if (keyTarget === currentKeyNoteInView) {
             // onChangeDisplay(["divNoteView"]); plan B si anomalie avec celui ci dessous
             onSearchNotesToDisplay(currentKeyNoteInView);
-        }
+        };
         
-    }
+    };
 
     transaction.onerror = function () {
         console.log("Transaction error", transaction.error);
-    }
-}
+    };
+};
 
 
 
@@ -586,14 +602,14 @@ function onClickQuickChangePriority(imgRef,keyTarget,currentPriority){
         onChangeDisplay([],[],["divListBtnNote","divBtnNewTask","divNoteView"],[]);
     }else{
         onChangeDisplay([],[],["divListBtnNote","divBtnNewTask"],[]);
-    }
+    };
 
     
     
     
     quickPriorityKeyTarget = keyTarget;// stocke la key pour le changement par la suite
     quickCurrentPriority = currentPriority;
-}
+};
 
 
 
@@ -609,10 +625,10 @@ function onChangeQuickPriority(newPriorityTarget) {
             onChangeDisplay([],[],[],["divListBtnNote","divBtnNewTask","divNoteView"]);
         }else{
             onChangeDisplay([],[],[],["divListBtnNote","divBtnNewTask"]);
-        }
+        };
         // Quitte la fonction
         return
-    }
+    };
 
 
 
@@ -636,19 +652,19 @@ function onChangeQuickPriority(newPriorityTarget) {
 
             insertQuickModifiedData.onsuccess = function () {
                 console.log("insertQuickModifiedData = success");
-            }
+            };
 
             insertQuickModifiedData.onerror = function () {
                 console.log("insertQuickModifiedData = error", insertQuickModifiedData.error);
-            }
+            };
         } else {
             console.log("L'objet à mettre à jour n'a pas été trouvé.");
-        }
-    }
+        };
+    };
 
     modifyRequest.onerror = function () {
         console.log("QuickModifyRequest = error", modifyRequest.error);
-    }
+    };
 
     transaction.oncomplete = function () {
 
@@ -657,7 +673,7 @@ function onChangeQuickPriority(newPriorityTarget) {
             onChangeDisplay([],[],[],["divListBtnNote","divBtnNewTask","divNoteView"]);
         }else{
             onChangeDisplay([],[],[],["divListBtnNote","divBtnNewTask"]);
-        }
+        };
     
 
 
@@ -666,14 +682,14 @@ function onChangeQuickPriority(newPriorityTarget) {
         if (quickPriorityKeyTarget === currentKeyNoteInView) {
             // onChangeDisplay(["divNoteView"]); plan B si anomalie avec celui ci dessous
             onSearchNotesToDisplay(currentKeyNoteInView);
-        }
+        };
         
-    }
+    };
 
     transaction.onerror = function () {
         console.log("Transaction error", transaction.error);
-    }
-}
+    };
+};
 
 
 
@@ -722,9 +738,9 @@ function onSetPriorityOptions() {
         newOption.innerHTML =e.userPriority;
         
         selectorNotePriorityRef.appendChild(newOption);
-    })
+    });
 
-}
+};
 onSetPriorityOptions();
 
 
@@ -737,8 +753,8 @@ function onSetStatusOption() {
         newOption.innerHTML =e.userStatus;
         
         selectorNoteStatusRef.appendChild(newOption);
-    })    
-}
+    });   
+};
 onSetStatusOption();
 
 // Création d'une note
@@ -750,7 +766,7 @@ function onCreateNote() {
     onChangeDisplay(["divNoteView"],["divNoteEditor"],["divListBtnNote","divBtnNewTask"],["divNoteEditor"]);
 
     onDisplayNoteEditor(true);
-}
+};
 
 
 
@@ -763,7 +779,7 @@ function onEditNote() {
     onChangeDisplay(["divNoteView"],["divNoteEditor"],["divListBtnNote","divBtnNewTask"],["divNoteEditor"]);
 
     onDisplayNoteEditor(false);
-}
+};
 
 
 
@@ -786,11 +802,11 @@ function onDisplayNoteEditor(boolModeCreation){
         legendNoteEditorRef.innerHTML = "Modifier une tâche";
         // Set l'editeur de note avec les éléments de la note en cours
         onSetNoteEditor(currentNoteInView);
-    }
+    };
 
 
 
-}
+};
 
 
 
@@ -822,9 +838,9 @@ function onSetNoteEditor(e) {
 
     if (tempStepArray.length >0 ) {
         onDisplayStep();
-    }
+    };
 
-}
+};
 
 
 
@@ -857,7 +873,7 @@ function onAddStep() {
     if (isMaxStepsReached()) {
         eventUserMessage(arrayUserMessage.stepLimit,"error");
         return; // Arrête la fonction si le nombre maximal d'étapes est atteint
-    }
+    };
 
     if (areAllStepsFilled()) {
         const newStep = {
@@ -870,23 +886,23 @@ function onAddStep() {
         onDisplayStep();
     } else {
         eventUserMessage(arrayUserMessage.emptyStepField,"error");
-    }
-}
+    };
+};
 
 // Vérification des champs d'étapes remplit
 function areAllStepsFilled() {
     for (let step of tempStepArray) {
         if (step.stepName.trim() === '') {
             return false;
-        }
-    }
+        };
+    };
     return true;
-}
+};
 
 // Fonction pour vérifier si le nombre maximal d'étapes est atteint
 function isMaxStepsReached() {
     return tempStepArray.length >= maxStep;
-}
+};
 
 
 // Affiche les étapes
@@ -1001,7 +1017,7 @@ function onDisplayStep() {
 
         stepListParentRef.appendChild(newLi);
     });
-}
+};
 
 
 // Deplacement d'une étape
@@ -1011,15 +1027,15 @@ function onMoveStep(index, direction) {
     if (newIndex >= 0 && newIndex < tempStepArray.length) {
         [tempStepArray[index], tempStepArray[newIndex]] = [tempStepArray[newIndex], tempStepArray[index]];
         onDisplayStep();
-    }
-}
+    };
+};
 
 
 // Suppression d'une étape
 function onDeleteStep(index) {
     tempStepArray.splice(index, 1);
     onDisplayStep();
-}
+};
 
 
 // Click sur le bouton de validation dans l'éditeur de note
@@ -1028,7 +1044,7 @@ function onClickBtnValidNoteEditor() {
     
     // Recheche des erreurs dans la note avant validation
     onCheckNoteError();
-}
+};
 
 
 
@@ -1038,13 +1054,13 @@ function onClickBtnValidNoteEditor() {
 // Detection des erreurs avant formatage
 
 function onCheckNoteError() {
-    console.log("Detection des erreurs")
+    console.log("Detection des erreurs");
 
     // detection des champs vides obligatoires
     let isEmptyTitleField = onCheckEmptyField(inputNoteTitleRef.value);
     if (isEmptyTitleField === true) {
         eventUserMessage(arrayUserMessage.emptyTitleField,"error");
-    }
+    };
     
 
 
@@ -1052,7 +1068,7 @@ function onCheckNoteError() {
     let isStepFieldFilled = areAllStepsFilled();
     if (isStepFieldFilled === false) {
         eventUserMessage(arrayUserMessage.emptyStepField,"error");
-    }
+    };
 
 
 
@@ -1063,8 +1079,8 @@ function onCheckNoteError() {
         console.log("au moins une erreur détéctée. Ne valide pas la création/modification de la note");
     }else{
         onFormatNote();
-    }
-}
+    };
+};
 
 
 
@@ -1085,20 +1101,20 @@ function onFormatNote(){
         tempDateStart = tempDateToday;
         tempDateEnd = tempDateToday;
         console.log("Aucune date de définit : set les deux à date du jour");
-    }
+    };
 
     // date début remplit et fin vide : date fin égale date début
     if (tempDateStart !== "" && tempDateEnd ==="") {
         tempDateEnd = tempDateStart;
         console.log("Uniquement date de début remplit : date de fin = date début");
-    }
+    };
 
 
     // date début vide et fin remplit : date début = date fin
     if (tempDateStart === "" && tempDateEnd !=="") {
         tempDateStart = tempDateEnd;
         console.log("Uniquement date de fin remplit :  date début = date fin");
-    }
+    };
 
 
 
@@ -1146,7 +1162,7 @@ function onFormatNote(){
 
     if (formatedEditorStepArray.length > 0) {
         formatedEditorStepArray.forEach(i=> secureEditorStepArray.push({stepName:securitySearchforbiddenItem(i.stepName),stepChecked:i.stepChecked,stepHour:i.stepHour,stepMinutes:i.stepMinutes}));
-    }
+    };
 
     // Notification des dates
     let isDateStartNotify = checkboxDateStartNotifyRef.checked;
@@ -1166,7 +1182,7 @@ function onFormatNote(){
         stepArray : secureEditorStepArray,
         detail : secureDetail,
         priority : selectorNotePriorityRef.value,
-    }
+    };
 
 
 
@@ -1191,11 +1207,11 @@ function onFormatNote(){
     }else{
         onInsertModification(noteToInsert);
         console.log("mode modification de note");
-    }
+    };
 
 
 
-}
+};
 
 // Fonction pour récupérer les valeurs des inputs d'un LI par son ID
 function onSearchChildStep(idRef) {
@@ -1223,19 +1239,19 @@ function onSearchChildStep(idRef) {
           default:
             // Traitez les autres champs au besoin
             break;
-        }
+        };
 
         // Pour le cas particulier du checkbox
         if (input.type === 'checkbox') {
-          checkboxValue = input.checked;
-        }
+            checkboxValue = input.checked;
+        };
     });
 
 
     
 
     return {stepName:stepNameValue,stepChecked:checkboxValue,stepHour:parseInt(stepHourValue),stepMinutes:parseInt(stepMinutesValue)};
-  }
+};
 
 
 
@@ -1256,7 +1272,7 @@ function onInsertData(e) {
 
         // Clear l'editeur de note
         onClearNoteEditor();
-    }
+    };
 
     insertRequest.onerror = function(event){
         console.log("Error");
@@ -1265,17 +1281,17 @@ function onInsertData(e) {
         // User message pour titre en doublon
         if (errorMsg.includes("title")) {
             eventUserMessage(arrayUserMessage.errorDoubleTitle,"error");
-        }
-    }
+        };
+    };
 
     transaction.oncomplete = function(){
         console.log("transaction insertData complete");
 
         onCheckTagExist(e.tag);
 
-    }
+    };
 
-}
+};
 
 
 // Insertion d'une modification de note
@@ -1308,20 +1324,20 @@ function onInsertModification(e) {
         insertModifiedData.onsuccess = function (){
             console.log("insertModifiedData = success");
 
-        }
+        };
 
         insertModifiedData.onerror = function (){
             console.log("insertModifiedData = error",insertModifiedData.error);
 
             
-        }
+        };
 
 
-    }
+    };
 
     modifyRequest.onerror = function(){
         console.log("ModifyRequest = error");
-    }
+    };
 
     transaction.oncomplete = function(){
         console.log("transaction complete");
@@ -1338,8 +1354,8 @@ function onInsertModification(e) {
         onChangeDisplay(["divNoteEditor"],[],[],["divListBtnNote","divBtnNewTask","divNoteView"]);
 
 
-    }
-}
+    };
+};
 
 
 // Annuler une édition de note
@@ -1356,8 +1372,8 @@ function onClickBtnAnnulNoteEditor() {
     }else{
         // Gestion affichage 
         onChangeDisplay(["divNoteEditor"],["divNoteView"],[],["divListBtnNote","divBtnNewTask","divNoteView"]);
-    }
-}
+    };
+};
 
 
 
@@ -1401,7 +1417,7 @@ function onSearchNotesToDisplay(keyRef) {
         console.log("Erreur lors de la recherche");
     };
 
-}
+};
 
 
 // Variabilisation pour l'affichage d'une note
@@ -1467,12 +1483,12 @@ function onDisplayNote(e) {
                     newLi.innerHTML = "<del>" + i.stepName + "</del>";
                 }else{    
                     newLi.innerHTML = i.stepName;
-                }
+                };
                 
                 // Insertion 
                 ulNoteViewStepRef.appendChild(newLi);
             }
-    )
+    );
 
 
 
@@ -1493,7 +1509,7 @@ function onClearNoteView() {
     ulNoteViewStepRef.innerHTML = "";
     noteViewDateInfoRef.innerHTML = "";
     noteViewDateCreatedRef.innerHTML = "";
-}
+};
 
 
 
@@ -1522,7 +1538,7 @@ function onClickBtnDeleteNote() {
     // Gestion affichage
     onChangeDisplay([],["divPopupDelete"],["divNoteView","divListBtnNote","divBtnNewTask"],[]);
 
-}
+};
 
 function onValidSuppression(){
     // supprime la note active les pages et cache le popup
@@ -1531,13 +1547,13 @@ function onValidSuppression(){
     // Gestion affichage
     onChangeDisplay(["divNoteView","divPopupDelete"],[],[],["divListBtnNote","divBtnNewTask"]);
 
-}
+};
 
 function onCancelSuppression() {
  
     // Gestion affichage
     onChangeDisplay(["divPopupDelete"],[],[],["divNoteView","divListBtnNote","divBtnNewTask"]);
-}
+};
 
 
 
@@ -1565,7 +1581,7 @@ function onDeleteNote(keyTarget) {
 
     // Cache la visionneuse de note
     divNoteViewRef.style.display = "none";
-}
+};
 
 
 
@@ -1577,7 +1593,7 @@ function onChangeNotifyStatus(self,id) {
     let imgRef = document.getElementById(id);
 
     imgRef.src = self.checked === true ? "./images/IconeNotifyEnabled.png" : "./images/IconeNotifyDisabled.png";
-}
+};
 
 
 
@@ -1613,7 +1629,7 @@ function eventNoteTerminer(dataToSave,keyToDelete) {
         let totalStepMinutes = onCalculTotalStepDuration(dataToSave.stepArray);
         
         pStepTotalTimeInfoRef.innerHTML = ("La durée totale des étapes est de :" + totalStepMinutes.heures + " heures et " + totalStepMinutes.minutes + " minutes");
-    }
+    };
     
 
     // Affiche les dates de début et fin en proposition
@@ -1634,14 +1650,14 @@ function eventNoteTerminer(dataToSave,keyToDelete) {
     btnValidTerminerRef = document.getElementById("btnValidTerminer");
     btnValidTerminerRef.onclick = function (){
         onTermineNote(dataToSave,keyToDelete,false);
-    }
+    };
     btnCancelTerminerRef = document.getElementById("btnCancelTerminer");
     btnCancelTerminerRef.onclick = function (){
         onCancelPopupTerminer(false);
-    }
+    };
 
 
-}
+};
 
 
 // Lancement d'une note terminer depuis l'action Rapide
@@ -1661,7 +1677,7 @@ function quickEventNoteTerminer() {
         let totalStepMinutes = onCalculTotalStepDuration(currentNoteInView.stepArray);
         
         pStepTotalTimeInfoRef.innerHTML = ("La durée totale des étapes est de :" + totalStepMinutes.heures + " heures et " + totalStepMinutes.minutes + " minutes");
-    }
+    };
     
 
     // Affiche les dates de début et fin en proposition
@@ -1678,13 +1694,13 @@ function quickEventNoteTerminer() {
     btnValidTerminerRef = document.getElementById("btnValidTerminer");
     btnValidTerminerRef.onclick = function (){
         onTermineNote(currentNoteInView,currentKeyNoteInView,true);
-    }
+    };
     btnCancelTerminerRef = document.getElementById("btnCancelTerminer");
     btnCancelTerminerRef.onclick = function (){
         onCancelPopupTerminer(true);
-    }
+    };
 
-}
+};
 
 
 // Annulation du popup "Terminer"
@@ -1694,9 +1710,9 @@ function onCancelPopupTerminer(isQuickAction) {
         onChangeDisplay(["divPopupTerminer"],[],[],["divNoteView","divListBtnNote","divBtnNewTask"]);
     }else{
         onChangeDisplay(["divPopupTerminer"],[],[],["divNoteEditor"]);
-    }
+    };
     
-}
+};
 
 
 
@@ -1713,7 +1729,7 @@ function onTermineNote(data,key,isQuickAction) {
     if (isErrorDate === true) {
         // Stop l'enregistrement si erreur de date
         return
-    }
+    };
 
     // Sauvegarde des infos dans le store dashboard
 
@@ -1732,7 +1748,7 @@ function onTermineNote(data,key,isQuickAction) {
         dateEnd : finalDateEnd,
         duration : taskDuration,
 
-    }
+    };
     console.log(dataToSave);
 
 
@@ -1746,10 +1762,10 @@ function onTermineNote(data,key,isQuickAction) {
         onChangeDisplay(["divPopupTerminer","divNoteView"],[],[],["divListBtnNote","divBtnNewTask"]);
     }else{
         onChangeDisplay(["divPopupTerminer","divNoteEditor"],[],[],["divListBtnNote","divBtnNewTask"]);
-    }
+    };
     
 
-}
+};
 
 
 
@@ -1765,7 +1781,7 @@ function  onConvertDurationToMinutes(inputHourValue,inputMinuteValue) {
 
     return totalDurationMinutes;
        
-}
+};
 
 
 
@@ -1782,7 +1798,7 @@ function onCalculTotalStepDuration(stepDuration) {
     // converti le total des minutes en format heures
     let fullStepHour = onConvertMinutesToHour(totalMinutes);
     return fullStepHour;
-}
+};
 
 
 // Fonction de convertion d'un nombre de minutes en heures completes
@@ -1790,7 +1806,7 @@ function onConvertMinutesToHour(totalMinutes) {
     var heures = Math.floor(totalMinutes / 60);
     var minutes = totalMinutes % 60;
     return { heures: heures, minutes: minutes };
-}
+};
 
 
 
@@ -1813,12 +1829,12 @@ function onInsertDataDashboard(data,keyToDelete) {
 
         // // Clear l'editeur de note
         // onClearNoteEditor();
-    }
+    };
 
     insertRequest.onerror = function(){
         console.log("Error", insertRequest.error);
         alert(insertRequest.error);
-    }
+    };
 
     transaction.oncomplete = function(){
         console.log("transaction insertData complete");
@@ -1826,6 +1842,6 @@ function onInsertDataDashboard(data,keyToDelete) {
         console.log("Lancement de la suppression de la note");
         onDeleteNote(keyToDelete);
 
-    }
+    };
 
-}
+};

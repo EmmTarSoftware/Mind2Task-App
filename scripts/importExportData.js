@@ -26,7 +26,7 @@ function exportData() {
 
         transaction.oncomplete = function(){
             exportDataTAG();
-        }
+        };
 
 
 
@@ -53,7 +53,7 @@ function exportDataTAG() {
 
         transaction.oncomplete = function(){
             exportDataDashboard();
-        }
+        };
         
 
 };
@@ -77,7 +77,7 @@ function exportDataDashboard() {
 
     transaction.oncomplete = function (){
         exportDataTemplate();
-    }
+    };
 
 };
 
@@ -116,7 +116,7 @@ function downloadJSON(data, filename) {
     document.body.appendChild(a);
     a.click();
     document.body.removeChild(a);
-}
+};
 
 
 
@@ -159,12 +159,12 @@ function importTask(inputRef,storeRef,pResultRef) {
             } catch (error) {
                 console.error('Error parsing JSON:', error);
                 textResultRef.innerHTML =  "Erreur import";
-            }
+            };
         };
 
         reader.readAsText(selectedFile);
     } else {
         console.error('No file selected.');
         textResultRef.innerHTML =  "Aucun fichier selectionné !";
-    }
-}
+    };
+};

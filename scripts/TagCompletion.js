@@ -21,15 +21,15 @@ function onReadTagFromStore() {
         allTagCompletion = request.result;
         console.log("stockage des tag dans le tableau temporaire");
         console.log(allTagCompletion);
-    }
+    };
 
     request.onerror = function () {
         console.log("Erreur de requette sur le store TAG");
-    }
+    };
 
 
 
-}
+};
 
 
 
@@ -49,8 +49,8 @@ function onCheckTagExist(tagTarget) {
         console.log("le TAG COMPLETION " + tagTarget + "n'existe pas");
     }else{
         onUpdatePage(true);
-    }
-}
+    };
+};
 
 
 // Enregistre le tag dans le store
@@ -63,19 +63,19 @@ function onInsertTagInStore(e) {
 
     insertRequest.onsuccess = function (){
         console.log("Le TAG COMPLETION" + e + " a été ajouté dans le store");
-    }
+    };
 
     insertRequest.onerror = function (){
         console.log("Error", insertRequest.onerror);
         alert(insertRequest.onerror);
-    }
+    };
 
     transaction.oncomplete = function (){
         console.log("Transaction pour le TAG TAG COMPLETION completée");
 
         onUpdatePage(true);
-    }
-}
+    };
+};
 
 
 
@@ -99,8 +99,8 @@ function autocomplete(inputElement, completionArray) {
                 match: suggestion.substring(index, index + currentInput.length),
                 after: suggestion.substring(index + currentInput.length),
             });
-        }
-    }
+        };
+    };
 
     let suggestionList = document.getElementById('suggestionList');
     suggestionList.innerHTML = '';
@@ -118,8 +118,8 @@ function autocomplete(inputElement, completionArray) {
             suggestionList.innerHTML = '';
         });
         suggestionList.appendChild(suggestionItem);
-    }
-}
+    };
+};
 
 
 // Lorsque je clique dans l'input TAG
@@ -129,7 +129,7 @@ function onClickInTagInput() {
     
     let inputElement = document.getElementById('inputNoteTag');
     autocomplete(inputElement, allTagCompletion);
-}
+};
 
 
 
@@ -145,6 +145,6 @@ document.addEventListener('click', function(event) {
     if (!event.target.matches('#inputNoteTag')) {
         ulSuggestionListRef.innerHTML = '';
         ulSuggestionListRef.style.display = 'none';
-    }
+    };
 });
 

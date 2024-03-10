@@ -16,7 +16,7 @@ function onListTAG(arrayResult) {
 
     let dataToFilter = arrayResult.filter(item=>{
         return item.status === statusArray[0].systemStatus || item.status === statusArray[1].systemStatus;
-    })
+    });
 
 
     let tempTagList = [];
@@ -25,14 +25,14 @@ function onListTAG(arrayResult) {
         
         if (!tempTagList.includes(e.tag)) {
             tempTagList.push(e.tag);
-        }
+        };
         
     });
 
 
 
     onUpdateTagList(tempTagList,arrayResult);
-}
+};
 
 
 
@@ -48,7 +48,7 @@ function onUpdateTagList(tempTagList,arrayResult) {
             allTagList.push(e);
             console.log(" [TAG-FILTER] J'ajoute = " + e);
         }
-    })
+    });
 
     // Traitement des tag à retirer
     console.log(" [TAG-FILTER] traitement des TAG à retirer");
@@ -60,8 +60,8 @@ function onUpdateTagList(tempTagList,arrayResult) {
             // Retrait de l'indésirable
             allTagList.splice(indexToDelete,1);
             console.log(" [TAG-FILTER] Je retire = " + e);
-        }
-    })
+        };
+    });
 
 
     // Ajoute le TAG 'Toutes les taches' au début de l'array si n'existe pas
@@ -70,7 +70,7 @@ function onUpdateTagList(tempTagList,arrayResult) {
 
     if (!allTagList.includes(genericTAG)) {
         allTagList.unshift(genericTAG);
-    }
+    };
 
     // Fonction pour avoir un trie personnalisé et laissé "TOUTE LES TACHES" en premier
     function customSort(a, b) {
@@ -84,8 +84,8 @@ function onUpdateTagList(tempTagList,arrayResult) {
         } else {
             //Pour le reste, comparaison normale   
           return a.localeCompare(b);
-        }
-      }
+        };
+    };
       
     allTagList.sort(customSort);
 
@@ -100,12 +100,12 @@ function onUpdateTagList(tempTagList,arrayResult) {
     }else{
         console.log(" [TAG-FILTER] le tag en cours n'existe plus = réinitialisation");
         currentTagFilter = genericTAG;
-    }
+    };
 
 
 
     onSetSelectTagList(allTagList,arrayResult);
-}
+};
 
 
 
@@ -124,14 +124,14 @@ function onSetSelectTagList(TagToAdd,arrayResult) {
         newOption.innerHTML = e;
 
         selectTagFilterRef.appendChild(newOption);
-    })
+    });
 
     // set la valeur du tag actuel
     selectTagFilterRef.value = currentTagFilter;
 
 
     onSortItem(arrayResult);
-}
+};
 
 
 
@@ -140,7 +140,7 @@ function onSelectorTagChange(){
     console.log("changement de selecteur pour = " + selectTagFilterRef.value);
     currentTagFilter = selectTagFilterRef.value;
     onUpdatePage(false);
-}
+};
 
 
 
@@ -164,5 +164,5 @@ inputSearchTextRef.addEventListener("keypress", function(event) {
     if (event.key === "Enter") {
       event.preventDefault();
       onUpdatePage(false);
-    }
-})
+    };
+});

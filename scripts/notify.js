@@ -23,7 +23,9 @@ let arrayUserMessage = {
     forbiddenItem: "Des données sensibles ont été effacées.",
     errorDoubleTitle: "Ce titre existe déjà dans la base de données.",
     dasboardEmpty:"Aucune donnée à exporter !",
-    taskDeleted:"Note supprimée !"
+    taskDeleted:"Note supprimée !",
+    templateDeleted:"Modèle supprimé !",
+    templateRenamed:"Modèle renommé !"
 };
 
     
@@ -55,7 +57,7 @@ function eventUserMessage(textToDisplay,type) {
         default:
             console.log("Type d'image non configurer pour eventUserMessage");
             break;
-    }
+    };
 
 
 
@@ -72,10 +74,10 @@ function eventUserMessage(textToDisplay,type) {
     }else{
         console.log("[ USER-MESSAGE ] aucune div disponible mise en liste d'attente");
         userMsgCueArray.push({text: textToDisplay,img : imageSrc});
-    }
+    };
     
 
-}
+};
 
 
 // Div usermessage A
@@ -106,14 +108,14 @@ function ondisplayUserMsgA(textToDisplay,img) {
        if (userMsgCueArray.length > 0) {
         let msgExtraction = onExtractUserMessage();
         ondisplayUserMsgA(msgExtraction.text,msgExtraction.img);
-    }else{
-        // Si plus d'élément met fin 
-        isNotifyAFree = true;
-    }
+        }else{
+            // Si plus d'élément met fin 
+            isNotifyAFree = true;
+        };
 
     }, 2000);
 
-}
+};
 
 // Div usermessage B
 function ondisplayUserMsgB(textToDisplay,img) {
@@ -147,12 +149,12 @@ function ondisplayUserMsgB(textToDisplay,img) {
         }else{
             // Si plus d'élément met fin 
             isNotifyBFree = true;
-        }
+        };
 
         
     }, 2000);
 
-}
+};
 
 // Fonction pour récupérer un item dans la liste d'attente
 
@@ -164,9 +166,9 @@ function onExtractUserMessage() {
     // Retire le message de la liste
     userMsgCueArray.splice(0,1);
 
-    return msgExtracted
+    return msgExtracted;
 
-}
+};
 
 
 
@@ -227,7 +229,7 @@ function onNotifyDateToday(array,dateTarget) {
 function onNotifyDateLate(array,dateToday) {
     array.forEach(e => {
         if (dateToday > e.dateEnd.value && e.dateEnd.notify === true) {
-            notifyLateArray.push({tag: e.tag, title :e.title , date: e.dateEnd.value});
+            notifyLateArray.push({tag: e.tag, title :e.title , date: onFormatDateToFr(e.dateEnd.value)});
         }
     });
 

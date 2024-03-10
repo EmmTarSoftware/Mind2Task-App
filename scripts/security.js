@@ -42,19 +42,19 @@ function securitySearchforbiddenItem(e) {
         secureText = secureText.replace(ipRegex, match => 'X'.repeat(match.length));
         
  
-    }
+    };
     
 
     // Comparaison pour savoir si il y a eu des modifications pour afficher un user message
     if (e != secureText && userMsgSecureOnce === false) {
         onDetectforbiddenItem();
         userMsgSecureOnce = true;
-    }
+    };
 
 
     return secureText;
-}
+};
 
 function onDetectforbiddenItem() {
     eventUserMessage(arrayUserMessage.forbiddenItem,"warning");
-}
+};

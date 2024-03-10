@@ -31,7 +31,7 @@ function onSetDateDuJour() {
 
     console.log(new Date());
     
-}
+};
 onSetDateDuJour();
 
 
@@ -74,13 +74,13 @@ function onStartDataBase() {
             noteStore.createIndex('status','status',{unique:false});
             noteStore.createIndex('tag','tag',{unique:false});
             noteStore.createIndex('priority','priority',{unique:false});
-        }
+        };
 
         // Creation du store pour les TAG d'autocomplétion
         if (!db.objectStoreNames.contains(tagStoreName)) {
             let tagStore = db.createObjectStore(tagStoreName, {autoIncrement: true});
             console.log("Creation du magasin "+  tagStoreName);
-        }
+        };
 
         // Creation du store pour le dashboard
         if (!db.objectStoreNames.contains(dashBoardStoreName)) {
@@ -91,7 +91,7 @@ function onStartDataBase() {
             dashboardStore.createIndex('duration','duration',{unique:false});
             dashboardStore.createIndex('dateStart','dateStart',{unique:false});
             dashboardStore.createIndex('dateEnd','dateEnd',{unique:false});
-        }
+        };
 
 
         // Creation du store pour le template
@@ -100,7 +100,7 @@ function onStartDataBase() {
             console.log("Creation du magasin "+  templateStoreName);
 
             templateStore.createIndex('title','title',{unique:true});
-        }
+        };
 
         // Stoque le numéro de version de base de l'application
         localStorage.setItem(cookiesBddVersionName, currentBaseVersion.toString());
@@ -122,7 +122,7 @@ function onStartDataBase() {
 
 
 
-}
+};
 
 
 
@@ -143,7 +143,7 @@ function onFormatDateToday() {
     let dateDuJour = annee + '-' + mois + '-' + jour;
 
     return dateDuJour;
-}
+};
 
 
 
@@ -166,7 +166,7 @@ function onFormatDateToFr(dateString) {
     let dateFormatee = jour + '-' + mois + '-' + annee;
 
     return dateFormatee;
-}
+};
 
 
 // fonction de gestion de l'affichage
@@ -198,7 +198,7 @@ function onChangeDisplay(toHide,toDisplay,toDisable,toEnable) {
      });
 
 
-}
+};
 
 
 
@@ -206,12 +206,12 @@ function onChangeDisplay(toHide,toDisplay,toDisable,toEnable) {
 function onSetToUppercase(e) {
     let upperCase = e.toUpperCase();
     return upperCase;
-}
+};
 
 function onSetFirstLetterUppercase(e) {
     let firstLetterUpperCase = e.charAt(0).toUpperCase() + e.slice(1);
     return firstLetterUpperCase;
-}
+};
 
 
 // detection des champs vides obligatoires
@@ -219,9 +219,9 @@ function onSetFirstLetterUppercase(e) {
 function onCheckEmptyField(e) {
     if (e === "") {
         console.log("Champ vide obligatoire détecté !");
-    }
+    };
     return e === ""? true :false;
-}
+};
 
 // Detection d'erreur de date
 
@@ -235,11 +235,11 @@ function onCheckDateError(dateDebut, dateFin) {
         console.log("Dates choisies incorrecte !");
         // Notification
         eventUserMessage(arrayUserMessage.errorDate,"error");
-    }
+    };
     return tempDateDebut > tempDateFin ? true :false;
 
 
-}
+};
 
 
 // Fonction de limite des nombres dans un input
@@ -249,17 +249,17 @@ function onlimitNumberLength(input, maxLength, maxValue) {
 
     // Limite la longueur du nombre
     if (value.length > maxLength) {
-      value = value.slice(0, maxLength);
-    }
+        value = value.slice(0, maxLength);
+    };
 
     // Limite la valeur maximale
     const numericValue = parseInt(value, 10);
     if (!isNaN(numericValue) && numericValue > maxValue) {
-      value = maxValue.toString();
-    }
+        value = maxValue.toString();
+    };
 
     input.value = value;
-  }
+};
 
 
 
@@ -280,7 +280,7 @@ function onRemoveSpecialCaracter(text) {
     };
 
     return correctedTitle;
-}
+};
 
 
 
@@ -316,7 +316,7 @@ function onChangeMenu(menuTarget) {
         
             default:
                 break;
-        }
+        };
 
 
 
@@ -344,10 +344,10 @@ function onChangeMenu(menuTarget) {
         
             default:
                 break;
-        }
-    }
+        };
+    };
 
-}
+};
 
 
 
@@ -357,14 +357,14 @@ function onClickMenuAccueil() {
     onChangeDisplay([],["divAccueil"],[],[]);
     // Changement image icone
     document.getElementById("imgIconMainMenuAccueil").src = "./images/IconeHomeSelected.png";
-}
+};
 
 function onCloseMenuAccueil() {
     // Remet la page d'accueil dans son affichage initiale et la ferme
     onChangeDisplay(["divNoteEditor","divNoteView","divPopupDelete","divPopupTerminer","divQuickChangePriority","divAccueil","divChoiceTemplate"],[],[],["divNoteEditor","divNoteView","divListBtnNote","divBtnNewTask"]);
     // Changement image icone
     document.getElementById("imgIconMainMenuAccueil").src = "./images/IconeHome.png";
-}
+};
 
 
 
@@ -377,7 +377,7 @@ function onClickMenuDashboard() {
     document.getElementById("imgIconMainMenuDashboard").src = "./images/IconeDashboardSelected.png";
 
     onOpenDashboard();
-}
+};
 
 function onCloseMenuDashboard() {
     // Gestion affichage
@@ -385,7 +385,7 @@ function onCloseMenuDashboard() {
     // Changement image icone
     document.getElementById("imgIconMainMenuDashboard").src = "./images/IconeDashboard.png";
     onClearDashboard();
-}
+};
 
 
 // Menu Setting
@@ -397,14 +397,14 @@ function onClickMenuSetting() {
     // Changement image icone
     document.getElementById("imgIconMainMenuSetting").src = "./images/IconeSettingSelected.png";
     onDisplaySetting();
-}
+};
 
 function onCloseMenuSetting() {
     // Gestion affichage
     onChangeDisplay(["divSetting"],[],[],[]);
         // Changement image icone
         document.getElementById("imgIconMainMenuSetting").src = "./images/IconeSetting.png";
-}
+};
 
 
 
@@ -417,7 +417,7 @@ function onClickMenuInfo() {
     // Changement image icone
     document.getElementById("imgIconMainMenuInfo").src = "./images/IconeInfoSelected.png";
     onOpenMenuInfo();
-}
+};
 
 function onCloseMenuInfo() {
     // Gestion affichage
@@ -426,7 +426,7 @@ function onCloseMenuInfo() {
     document.getElementById("imgIconMainMenuInfo").src = "./images/IconeInfo.png";
 
     onQuitMenuInfo();
-}
+};
 
 
 // Menu Template
@@ -438,7 +438,7 @@ function onClickMenuTemplate() {
     // Changement image icone
     document.getElementById("imgIconMainMenuTemplate").src = "./images/IconeMenuTemplate2Selected.png";
     onOpenMenuTemplate();
-}
+};
 
 function onCloseMenuTemplate() {
     // Gestion affichage
@@ -447,7 +447,7 @@ function onCloseMenuTemplate() {
     document.getElementById("imgIconMainMenuTemplate").src = "./images/IconeMenuTemplate2.png";
 
     onQuitMenuTemplate();
-}
+};
 
 
 
@@ -468,19 +468,19 @@ if (accepted === "true") {
     document.getElementById("popupValidationUser").style.display = "none";
 } else {
     document.getElementById("popupValidationUser").style.display = "flex";
-}
+};
 
 
 function toggleLaunchButton(checkbox) {
 let launchBtn = document.getElementById("launch-btn");
 launchBtn.disabled = !checkbox.checked;
-}
+};
 
 function launchApplication() {
 let popupValidationUserRef = document.getElementById("popupValidationUser");
 popupValidationUserRef.style.display = "none";
 localStorage.setItem("Mind2Task-accepted", "true");
-}
+};
 
 
 
@@ -501,7 +501,7 @@ function switchFullScreen() {
         document.documentElement.webkitRequestFullscreen();
       } else if (document.documentElement.msRequestFullscreen) {
         document.documentElement.msRequestFullscreen();
-      }
+      };
     } else {
       // Quitte ple mode plein écran
       if (document.exitFullscreen) {
@@ -512,9 +512,9 @@ function switchFullScreen() {
         document.webkitExitFullscreen();
       } else if (document.msExitFullscreen) {
         document.msExitFullscreen();
-      }
-    }
-  }
+      };
+    };
+  };
   
 
 
@@ -523,10 +523,10 @@ function switchFullScreen() {
 function onConvertPriority(systemValue) {
     let correspondance = priorityArray.find(e=>{
         return e.systemPriority === systemValue;
-    })
+    });
 
     return correspondance.userPriority;
-}
+};
 
 
 // Fonction de concordance "status" system et utilisateur
@@ -534,10 +534,10 @@ function onConvertPriority(systemValue) {
 function onConvertStatus(systemValue) {
     let correspondance = statusArray.find(e=>{
         return e.systemStatus === systemValue;
-    })
+    });
 
     return correspondance.userStatus;
-}
+};
 
 
 

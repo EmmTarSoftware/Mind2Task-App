@@ -12,11 +12,11 @@ function onOpenDashboard() {
     requestDashboard.onsuccess = function (){
         console.log("Les éléments ont été récupérés dans le dashboard");
         console.log("stockage dans le tableau temporaire");
-    }
+    };
 
     requestDashboard.error = function (){
         console.log("Erreur de requête sur la base");
-    }
+    };
 
     transaction.oncomplete = function (){
         let arrayResult = requestDashboard.result;
@@ -31,8 +31,8 @@ function onOpenDashboard() {
 
         // En meme temps calcul la tache la plus longue
         onSetMaxTaskDuration(arrayResult);
-    }
-}
+    };
+};
 
 
 
@@ -77,7 +77,7 @@ function countTasksByMonth(tasks) {
         } else {
             dataByMonth[monthName].tasks++;
             dataByMonth[monthName].totalDuration += duration;
-        }
+        };
     });
 
     // Trouve le mois avec le plus de tâches (mois de référence pour les 100%)
@@ -91,7 +91,7 @@ function countTasksByMonth(tasks) {
     // Utilise le mois de référence ayant le max de tache ou d'heure pour calculer le pourcentage
     onGenerateStatisticResult(dataByMonth[maxTasksMonth].tasks, dataByMonth[maxHoursMonth].totalDuration,dataByMonth);
 
-}
+};
 
 
 
@@ -99,7 +99,7 @@ function countTasksByMonth(tasks) {
 
 function onCalculDashboardPercent(referenceValue, currentItemValue) {
     return (currentItemValue / referenceValue) * 100;
-}
+};
 
 
 
@@ -176,7 +176,7 @@ function onGenerateStatisticResult(highTasksNumberValue, highTaskHourValue,dataB
             newDivPBTaskMonth.innerHTML = `<strong>${monthDisplay}</strong>`;
         } else {
             newDivPBTaskMonth.innerHTML = monthDisplay;
-        }
+        };
 
         // Les insertions:
         newDivColumn.appendChild(newDivPBZone);
@@ -185,8 +185,8 @@ function onGenerateStatisticResult(highTasksNumberValue, highTaskHourValue,dataB
         newDivColumn.appendChild(newDivPBHourCount);
 
         document.getElementById("divStatisticContainer").appendChild(newDivColumn);
-    }
-}
+    };
+};
 
 
 
@@ -202,9 +202,8 @@ function onSetDiversDashboardItem(taskStatus2Length) {
     pdashboardStatus1Ref.innerHTML = `<strong>Nombre de tâches '${statusArray[1].userStatus}' : </strong>${nbreTaskStatus1}`;
     pdashboardStatus2Ref.innerHTML = `<strong>Nombre de tâches '${statusArray[2].userStatus}' : </strong>${taskStatus2Length}`;
 
-    onSetMaxTaskDuration
 
-}
+};
 
 
 // Fonction pour la tâche la plus longue
@@ -236,10 +235,10 @@ function onSetMaxTaskDuration(dashboardArray) {
             newLi.innerHTML = `${e.title} `;
     
             ulDashboardMaxDuration.appendChild(newLi);
-        })
+        });
     }else{
         ulDashboardMaxDuration.innerHTML = "Aucun élément à afficher.";
-    }
+    };
     
     
 
@@ -247,7 +246,7 @@ function onSetMaxTaskDuration(dashboardArray) {
     topTagsByDuration(dashboardArray);
     topTagsByTaskCount(dashboardArray);
 
-}
+};
 
 // TOP 3
 
@@ -262,7 +261,7 @@ function topTagsByDuration(dashboardData) {
     dashboardData.forEach(task => {
         if (!tagDurationMap[task.tag]) {
             tagDurationMap[task.tag] = 0;
-        }
+        };
         tagDurationMap[task.tag] += task.duration;
     });
 
@@ -286,14 +285,14 @@ function topTagsByDuration(dashboardData) {
         newLi.innerHTML = `<strong> ${e.tag} : </strong> ${convertedDuration.heures}.${textMinutes} heures.`;
 
         olTop3TAGDuration.appendChild(newLi);
-    })
+    });
 
-}
+};
 
 // Convertion de l'affichage des minutes en texte user avec zero devant si besoin
 function onConvertMinutesToText(e) {
     return e>=10 ? e : '0' + e;
-}
+};
 
 
 
@@ -328,10 +327,10 @@ function topTagsByTaskCount(dashboardData) {
         newLi.innerHTML = `<strong> ${e.tag} : </strong>${e.taskCount} tâches.`;
 
         olTop3TAGNbre.appendChild(newLi);
-    })
+    });
 
     
-}
+};
 
 
 
@@ -345,7 +344,7 @@ nbreTaskStatus1 = 0;
 function onCountTaskByStatus(array) {
     nbreTaskStatus0 = onCountTask(array,statusArray[0].systemStatus);
     nbreTaskStatus1 = onCountTask(array,statusArray[1].systemStatus);
-}
+};
 
 
 // Compteur de taches
@@ -359,7 +358,7 @@ function onCountTask(array, statusTarget) {
     });
 
     return compteur;
-}
+};
 
 
 
@@ -382,7 +381,7 @@ function onClearDashboard() {
     document.getElementById("pDashboardMaxDuration").innerHTML = "";
     document.getElementById("olTop3TAGDuration").innerHTML = "";
     document.getElementById("olTop3TAGNbre").innerHTML = "";
-}
+};
 
 
 
@@ -399,7 +398,7 @@ function onClickClotureSession() {
     // Affiche popup et grise le reste
     onChangeDisplay([],["divPopupCloture"],["divDashboardContent"],[]);
 
-}
+};
 
 
 
@@ -409,7 +408,7 @@ function onClickClotureSession() {
 function onCancelClotureSession() {
     // Affiche popup et grise le reste
     onChangeDisplay(["divPopupCloture"],[],[],["divDashboardContent"]);
-}
+};
 
 
 
@@ -426,11 +425,11 @@ function onValidClotureSession() {
     requestDashboard.onsuccess = function (){
         console.log("Les éléments ont été récupérés dans le dashboard");
         console.log("stockage dans le tableau temporaire");
-    }
+    };
 
     requestDashboard.error = function (){
         console.log("Erreur de requête sur la base");
-    }
+    };
 
     transaction.oncomplete = function (){
         let arrayResult = requestDashboard.result;
@@ -444,11 +443,11 @@ function onValidClotureSession() {
             exportDashboardSession(sessionDates);
         }else{
             eventUserMessage(arrayUserMessage.dasboardEmpty,"error");
-        }
+        };
 
         
-    }
-}
+    };
+};
 
 
 function onFindSessionDate(dashboardArray) {
@@ -488,7 +487,7 @@ function onFindSessionDate(dashboardArray) {
             olderDate: formatDateSessionFR(olderDate),
             lastDate: formatDateSessionFR(lastDate)
         };
-}
+};
     
 
 
@@ -515,7 +514,7 @@ function exportDashboardSession(sessionDates) {
     transaction.oncomplete = function (){
         
 
-    }
+    };
 
 };
 
@@ -541,10 +540,10 @@ function onClearDashboardStore() {
 
         // Regénère le dashboard
         onOpenDashboard();
-    }
+    };
 
     // Gérer les erreurs éventuelles
     transaction.onerror = function(event) {
-    console.error("Erreur lors de la tentative de vidage du store :", event.target.error);
+        console.error("Erreur lors de la tentative de vidage du store :", event.target.error);
+    };
 };
-}

@@ -12,4 +12,4 @@ function onOpenMenuInfo() {
 // Fermeture du menu info
 function onQuitMenuInfo() {
 
-}
+};

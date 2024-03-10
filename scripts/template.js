@@ -16,11 +16,11 @@ function onFindTemplateInDB() {
         requestTask.onsuccess = function () {
             console.log("[ TEMPLATE ] les éléments ont été récupérés dans la base");
             console.log(" [ TEMPLATE ] stockage dans le tableau temporaire");
-        }
+        };
 
         requestTask.onerror = function () {
             reject(new Error("Erreur de requête sur la base"));
-        }
+        };
 
         transaction.oncomplete = function () {
             let tempArrayTemplate = requestTask.result;
@@ -34,10 +34,10 @@ function onFindTemplateInDB() {
             } else {
                 console.log("[ TEMPLATE ] Aucun template");
                 resolve(false);
-            }
-        }
+            };
+        };
     });
-}
+};
 
 
 
@@ -66,7 +66,7 @@ function onUpdateTemplateToHome() {
         .catch(error => {
             console.error("Une erreur s'est produite : ", error);
         });
-}
+};
 
 
 
@@ -95,10 +95,10 @@ function onClickSelectTemplate() {
             newOption.innerHTML = e.title;
 
             selectorTemplateRef.appendChild(newOption);
-        })
+        });
    
     
-}
+};
 
 
 function onReturnFromChoiceTemplate() {
@@ -106,7 +106,7 @@ function onReturnFromChoiceTemplate() {
     onChangeDisplay(["divChoiceTemplate"],[],[],["divListBtnNote","divBtnNewTask"]);
     
 
-}
+};
 
 
 
@@ -123,7 +123,7 @@ function onChooseTemplate() {
     onDisplayNoteEditorFromTemplate(templateKeyValue);
 
     onChangeDisplay(["divChoiceTemplate"],[],[],[]);
-}
+};
 
 
 
@@ -171,7 +171,7 @@ function onDisplayNoteEditorFromTemplate(keyRef){
     };
 
 
-}
+};
 
 
 
@@ -184,9 +184,8 @@ function onClickSaveAsTemplate() {
         onCheckNoteError();//dans NoteSystem.js
     }else{
         eventUserMessage(`${arrayUserMessage.templateLimit} (${maxTemplate})`,"error");
-    }   
-}
-
+    }; 
+};
 
 
 
@@ -198,9 +197,9 @@ function onInsertTemplate(e) {
         onInsertModifiedTemplate(e,templateType.key);
     }else{
         onInsertNewTemplate(e);
-    }
+    };
 
-}
+};
 
 // fonction de recherche de titre dans le tableau de template
 function onFindTemplateTitle(titleTarget) {
@@ -208,10 +207,10 @@ function onFindTemplateTitle(titleTarget) {
      for (let i = 0; i < arrayTemplate.length; i++) {
         if (arrayTemplate[i].title === titleTarget) {
             return { modified: true, key: arrayTemplate[i].key };
-        }
-    }
+        };
+    };
     return { modified: false, key: null };
-}
+};
 
 
 
@@ -235,17 +234,17 @@ function onInsertNewTemplate(e) {
     insertRequest.onsuccess = function () {
         console.log(e.title + "a été ajouté à la au template");
         // evenement de notification
-        eventUserMessage(arrayUserMessage.templateCreated + e.title),"info";
+        eventUserMessage(arrayUserMessage.templateCreated + e.title,"info");
 
 
         // Clear l'editeur de note
         onClearNoteEditor();
-    }
+    };
 
     insertRequest.onerror = function(){
         console.log("Error", insertRequest.error);
         alert(insertRequest.error);
-    }
+    };
 
     transaction.oncomplete = function(){
         console.log("transaction insert Template complete");
@@ -254,8 +253,8 @@ function onInsertNewTemplate(e) {
         onChangeDisplay(["divNoteEditor"],[],[],["divListBtnNote","divBtnNewTask","divNoteView"]);
         onUpdatePage(false);
 
-    }
-}
+    };
+};
 
 
 
@@ -297,20 +296,20 @@ function onInsertModifiedTemplate(e,keyTarget) {
             // Clear l'editeur de note
             onClearNoteEditor();
 
-        }
+        };
 
         insertModifiedData.onerror = function (){
             console.log("insertModifiedData = error",insertModifiedData.error);
 
             
-        }
+        };
 
 
-    }
+    };
 
     modifyRequest.onerror = function(){
         console.log("[ TEMPLATE ] ModifyRequest = error");
-    }
+    };
 
     transaction.oncomplete = function(){
         console.log("[ TEMPLATE ] transaction insert Template complete");
@@ -319,8 +318,14 @@ function onInsertModifiedTemplate(e,keyTarget) {
         onChangeDisplay(["divNoteEditor"],[],[],["divListBtnNote","divBtnNewTask","divNoteView"]);
         onUpdatePage(false);
 
-    }
-}
+    };
+};
+
+
+
+
+
+
 
 
 // -------------------------------------------  GESTIONNAIRE DE TEMPLATE -------------------------------------------
@@ -350,13 +355,13 @@ function onUpdateTemplateFromManager() {
             }else{
                 // Si aucun template
                 document.getElementById("divGestionTemplateList").innerHTML = arrayUserMessage.templateListEmpty;
-            }
+            };
 
         })
         .catch(error => {
             console.error("Une erreur s'est produite : ", error);
         });
-}
+};
 
 
 
@@ -383,7 +388,7 @@ function onSetTemplateManagerList() {
         newBtnRename.src ="./images/IconeRename.png";
         newBtnRename.onclick = function (){
             onDisplayRenameTemplate(e.title,e.key);
-        }
+        };
 
         // Supprimer
         let newBtnDelete = document.createElement("img");
@@ -391,7 +396,7 @@ function onSetTemplateManagerList() {
         newBtnDelete.src ="./images/IconeDelete3.png";
         newBtnDelete.onclick = function (){
             onClickDeleteTemplate(e.title,e.key);
-        }
+        };
 
 
         // Insertion
@@ -402,8 +407,8 @@ function onSetTemplateManagerList() {
 
         document.getElementById("divGestionTemplateList").appendChild(newMainDiv);
 
-    })
-}
+    });
+};
 
 
 
@@ -423,9 +428,9 @@ function onDisplayRenameTemplate(templateTitle,templateKey) {
     // Set la fonction dans le bouton de validation du renommage
     document.getElementById("btnValidRenameTemplate").onclick = function (){
         onValidRenameTemplate(templateKey);
-    }
+    };
 
-}
+};
 
 
 
@@ -461,32 +466,34 @@ function onValidRenameTemplate(templateKeyRef) {
             }
         } else {
             console.log("L'objet à mettre à jour n'a pas été trouvé.");
-        }
-    }
+        };
+    };
 
     modifyRequest.onerror = function () {
         console.log("QuickModifyRequest = error", modifyRequest.error);
-    }
+    };
 
     transaction.oncomplete = function () {
+
+        eventUserMessage(arrayUserMessage.templateRenamed,"info");
 
         // Remet à jour la page 
         onUpdateTemplateFromManager();
 
-    }
+    };
 
     transaction.onerror = function () {
         console.log("Transaction error", transaction.error);
-    }
+    };
 
 
-}
+};
 
 // Annule le renommage
 function onCancelTemplateRename(){
     // Cache le popup de renommage
     onChangeDisplay(["divRenameTemplate"],[],[],["divGestionTemplateList"]);
-}
+};
 
 
 //-------------------------- suppression -----------------------
@@ -504,9 +511,9 @@ function onClickDeleteTemplate(templateToDeleteTitle,templateKeyToDelete) {
     // Set la key du template ciblé dans la fonction
     document.getElementById("btnValidTemplateSuppression").onclick = function () {
         onValidSuprTemplate(templateKeyToDelete);
-    }
+    };
 
-}
+};
 
 
 
@@ -520,7 +527,7 @@ function onValidSuprTemplate(templateKeyToDelete) {
     
     request.onsuccess = function (){
         console.log("Requete de suppression réussit");
-        
+        eventUserMessage(arrayUserMessage.templateDeleted,"info");
         // Remet à jour la page 
         onUpdateTemplateFromManager()
     };
@@ -530,13 +537,13 @@ function onValidSuprTemplate(templateKeyToDelete) {
                 
     };
 
-}
+};
 
 
 function onCancelTemplateSuppresion() {
         // Cache le popup de confirmation
         onChangeDisplay(["divPopupDeleteTemplate"],[],[],["divGestionTemplateList"]);
-}
+};
 
 
 
@@ -549,11 +556,11 @@ function onCancelTemplateSuppresion() {
 // Ouverture et fermeture du menu template depuis le menu principal
 function onOpenMenuTemplate() {
     onUpdateTemplateFromManager()
-}
+};
 
 function onQuitMenuTemplate() {
     document.getElementById("divGestionTemplateList").innerHTML ="";
-}
+};
 
 
 
