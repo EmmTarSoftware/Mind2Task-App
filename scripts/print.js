@@ -11,7 +11,7 @@ function onClickPrint() {
     pageToPrint.document.write('<style>');
     pageToPrint.document.write('table, th, td{width: 800px;text-align: center;}');
     pageToPrint.document.write('tr.viewNoteRowTitle p{padding-top:30px;font-size: 3ch;font-weight: bold;height:100px;}');
-    pageToPrint.document.write('tr.tableViewNoteRowDetail p{text-align: left;font-size: 2.8ch;text-align: justify;height:300px;}');
+    pageToPrint.document.write('tr.tableViewNoteRowDetail div{text-align: left;font-size: 2.5ch;text-align: justify;height:300px;white-space: pre-line;white-space: pre-wrap;}');
     pageToPrint.document.write('tr.tableViewNoteRowStep{height: 500px;vertical-align: top;}');
     pageToPrint.document.write('tr.tableViewNoteRowStep li{text-align: left;}');
     pageToPrint.document.write('</style>');

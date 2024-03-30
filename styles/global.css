@@ -788,4 +788,7 @@ select.selectTemplate{
 }
 
 
-
+/* éléments cachés pour l'utilisateur dans le cadre du développement */
+.classHidden{
+	display: none;
+}

@@ -162,6 +162,11 @@ function onGenerateStatisticResult(highTasksNumberValue, highTaskHourValue,dataB
 
         // Convertion des minutes en format heure/minutes pour un meilleur affichage
         let friendlyDurationDisplay = onConvertMinutesToHour(hourCount);
+        // Gestion des doubles digits
+        if (friendlyDurationDisplay.minutes < 10) {
+            friendlyDurationDisplay.minutes = "0" + friendlyDurationDisplay.minutes;
+        }
+
 
         // Nbre hours
         let newDivPBHourCount = document.createElement("div");
