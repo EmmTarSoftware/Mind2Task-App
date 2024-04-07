@@ -45,7 +45,7 @@
             <img class="mainMenuIcon" src="./images/IconeScreen.png" alt="Plein écran" srcset="" title="Plein écran">
             <p class="textMainMenu">Plein écran</p>
         </div>
-        <p class="release">Release : 1.2.2</p>
+        <p class="release">Release : 1.2.3</p>
 
     </div>
     
@@ -392,20 +392,30 @@
         <!-- ----------------------  DIV NOTIFICATION ALERTE DATE-------------------------->
         <div id="divNotifyAlert" class="divNotifyAlert popup">
             <h2>Notification</h2>
-            <h3>Aujourd'hui :</h3>
-            <ul id="ulListNotifyToday">
-                <!-- Injection -->
-                <li>
-                    test Today
-                </li>
-            </ul>
-            <h3>En retard :</h3>
-            <ul id="ulListNotifyLate">
-                <!-- Injection -->
-                <li>
-                    Test en retard
-                </li>
-            </ul>
+            <table>
+                <tr>
+                    <th><h3>Aujourd'hui :</h3></th>
+                    <th><h3>En retard :</h3></th>
+                </tr>
+                <tr>
+                    <td>
+                        <ul id="ulListNotifyToday">
+                            <!-- Injection -->
+                            <li>
+                                test Today
+                            </li>
+                        </ul>
+                    </td>
+                    <td>
+                        <ul id="ulListNotifyLate">
+                            <!-- Injection -->
+                            <li>
+                                Test en retard
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+            </table>
         </div>
         <!-- ---------------------- FIN DIV NOTIFICATION ALERTE -------------------------->
 
@@ -577,71 +587,28 @@
             
             <!-- Div notification -->
             <div>
-                <table class="setting classHidden">
-                    <tr><th colspan="3">NOTIFICATION</th></tr>
-                    <!-- Mode manuel -->
+                <table class="setting">
+                    <tr><th colspan="2">NOTIFICATION</th></tr>
                     <tr>
-                      <td rowspan="4">
-                            <input type="checkbox" name="notifyMode" id="inputCBNotifyModeManual" onchange="onClickNotifyManualMode()">
+                        <!-- Mode manuel -->
+                        <td>
+                            <input type="checkbox" name="notifyMode" id="inputCBNotifyModeManual" onchange="onChangeNotifyMode('manual')">
                             <label class="labelSetting" for="inputCBNotifyModeManual">MODE MANUEL</label>
                             </td>
-                        <td rowspan="2">Date début</td>
+                        <!-- Mode auto -->
                         <td>
-                            <input type="checkbox" name="" id="inputCBNotifyManualDSToday" onchange="onClickManualModeDSToday()">
-                            <label for="inputCBNotifyManualDSToday">Notifier uniquement le jour J</label> 
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <input type="checkbox" name="" id="inputCBNotifyManualDSRange" onchange="onClickManualModeDSRange()">
-                            <label for="inputCBNotifyManualDSRange">Notifier du début à la fin</label> 
-                        </td>
-                    </tr>
-                    <tr>
-                        <td rowspan="2">Date de fin</td>
-                        <td>
-                            <input type="checkbox" name="" id="inputCBNotifyManualDEToday" onchange="onClickManualModeDEToday()">
-                            <label for="inputCBNotifyManualDEToday">Notifier uniquement le jour J</label> 
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <input type="checkbox" name="" id="inputCBNotifyManualDELate" onchange="onClickManualModeDELate()">
-                            <label for="inputCBNotifyManualDELate">Notifier le jour J et après (Retard)</label> 
-                        </td>
-                    </tr>
-                    <!-- Mode auto -->
-                    <tr>
-                        <td rowspan="4">
-                            <input type="checkbox" name="notifyMode" id="inputCBNotifyModeAuto" onchange="onClickNotifyAutoMode()">
+                            <input type="checkbox" name="notifyMode" id="inputCBNotifyModeAuto" onchange="onChangeNotifyMode('auto')">
                             <label class="labelSetting" for="inputCBNotifyModeAuto">MODE AUTO</label>
-                        </td>
-                        <td rowspan="2">Date début</td>
-                        <td>
-                            <input type="checkbox" name="" id="inputCBNotifyAutoDSToday" onchange="onClickAutoModeDSToday()">
-                            <label for="inputCBNotifyAutoDSToday">Toujours notifier le jour J</label> 
-                        </td>
+                        </td> 
                     </tr>
                     <tr>
                         <td>
-                            <input type="checkbox" name="" id="inputCBNotifyAutoDSRange" onchange="onClickAutoModeDSRange()">
-                            <label for="inputCBNotifyAutoDSRange">Toujours notifier du début à la fin</label> 
+                            Un contrôle total sur les notifications. Choisissez les dates pour lesquelles vous souhaitez être notifié. Vous recevrez des notifications pour les débuts d'événements que vous avez sélectionnés et les retards éventuels des événements que vous surveillez.
                         </td>
-                    </tr>
-                    <tr>
-                        <td rowspan="2">Date de fin</td>
                         <td>
-                            <input type="checkbox" name="" id="inputCBNotifyAutoDEToday" onchange="onClickAutoModeDEToday()">
-                            <label for="inputCBNotifyAutoDEToday">Toujours notifier le jour J</label> 
+                            Soyez toujours notifié pour le début d'un évènement ainsi que des éventuels retards.
                         </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <input type="checkbox" name="" id="inputCBNotifyAutoDELate" onchange="onClickAutoModeDELate()">
-                            <label for="inputCBNotifyAutoDELate">Toujours  notifier le jour J et après (Retard)</label> 
-                        </td>
-                    </tr>
-                
+                    </tr>            
                   </table>
             </div>
 
@@ -812,7 +779,7 @@
         <h2>INFO</h2>
             <img class="mainLogo" src="./images/Mind2TaskMainLogo.png" alt="">
             
-            <p>Release : 1.2.2</p>
+            <p>Release : 1.2.3</p>
             <h3>
                 Actualité :
             </h3>

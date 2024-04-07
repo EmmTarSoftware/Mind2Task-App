@@ -79,7 +79,7 @@ div.divNotifyAlert{
     position: absolute;
     z-index: 5;
     left: 220px;top: 80px;
-    width: 500px;
+    width: 800px;
 }
 
 /* Liste affichage des alertes */
@@ -89,6 +89,22 @@ li.notifyDate{
 }
 
 
+div.divNotifyAlert table th{
+  border: none;
+  width: 390px;
+  color: var(--blueColor);
+  text-align: center;
+}
+
+div.divNotifyAlert table td{
+  border-right: solid 1px;
+  width: 390px;
+}
+
+div.divNotifyAlert table td ul li{
+  margin-bottom: 10px;
+  text-align: left;
+}
 
 
 /* ---------------------------- CONDITION ACCEPTATION USER -------------- */

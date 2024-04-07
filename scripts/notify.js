@@ -204,39 +204,61 @@ function onUpdateNotifyDate(array) {
 
     // Notification du jours
     onNotifyDateToday(array,currentDate);
-}
+};
 
 
 // notification du jours
 function onNotifyDateToday(array,dateTarget) {
-    array.forEach(e => {
-        if (e.dateStart.value === dateTarget && e.dateStart.notify === true) {
-            notifyTodayArray.push({tag: e.tag, title :e.title});
-        }
-    });
 
+    // En mode manuel, ne notifie que ce qui a été demandé
+    if (isNotifyManualMode === true) {
+        array.forEach(e => {
+            if (e.dateStart.value === dateTarget && e.dateStart.notify === true) {
+                notifyTodayArray.push({tag: e.tag, title :e.title});
+            }
+        });
+    }else{
+        // En mode auto, notifie tout
+        array.forEach(e => {
+            if (e.dateStart.value === dateTarget) {
+                notifyTodayArray.push({tag: e.tag, title :e.title});
+            }
+        });
 
-
-
+    }
 
     // Notification date en retard
     onNotifyDateLate(array,dateTarget);
-}
+};
 
 
 
 // Date en retard
 function onNotifyDateLate(array,dateToday) {
-    array.forEach(e => {
-        if (dateToday > e.dateEnd.value && e.dateEnd.notify === true) {
-            notifyLateArray.push({tag: e.tag, title :e.title , date: onFormatDateToFr(e.dateEnd.value)});
-        }
-    });
+
+    // En mode manuel, ne notifie que ce qui a été demandé
+    if (isNotifyManualMode === true) {
+        array.forEach(e => {
+            if (dateToday > e.dateEnd.value && e.dateEnd.notify === true) {
+                notifyLateArray.push({tag: e.tag, title :e.title , date: onFormatDateToFr(e.dateEnd.value)});
+            }
+        });
+    }else{
+        // En mode auto, notifie tout
+        array.forEach(e => {
+            if (dateToday > e.dateEnd.value) {
+                notifyLateArray.push({tag: e.tag, title :e.title , date: onFormatDateToFr(e.dateEnd.value)});
+            }
+        });
+    };
+
+
+    
 
 
     // Traitement de l'affichage
     onTraiteNotifyDate();
-}
+};
 
 
 
@@ -251,7 +273,7 @@ function onTraiteNotifyDate() {
     // Si des notifications sont disponibles, l'icone est visible
     imgNotifyAvailableRef.style.display = (notifyTodayArray.length > 0 || notifyLateArray.length  > 0) ? "inline-block" : "none" ;
 
-}
+};
 
 
 
@@ -299,7 +321,7 @@ function onDisplayNotifyDate(isDisplay) {
 
     document.getElementById("divNotifyAlert").style.display = isDisplay === true ? "block" : "none";
 
-}
+};
 
 
 // Masquage des notifications

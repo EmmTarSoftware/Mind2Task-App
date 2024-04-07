@@ -184,337 +184,84 @@ function onSetPersonnalisation() {
 //-------------------------------------- Notification   ---------------------------
 
 
-// Désactivation du menu non concerné
-
-function onDisableSettingNotify(idArrayRef) {
-    idArrayRef.forEach(e=>{
-        let checkboxTarget = document.getElementById(e);
-        checkboxTarget.checked = false;
-        checkboxTarget.disabled = true;
-    });
-};
-
-// Active les checkbox
-function onEnableSettingNotify(idArrayRef) {
-    idArrayRef.forEach(e=>{
-        let checkboxTarget = document.getElementById(e);
-        checkboxTarget.disabled = false;
-    });
-};
-
-
-
-
 
 // Nom des cookies
-
-let cookiesNotifyManualName = "Mind2TaskNotifyManualMode",//Nom du cookies pour la notification en mode manuel ou auto
-cookiesNotifyManualDSTodayName ="Mind2Task-Notify-M-DS-Today",//Nom du cookies pour la notification manuel (date début) Date du jour ou durée
-cookiesNotifyManualDETodayName ="Mind2Task-Notify-M-DE-Today",//Nom du cookies pour la notification manuel (date de fin) Date du jour ou durée
-
-cookiesNotifyAutoDSTodayName ="Mind2Task-Notify-A-DS-Today",//Nom du cookies pour la notification automatique (date début) Date du jour ou durée
-cookiesNotifyAutoDETodayName ="Mind2Task-Notify-A-DE-Today";//Nom du cookies pour la notification automatique (date de fin) Date du jour ou durée
-
+let cookiesNotifyManualName = "Mind2TaskNotifyManualMode";//Nom du cookies pour la notification en mode manuel ou auto
 
 
 // Les variables des cookies
-let isNotifyManualMode,//boolean mode notification
-isNotifyManualDSToday,//dateStart - date du jour ou durée
-isNotifyManualDEToday,//dateEnd - date du jour ou durée
-isNotifyAutoDSToday,//dateStart - date du jour ou durée
-isNotifyAutoDEToday;//dateEnd - date du jour ou durée
+let isNotifyManualMode;//boolean mode notification
+
+
+
+// Référencement des checkbox
+let inputCBNotifyModeManualRef = document.getElementById("inputCBNotifyModeManual"),
+inputCBNotifyModeAutoRef = document.getElementById("inputCBNotifyModeAuto");
+
 
 
 // Récupère la valeur des cookies ou initialise si il n'y a rien
 function onInitNotifyCookies() {
-    isNotifyManualMode = JSON.parse(localStorage.getItem(cookiesNotifyManualName)) || true;
-    isNotifyManualDSToday = JSON.parse(localStorage.getItem(cookiesNotifyManualDSTodayName)) || true;
-    isNotifyManualDEToday = JSON.parse(localStorage.getItem(cookiesNotifyManualDETodayName)) || true;
-    isNotifyAutoDSToday = JSON.parse(localStorage.getItem(cookiesNotifyAutoDSTodayName)) || true;
-    isNotifyAutoDEToday = JSON.parse(localStorage.getItem(cookiesNotifyAutoDETodayName)) || true;
-   
+
+    // si le cookie n'existe pas, le créé et le met à "true"
+    if (localStorage.getItem(cookiesNotifyManualName) === null){
+        localStorage.setItem(cookiesNotifyManualName,true);
+    }
+
+    isNotifyManualMode = localStorage.getItem(cookiesNotifyManualName) === "true";
+
+    console.log("valeur de isNotifyManualMode = " + isNotifyManualMode);
 
     // Desactive le mode qui n'est pas selectionné
-
-    if (isNotifyManualMode === true) {
-        // Desactive le mode auto au lancement
-        onDisableSettingNotify(["inputCBNotifyAutoDSToday","inputCBNotifyAutoDSRange","inputCBNotifyAutoDEToday","inputCBNotifyAutoDELate"]);
-    }else{
-        // Desactive le mode manuel au lancement
-        onDisableSettingNotify(["inputCBNotifyManualDSToday","inputCBNotifyManualDSRange","inputCBNotifyManualDEToday","inputCBNotifyManualDELate"]);
-    };
+        inputCBNotifyModeManualRef.checked = isNotifyManualMode === true ? true : false;
+        inputCBNotifyModeAutoRef.checked = isNotifyManualMode === true ? false : true;
 
 };
 onInitNotifyCookies();
 
 
-// Référencement des checkbox
-// DS = DateStart - DE = DateEnd
-
-let inputCBNotifyModeManualRef = document.getElementById("inputCBNotifyModeManual"),
-inputCBNotifyModeAutoRef = document.getElementById("inputCBNotifyModeAuto"),
-inputCBNotifyManualDSTodayRef = document.getElementById("inputCBNotifyManualDSToday"),
-inputCBNotifyManualDSRangeRef = document.getElementById("inputCBNotifyManualDSRange"),
-inputCBNotifyManualDETodayRef = document.getElementById("inputCBNotifyManualDEToday"),
-inputCBNotifyManualDELateRef = document.getElementById("inputCBNotifyManualDELate"),
-inputCBNotifyAutoDSTodayRef = document.getElementById("inputCBNotifyAutoDSToday"),
-inputCBNotifyAutoDSRangeRef = document.getElementById("inputCBNotifyAutoDSRange"),
-inputCBNotifyAutoDETodayRef = document.getElementById("inputCBNotifyAutoDEToday"),
-inputCBNotifyAutoDELateRef = document.getElementById("inputCBNotifyAutoDELate");
 
 
+// Changement du mode de notification
+function onChangeNotifyMode(modeTarget) {
+    
 
+    // Clique sur le mode manuel
+    if (modeTarget === "manual") {
+        // Si déjà en mode manuel ne fait rien
+        if (isNotifyManualMode === true) {
+            // le mode manuel reste coché mais aucune action
+            inputCBNotifyModeManualRef.checked = true;
+        }else{
+            // Coche
+            inputCBNotifyModeManualRef.checked = true;
+            inputCBNotifyModeAutoRef.checked = false;
 
+            // Set les boolean et les cookies concernés
+            isNotifyManualMode = true;
+            localStorage.setItem(cookiesNotifyManualName,isNotifyManualMode);
+        }
+    };
 
+    // Clique sur le mode auto
+    if (modeTarget === "auto") {
+        // Si déjà en mode auto ne fait rien
+        if (isNotifyManualMode === false) {
+            // le mode manuel reste coché mais aucune action
+            inputCBNotifyModeAutoRef.checked = true;
+        }else{
+            // Coche
+            inputCBNotifyModeManualRef.checked = false;
+            inputCBNotifyModeAutoRef.checked = true;
 
-
-
-
-
-
-// Mode manuel
-
-
-
-function onClickNotifyManualMode() {
-    // regarde le boolean pour voir si changement nécessaire ou non
-    if (isNotifyManualMode === false) {
-        // Coche
-        inputCBNotifyModeManualRef.checked = true;
-        inputCBNotifyModeAutoRef.checked = false;
-
-        // Met les paramètres enfant par défaut
-        inputCBNotifyManualDSTodayRef.checked = true;
-        inputCBNotifyManualDSRangeRef.checked = false;
-        inputCBNotifyManualDETodayRef.checked = true;
-        inputCBNotifyManualDELateRef.checked = false;
-
-
-        // Active les checkbox
-        onEnableSettingNotify(["inputCBNotifyManualDSToday","inputCBNotifyManualDSRange","inputCBNotifyManualDEToday","inputCBNotifyManualDELate"]);
-
-        // Decoche les enfant du mode Auto et desactive
-        onDisableSettingNotify(["inputCBNotifyAutoDSToday","inputCBNotifyAutoDSRange","inputCBNotifyAutoDEToday","inputCBNotifyAutoDELate"]);
-
-        // Set les boolean et les cookies concernés
-        isNotifyManualMode = true;
-        isNotifyManualDSToday = true;
-        isNotifyManualDEToday = true;
-
-        localStorage.setItem(cookiesNotifyManualName,isNotifyManualMode);
-        localStorage.setItem(cookiesNotifyManualDSTodayName,isNotifyManualDSToday);
-        localStorage.setItem(cookiesNotifyManualDETodayName,isNotifyManualDEToday);
-
-
-
-    }else{
-        // le mode manuel reste coché mais aucune action
-        inputCBNotifyModeManualRef.checked = true;
-
+            // Set les boolean et les cookies concernés
+            isNotifyManualMode = false;
+            localStorage.setItem(cookiesNotifyManualName,isNotifyManualMode);
+        }
     };
 
 
 };
-
-
-// Date début - jour J / Jour J pendant
-function onClickManualModeDSToday() {
-    // Si déja coché ne fait rien
-    if (isNotifyManualDSToday === true) {
-        // ne faire rien et le bouton reste coché
-        inputCBNotifyManualDSTodayRef.checked = true;
-
-    }else{
-        // Coche les bouton
-        inputCBNotifyManualDSTodayRef.checked = true;
-        inputCBNotifyManualDSRangeRef.checked =  false;
-
-        // Set les boolean et les cookies associés
-        isNotifyManualDSToday = true;
-
-        localStorage.setItem(cookiesNotifyManualDSTodayName,isNotifyManualDSToday);
-    };
-};
-
-function onClickManualModeDSRange() {
-    // Si déja coché ne fait rien
-    if (isNotifyManualDSToday === false) {
-        // ne faire rien et le bouton reste coché
-        inputCBNotifyManualDSRangeRef.checked = true;
-
-    }else{
-        // Coche les bouton
-        inputCBNotifyManualDSTodayRef.checked = false;
-        inputCBNotifyManualDSRangeRef.checked =  true;
-
-        // Set les boolean et les cookies associés
-        isNotifyManualDSToday = false;
-
-        localStorage.setItem(cookiesNotifyManualDSTodayName,isNotifyManualDSToday);
-    };
-};
-
-// Date fin - jour J / Jour J et après
-function onClickManualModeDEToday() {
-    // Si déja coché ne fait rien
-    if (isNotifyManualDEToday === true) {
-        // ne faire rien et le bouton reste coché
-        inputCBNotifyManualDETodayRef.checked = true;
-
-    }else{
-        // Coche les bouton
-        inputCBNotifyManualDETodayRef.checked = true;
-        inputCBNotifyManualDELateRef.checked =  false;
-
-        // Set les boolean et les cookies associés
-        isNotifyManualDEToday = true;
-
-        localStorage.setItem(cookiesNotifyManualDETodayName,isNotifyManualDEToday);
-
-    };
-};
-
-function onClickManualModeDELate() {
-    // Si déja coché ne fait rien
-    if (isNotifyManualDEToday === false) {
-        // ne faire rien et le bouton reste coché
-        inputCBNotifyManualDELateRef.checked = true;
-
-    }else{
-        // Coche les bouton
-        inputCBNotifyManualDETodayRef.checked = false;
-        inputCBNotifyManualDELateRef.checked =  true;
-
-        // Set les boolean et les cookies associés
-        isNotifyManualDEToday = false;
-
-        localStorage.setItem(cookiesNotifyManualDETodayName,isNotifyManualDEToday);
-    };
-};
-
-
-
-
-
-
-
-
-
-
-
-function onClickNotifyAutoMode() {
-    // regarde le boolean pour voir si changement nécessaire ou non
-    if (isNotifyManualMode === true) {
-        // Coche
-        inputCBNotifyModeAutoRef.checked = true;
-        inputCBNotifyModeManualRef.checked = false;
-        
-
-        // Met les paramètres enfant par défaut
-        inputCBNotifyAutoDSTodayRef.checked = true;
-        inputCBNotifyAutoDSRangeRef.checked = false;
-        inputCBNotifyAutoDETodayRef.checked = true;
-        inputCBNotifyAutoDELateRef.checked = false;
-
-        // Active les checkbox
-        onEnableSettingNotify(["inputCBNotifyAutoDSToday","inputCBNotifyAutoDSRange","inputCBNotifyAutoDEToday","inputCBNotifyAutoDELate"]);
-
-
-        // Decoche les enfant du mode manuel et desactive
-        onDisableSettingNotify(["inputCBNotifyManualDSToday","inputCBNotifyManualDSRange","inputCBNotifyManualDEToday","inputCBNotifyManualDELate"]);
-
-        // Set les boolean et les cookies concernés
-        isNotifyManualMode = false;
-        isNotifyAutoDSToday = true;
-        isNotifyAutoDEToday = true;
-
-        localStorage.setItem(cookiesNotifyManualName,isNotifyManualMode);
-        localStorage.setItem(cookiesNotifyAutoDSTodayName,isNotifyAutoDSToday);
-        localStorage.setItem(cookiesNotifyAutoDETodayName,isNotifyAutoDEToday);
-
-
-    }else{
-        // le mode auto reste coché mais aucune action
-        inputCBNotifyModeAutoRef.checked = true;
-    };
-};
-
-
-// Date début - jour J / Jour J pendant
-function onClickAutoModeDSToday() {
-    // Si déja coché ne fait rien
-    if (isNotifyAutoDSToday === true) {
-        // ne faire rien et le bouton reste coché
-        inputCBNotifyAutoDSTodayRef.checked = true;
-
-    }else{
-        // Coche les bouton
-        inputCBNotifyAutoDSTodayRef.checked = true;
-        inputCBNotifyAutoDSRangeRef.checked =  false;
-
-        // Set les boolean et les cookies associés
-        isNotifyAutoDSToday = true;
-
-        localStorage.setItem(cookiesNotifyAutoDSTodayName,isNotifyAutoDSToday);
-    };
-};
-
-function onClickAutoModeDSRange() {
-    // Si déja coché ne fait rien
-    if (isNotifyAutoDSToday === false) {
-        // ne faire rien et le bouton reste coché
-        inputCBNotifyAutoDSRangeRef.checked = true;
-
-    }else{
-        // Coche les bouton
-        inputCBNotifyAutoDSTodayRef.checked = false;
-        inputCBNotifyAutoDSRangeRef.checked =  true;
-
-        // Set les boolean et les cookies associés
-        isNotifyAutoDSToday = false;
-
-        localStorage.setItem(cookiesNotifyAutoDSTodayName,isNotifyAutoDSToday);
-    };
-};
-
-// Date fin - jour J / Jour J et après
-function onClickAutoModeDEToday() {
-    // Si déja coché ne fait rien
-    if (isNotifyAutoDEToday === true) {
-        // ne faire rien et le bouton reste coché
-        inputCBNotifyAutoDETodayRef.checked = true;
-
-    }else{
-        // Coche les bouton
-        inputCBNotifyAutoDETodayRef.checked = true;
-        inputCBNotifyAutoDELateRef.checked =  false;
-
-        // Set les boolean et les cookies associés
-        isNotifyAutoDEToday = true;
-
-        localStorage.setItem(cookiesNotifyAutoDETodayName,isNotifyAutoDEToday);
-    };
-};
-
-function onClickAutoModeDELate() {
-    // Si déja coché ne fait rien
-    if (isNotifyAutoDEToday === false) {
-        // ne faire rien et le bouton reste coché
-        inputCBNotifyAutoDELateRef.checked = true;
-
-    }else{
-        // Coche les bouton
-        inputCBNotifyAutoDETodayRef.checked = false;
-        inputCBNotifyAutoDELateRef.checked =  true;
-
-        // Set les boolean
-        isNotifyAutoDEToday = false;
-
-        localStorage.setItem(cookiesNotifyAutoDETodayName,isNotifyAutoDEToday);
-    };
-};
-
-
 
 
 
@@ -530,34 +277,6 @@ function onSetNotifySetting() {
     inputCBNotifyModeManualRef.checked = isNotifyManualMode === true;
     inputCBNotifyModeAutoRef.checked = isNotifyManualMode === false;
 
-
-    // Ne traite que le menu enfant qui est actif. Les autres seront décochés
-    if (isNotifyManualMode === true) {
-        inputCBNotifyManualDSTodayRef.checked = isNotifyManualDSToday === true ;
-        inputCBNotifyManualDSRangeRef.checked = isNotifyManualDSToday === false ;
-        inputCBNotifyManualDETodayRef.checked = isNotifyManualDEToday === true ;
-        inputCBNotifyManualDELateRef.checked = isNotifyManualDEToday === false ;
-
-        // Décoche les enfants
-        inputCBNotifyAutoDSTodayRef.checked = false ;
-        inputCBNotifyAutoDSRangeRef.checked = false ;
-        inputCBNotifyAutoDETodayRef.checked = false ;
-        inputCBNotifyAutoDELateRef.checked = false ;
-
-    }else{
-        inputCBNotifyAutoDSTodayRef.checked = isNotifyAutoDSToday === true ;
-        inputCBNotifyAutoDSRangeRef.checked = isNotifyAutoDSToday === false ;
-        inputCBNotifyAutoDETodayRef.checked = isNotifyAutoDEToday === true ;
-        inputCBNotifyAutoDELateRef.checked = isNotifyAutoDEToday === false ;
-
-
-        // Décoche les enfants
-        inputCBNotifyManualDSTodayRef.checked =  false ;
-        inputCBNotifyManualDSRangeRef.checked = false ;
-        inputCBNotifyManualDETodayRef.checked = false ;
-        inputCBNotifyManualDELateRef.checked = false ;
-    };
-    
 };
 
 

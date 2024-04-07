@@ -823,10 +823,20 @@ function onSetNoteEditor(e) {
     textareaNoteDetailRef.value = e.detail;
     selectorNotePriorityRef.value = e.priority;
 
-    // Set les images de demande de notification selon l'état des checkbox
-    imgCheckboxDateStartNotifyRef.src = checkboxDateStartNotifyRef.checked === true ? "./images/IconeNotifyEnabled.png" : "./images/IconeNotifyDisabled.png";
-    imgCheckboxDateEndNotifyRef.src = checkboxDateEndNotifyRef.checked === true ? "./images/IconeNotifyEnabled.png" : "./images/IconeNotifyDisabled.png";
+    // Traitement des notifications selon le mode choisit
+    if (isNotifyManualMode === true) {
+        // Set les images de demande de notification selon l'état des checkbox
+        imgCheckboxDateStartNotifyRef.src = checkboxDateStartNotifyRef.checked === true ? "./images/IconeNotifyEnabled.png" : "./images/IconeNotifyDisabled.png";
+        imgCheckboxDateEndNotifyRef.src = checkboxDateEndNotifyRef.checked === true ? "./images/IconeNotifyEnabled.png" : "./images/IconeNotifyDisabled.png";
 
+    }else{
+        // En mode notification auto, les cloches ne sont pas visibles
+        imgCheckboxDateStartNotifyRef.style.display = "none";
+        imgCheckboxDateEndNotifyRef.style.display = "none";
+    }
+
+
+    
 
     // Sauvegarde les étapes actuelles dans previousStepArray
     previousStepArray = e.stepArray.map(step => ({...step})); // Utilise .map() pour créer une nouvelle copie de chaque objet étape
@@ -1452,13 +1462,22 @@ function onDisplayNote(e) {
     let dateLastModificationFR = onFormatDateToFr(e.dateLastModification);
 
 
-    let notificationDateStart = e.dateStart.notify === true ? "&#x1F514;" : ""; // Symbole de la cloche
-    notificationDateEnd = e.dateEnd.notify === true ? "&#x1F514;" : ""; // Symbole de la cloche
 
-    noteViewDateInfoRef.innerHTML = `<b>Début : </b> ${dateStartFR} ${notificationDateStart} - - - <b>Fin : </b> ${dateEndFR} ${notificationDateEnd}`;
-    noteViewDateCreatedRef.innerHTML = "<b>Note créée le : </b>" + dateCreatedFR + " - - - <b>Modifié le : </b> " + dateLastModificationFR;
+    // Notifications selon le mode choisit
+    if (isNotifyManualMode === true) {
 
-
+        let notificationDateStart = e.dateStart.notify === true ? "&#x1F514;" : ""; // Symbole de la cloche
+        let notificationDateEnd = e.dateEnd.notify === true ? "&#x1F514;" : ""; // Symbole de la cloche
+    
+        noteViewDateInfoRef.innerHTML = `<b>Début : </b> ${dateStartFR} ${notificationDateStart} - - - <b>Fin : </b> ${dateEndFR} ${notificationDateEnd}`;
+        noteViewDateCreatedRef.innerHTML = "<b>Note créée le : </b>" + dateCreatedFR + " - - - <b>Modifié le : </b> " + dateLastModificationFR;
+    
+    
+    }else{
+        // En mode auto, n'affiche jamais la cloche de notification
+        noteViewDateInfoRef.innerHTML = `<b>Début : </b> ${dateStartFR} - - - <b>Fin : </b> ${dateEndFR}`;
+        noteViewDateCreatedRef.innerHTML = "<b>Note créée le : </b>" + dateCreatedFR + " - - - <b>Modifié le : </b> " + dateLastModificationFR;
+    }
 
 
 
