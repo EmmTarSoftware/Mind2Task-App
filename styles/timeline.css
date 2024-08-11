@@ -1,0 +1,47 @@
+.fullTimeline {
+    display: flex;
+    justify-content: space-between;
+    width: 90%;
+    max-width: 90%;
+    margin: 20px 0;
+}
+
+.timelineMonth {
+    flex: 1;
+    text-align: center;
+    padding: 10px;
+    background-color: #f8f8f8;
+    border-radius: 8px;
+    margin: 0 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    position: relative;
+}
+
+.timelineMonth-label {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    background-color: #007bff;
+    color: white;
+    padding: 10px;
+    border-radius: 5%;
+    width: 50px;
+    height: 20px;
+    line-height: 30px;
+    margin: 0 auto;
+}
+
+.current .timelineMonth-label {
+    background-color: #ff5733; /* Couleur pour le mois en cours */
+}
+
+.timeLineTask ul {
+    list-style: none;
+    padding: 0;
+}
+
+.timeLineTask ul button {
+    margin: 5px 0;
+    font-size: 14px;
+    border: solid 1px black;
+}

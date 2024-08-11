@@ -61,6 +61,15 @@ h1 {
 }
 
 
+/* les texte des boutons lorsque la fenetre est petite */
+.textBtnNewModele{
+	display: none;
+}
+.textBtnNewTask{
+	display: none;
+}
+
+
 
 /* Style du paragraphe */
 
@@ -469,6 +478,7 @@ button.basicBtnB:hover {
 	background:linear-gradient(45deg, #ffd54f, #e9fa65);
 	transform: scale(1.05);
 }
+
 
 button.basicBtnC{
 	background-color: white;

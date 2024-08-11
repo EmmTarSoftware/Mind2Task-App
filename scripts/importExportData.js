@@ -101,11 +101,7 @@ function exportDataTemplate() {
 };
 
 
-
-
-
-
-// Fonction de téléchargement
+//Fonction de téléchargement
 function downloadJSON(data, filename) {
     var json = JSON.stringify(data, null, 2);
     var blob = new Blob([json], { type: 'application/json' });
@@ -117,6 +113,9 @@ function downloadJSON(data, filename) {
     a.click();
     document.body.removeChild(a);
 };
+
+
+
 
 
 
