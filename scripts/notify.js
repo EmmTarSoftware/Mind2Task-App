@@ -25,7 +25,9 @@ let arrayUserMessage = {
     dasboardEmpty:"Aucune donnée à exporter !",
     taskDeleted:"Note supprimée !",
     templateDeleted:"Modèle supprimé !",
-    templateRenamed:"Modèle renommé !"
+    templateRenamed:"Modèle renommé !",
+    timelineCreated : "Echéance créé : ",
+    timelineDeleted : "Timeline supprimée !"
 };
 
     

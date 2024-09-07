@@ -147,6 +147,11 @@
     }
 
 
+    /* ECHEANCES */
+    div.divTimeline{
+        padding-left: 250px;
+    }
+
 
     /* Setting */
     div.divSetting{      
@@ -164,9 +169,8 @@
     
     }
     
-    /* Information */
 
-    
+    /* Information */
     div.divInfo{
         left: 250px;
         width: 80%;

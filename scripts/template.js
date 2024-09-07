@@ -19,7 +19,7 @@ function onFindTemplateInDB() {
         };
 
         requestTask.onerror = function () {
-            reject(new Error("Erreur de requête sur la base"));
+            reject(new Error("[ TEMPLATE ] Erreur de requête sur la base"));
         };
 
         transaction.oncomplete = function () {
@@ -496,7 +496,21 @@ function onCancelTemplateRename(){
 };
 
 
+
+
+
+
+
+
 //-------------------------- suppression -----------------------
+
+
+
+
+
+
+
+
 
 function onClickDeleteTemplate(templateToDeleteTitle,templateKeyToDelete) {
 

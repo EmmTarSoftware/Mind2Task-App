@@ -1,3 +1,29 @@
+div.divTimeline{
+    
+    padding-left: 120px;
+    display: none;
+    width: 1000px;
+    height: 600px;
+    text-align: left;
+
+}
+
+
+div.editionTimeline{
+    display: none;
+    border-radius: 10px;
+	border: solid 1px var(--blueColor);
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Ombre portée */
+    background: var(--colorBackground2);
+    width: 800px;
+    height: 550px;
+    text-align: center;
+    position: absolute;
+    z-index: 1;
+}
+
+
+
 .fullTimeline {
     display: flex;
     justify-content: space-between;
@@ -31,8 +57,9 @@
     margin: 0 auto;
 }
 
-.current .timelineMonth-label {
-    background-color: #ff5733; /* Couleur pour le mois en cours */
+/* Pour différencier le mois en cours */
+.currentTimelineMonth-label {
+    background-color: #ff3333;
 }
 
 .timeLineTask ul {
@@ -44,4 +71,79 @@
     margin: 5px 0;
     font-size: 14px;
     border: solid 1px black;
+    border-radius: 2px;
+}
+
+.timeLineTask ul button:hover {
+    cursor: pointer;
+}
+
+
+div.timelineConfirmSupr{
+    display: none;
+	width: 400px;
+	height: 100px;
+	position: relative;
+	margin-left: auto;
+    margin-right: auto;
+	/* top: 400px; */
+}
+
+
+
+/* SELECTION COULEUR */
+
+p.timelineColorVisualisation{
+    width: 120px;
+    margin: auto;
+}
+
+button.timelineColorSelected{
+    border-radius: 8px;
+    margin: 20px;
+    width: 40px;height: 20px;
+    border: solid 1px;
+
+}
+
+button.timelineColorSelected:hover{
+    cursor: pointer;
+    border-radius: 0px;
+}
+
+
+
+/*  -------------------------------- Dans le menu Accueil -------------------------------- */
+
+
+
+
+
+/* zone d'affichage des échéances */
+div.accueilTimelineMonth{
+    background-color: orange;
+    position: absolute;
+    left: 250px; top: 900px;
+    width: 85%; height: 100px;
+    border-radius: 5px;
+    text-align: center;
+}
+
+
+
+
+/* Pour chaque écheance dans le menu accueil */
+div.accueilTimelineMonthList div{
+    display: inline-flex;
+    margin: 5px 0;
+    padding: 5px;
+    font-size: 14px;
+    border: solid 1px black;
+    border-radius: 2px;
+    background-color: whitesmoke;
+}
+
+div.accueilTimelineMonthList div:hover{
+background-color: #007bff;
+cursor:default;
 }

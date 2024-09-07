@@ -98,7 +98,32 @@ function exportDataTemplate() {
         console.log('Erreur lors de l\'export des données : ', error);
     };
 
+    transaction.oncomplete = function (){
+        exportDataTimeline();
+    };
+
 };
+
+
+
+function exportDataTimeline() {
+    console.log("Demande d'export data");
+    var transaction = db.transaction([timelineStoreName], 'readonly');
+    var store = transaction.objectStore(timelineStoreName);
+
+    var exportRequest = store.getAll();
+
+    exportRequest.onsuccess = function() {
+        var data = exportRequest.result;
+        downloadJSON(data, `Mind2Task_${exportDate}_exported_Timeline.json`);
+    };
+
+    exportRequest.onerror = function(error) {
+        console.log('Erreur lors de l\'export des données : ', error);
+    };
+
+};
+
 
 
 //Fonction de téléchargement

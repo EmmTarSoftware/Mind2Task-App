@@ -61,7 +61,7 @@ p.gestionTemplateTitle{
 
 
 /* Suppression */
-div.templateConfirmSupr{
+div.confirmSupr{
 	display: none;
 	width: 400px;
 	height: 150px;

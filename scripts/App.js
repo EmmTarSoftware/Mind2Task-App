@@ -46,7 +46,8 @@ let db,
     tagStoreName = "TAGList",
     dashBoardStoreName = "dashboard",
     templateStoreName = "template",
-    currentBaseVersion = 3;
+    timelineStoreName = "timeline",
+    currentBaseVersion = 4;
     cookiesBddVersionName = "Mind2Task-bddVersion"
 
 
@@ -100,6 +101,15 @@ function onStartDataBase() {
             console.log("Creation du magasin "+  templateStoreName);
 
             templateStore.createIndex('title','title',{unique:true});
+        };
+
+        // Creation du store pour la timeline
+        if (!db.objectStoreNames.contains(timelineStoreName)) {
+            let timelineStore = db.createObjectStore(timelineStoreName, {keyPath:'key',autoIncrement: true});
+            console.log("Creation du magasin "+  timelineStoreName);
+
+            timelineStore.createIndex('title','title',{unique:false});
+            timelineStore.createIndex('month','month',{unique:false});
         };
 
         // Stoque le numéro de version de base de l'application
@@ -301,6 +311,9 @@ function onChangeMenu(menuTarget) {
             case "Accueil":
                 onCloseMenuAccueil();
             break;
+            case "Timeline":
+                onCloseMenuTimeline();
+            break;
             case "Dashboard":
                 onCloseMenuDashboard();
             break;
@@ -329,6 +342,9 @@ function onChangeMenu(menuTarget) {
                 onUpdatePage(false);
                 onClickMenuAccueil();
             break;
+            case "Timeline": 
+                onClickMenuTimeline();
+            break
             case "Dashboard":
                 onClickMenuDashboard();
             break;
@@ -365,6 +381,28 @@ function onCloseMenuAccueil() {
     // Changement image icone
     document.getElementById("imgIconMainMenuAccueil").src = "./images/IconeHome.png";
 };
+
+
+// Menu Timeline
+function onClickMenuTimeline() {
+
+    // Gestion affichage
+    onChangeDisplay([],["divTimeline"],[],[]);
+    // Changement image icone
+    document.getElementById("imgIconMainMenuTimeline").src = "./images/IconeTimelineSelected.png";
+
+    onOpenTimeline();
+}
+
+function onCloseMenuTimeline() {
+    // Gestion affichage
+    onChangeDisplay(["divTimeline","divEditionTimeline","divPopupDeleteTimeline"],[],[],["divFullTimelineZone","divMenuTimeline","divEditionTimeline"]);
+    // Changement image icone
+    document.getElementById("imgIconMainMenuTimeline").src = "./images/IconeTimeline.png";
+    onClearDashboard();
+};
+
+
 
 
 

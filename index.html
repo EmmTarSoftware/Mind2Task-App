@@ -7,6 +7,7 @@
     <link rel="shortcut icon" href="./images/mind2Task.ico" type="image/x-icon">
     <link rel="stylesheet" href="./styles/global.css">
     <link rel="stylesheet" href="./styles/styleCompletion.css">
+    <link rel="stylesheet" href="./styles/timeline.css">
     <link rel="stylesheet" href="./styles/dashboard.css">
     <link rel="stylesheet" href="./styles/setting.css">
     <link rel="stylesheet" href="./styles/info.css">
@@ -25,17 +26,21 @@
             <img id="imgIconMainMenuAccueil" class="mainMenuIcon" src="./images/IconeHomeSelected.png" alt="Accueil" srcset="" title="Menu principal">
             <p class="textMainMenu">Mes tâches</p>
         </div>
-        <div class="mainMenuIcon"  onclick="onChangeMenu('Dashboard')" >
-            <img id="imgIconMainMenuDashboard"class="mainMenuIcon" src="./images/IconeDashboard.png" alt="Dashboard" srcset="" title="Dashboard">
-            <p class="textMainMenu">Tableau de bord</p>
+        <div class="mainMenuIcon" onclick="onChangeMenu('Timeline')" >
+            <img id="imgIconMainMenuTimeline" class="mainMenuIcon" src="./images/IconeTimeline.png" alt="Echéances" srcset="" title="Echéances">
+            <p class="textMainMenu">Mes échéances</p>
         </div>
-        <div class="mainMenuIcon"  onclick="onChangeMenu('Setting')" >
-            <img id="imgIconMainMenuSetting"class="mainMenuIcon" src="./images/IconeSetting.png" alt="Setting" srcset="" title="Paramètres">
-            <p class="textMainMenu">Paramètres</p>
+        <div class="mainMenuIcon"  onclick="onChangeMenu('Dashboard')" >
+            <img id="imgIconMainMenuDashboard"class="mainMenuIcon" src="./images/IconeDashboard.png" alt="Statistiques" srcset="" title="Statistiques">
+            <p class="textMainMenu">Statistiques</p>
         </div>
         <div class="mainMenuIcon" onclick="onChangeMenu('Template')" >
-            <img id="imgIconMainMenuTemplate" class="mainMenuIcon" src="./images/IconeMenuTemplate2.png" alt="Template" srcset="" title="Modèle">
+            <img id="imgIconMainMenuTemplate" class="mainMenuIcon" src="./images/IconeMenuTemplate2.png" alt="Modèle" srcset="" title="Modèle">
             <p class="textMainMenu">Modèles</p>
+        </div>
+        <div class="mainMenuIcon"  onclick="onChangeMenu('Setting')" >
+            <img id="imgIconMainMenuSetting"class="mainMenuIcon" src="./images/IconeSetting.png" alt="Paramètres" srcset="" title="Paramètres">
+            <p class="textMainMenu">Paramètres</p>
         </div>
         <div class="mainMenuIcon" onclick="onChangeMenu('Info')" >
             <img id="imgIconMainMenuInfo" class="mainMenuIcon" src="./images/IconeInfo.png" alt="Icone menu info" srcset="" title="Infos">
@@ -45,7 +50,7 @@
             <img class="mainMenuIcon" src="./images/IconeScreen.png" alt="Plein écran" srcset="" title="Plein écran">
             <p class="textMainMenu">Plein écran</p>
         </div>
-        <p class="release">Release : 1.2.4</p>
+        <p class="release">Release : 1.3.0</p>
 
     </div>
     
@@ -327,6 +332,22 @@
 
 
 
+        <!--------------------- ZONE ECHEANCE DU MOIS ------------------------------------->
+        <div class="accueilTimelineMonth">
+            <p>Echéances du mois</p>
+            <div class="accueilTimelineMonthList">
+                <div>
+                    Sensibilisation SSI Phase 1
+                </div>
+                <div>
+                    MINARM FEB Phase 1
+                </div>
+            </div>
+        </div>
+        <!--------------------- FIN ZONE ECHEANCE DU MOIS --------------------------------->
+
+
+
 
 
         <!-- ----------------- CONFIRMATION SUPPRESSION --------------------->
@@ -431,6 +452,102 @@
 
 
 
+    <!-- ---------------------------  Div Timeline  ------------------------------------- -->
+
+
+
+
+
+
+
+
+    <div class="divTimeline" id="divTimeline">
+        <h2>ECHEANCES</h2>
+        <!-- Menu timeline -->
+         <div id="divMenuTimeline">
+            <button class="basicBtn basicBtnA" onclick="onClickNewTimeline()">Nouveau</button>
+         </div>
+        
+ 
+        <!-- Creation timeLine -->
+        <div class="editionTimeline" id="divEditionTimeline">
+
+            <p id="legendCreationTimeline">Legende</p>
+
+            <p>
+                <label for="timelineTitle">Titre :</label>
+                <input class="input-field"  id="timelineTitle" type="text">
+            </p>
+            <p>
+                <label for="timelineMonth">Mois :</label>
+                <select name="timelineMonth" id="timelineMonth">
+                <option value="JAN">Janvier</option>
+                <option value="FEB">Fevrier</option>
+                <option value="MAR">Mars</option>
+                <option value="APR">Avril</option>
+                <option value="MAY">Mai</option>
+                <option value="JUN">Juin</option>
+                <option value="JUL">Juillet</option>
+                <option value="AUG">Aout</option>
+                <option value="SEP">Septembre</option>
+                <option value="OCT">Octobre</option>
+                <option value="NOV">Novembre</option>
+                <option value="DEC">Decembre</option>
+                </select>
+            </p>
+            <!-- Couleur -->
+            <div>
+                <label for="inputColorTimeline">Choisissez une couleur :</label>
+                <p class="timelineColorVisualisation" id="pTimelineExempleColor" backgroundColor = "orange">Prévisualisation</p>
+
+                <div id="divColorParentZone">
+
+                </div>
+            </div>
+            <label for="textareaTimelineComment">Commentaire :</label>
+            <textarea class="textarea-field" name="" id="textareaTimelineComment"></textarea>
+        
+            <p>
+                <button class="basicBtn basicBtnA" onclick="onValidTimeline()"><img class="iconeMenu" src="./images/IconeValider.png" alt="Valider" srcset=""></button>
+                <button class="basicBtn basicBtnB" onclick="onReturnFromTimelineEditor()"><img class="iconeMenu" src="./images/IconeReturnCancel.png" alt="Retour" srcset=""></button>
+                <button class="basicBtn basicBtnA" id="btnDeleteTimeline" onclick="onClickDeleteTimeline()"><img class="iconeMenu" src="./images/IconeDelete.png" alt="Supprimer" srcset=""></button>
+            </p>
+            
+        </div>
+        
+
+        <!-- Zone d'affichage de la timeline -->
+        <div class="fullTimeline" id="divFullTimelineZone">
+            <!-- EXEMPLE FORMAT : NE PAS SUPPR -->
+            <!-- <div class="timelineMonth">
+                <div class="timelineMonth-label">JAN</div>
+                <div class="timeLineTask">
+                    <ul id="timelineULParentJAN">
+                        Injection des timelines ici
+                    </ul>
+                </div>
+            </div> -->
+
+            
+         </div>
+
+
+         <!-- div confirme delete -->
+
+         <div class="timelineConfirmSupr popup" id="divPopupDeleteTimeline">
+            <p>Etes vous sur de vouloir supprimer cette timeline ?</p>
+            <p id="pTimelineToDeleteTitle"></p>
+            <button class="basicBtn basicBtnA" onclick="onValidSuprTimeline()"><img class="iconeMenu" src="./images/IconeDelete.png" alt="Confirmer" srcset=""></button>
+            <button class="basicBtn basicBtnB" onclick="onCancelTimelineSuppression()"><img class="iconeMenu" src="./images/IconeReturnCancel.png" alt="Annuler" srcset=""></button>
+        </div>
+
+    </div>
+
+
+
+
+    <!-- --------------------------- FIN Div Timeline  ------------------------------------- -->
+
 
 
 
@@ -440,7 +557,7 @@
     <!-- -------------------------   div Dashboard----------------------------------- -->
     <div class="divDashboard" id="divDashboard">
         <div id="divDashboardContent">
-            <h2>TABLEAU DE BORD</h2>
+            <h2>STASTISTIQUES</h2>
 
 
             <table class="statisticDivers">
@@ -655,7 +772,7 @@
                     </tr>
                     <tr>
                         <td class="saveSetting">
-                            <p>Exporter la base vous fera télécharger 4 fichiers distincts !</p>
+                            <p>Exporter la base vous fera télécharger 5 fichiers distincts !</p>
                             <button class="basicBtn basicBtnA" onclick="exportData()"><img class="iconeMenu" src="./images/IconeDownload.png" alt="Valider" srcset=""> Télécharger la base</button>
                         </td>
                         <td class="importSetting">
@@ -681,20 +798,30 @@
 
                             <!-- Import dashboard -->
                             <p>
-                                <label class="labelSetting" for="fileInputJsonDashboard">Dashboard : </label>
+                                <label class="labelSetting" for="fileInputJsonDashboard">Stastistiques : </label>
                                 <input type="file" id="fileInputJsonDashboard" accept=".json">
-                                <button class="basicBtn basicBtnA" onclick="importTask('fileInputJsonDashboard','dashboard','pImportDashboardResult')"><img class="iconeMenu" src="./images/IconeUpload.png" alt="Valider" srcset=""> Import Dashboard</button>
+                                <button class="basicBtn basicBtnA" onclick="importTask('fileInputJsonDashboard','dashboard','pImportDashboardResult')"><img class="iconeMenu" src="./images/IconeUpload.png" alt="Valider" srcset=""> Import Statistiques</button>
                             </p>
                             <p id="pImportDashboardResult">
                                 <!-- Injection resultat import -->
                             </p>
                              <!-- Import template -->
                              <p>
-                                <label class="labelSetting" for="fileInputJsonTemplate">Template : </label>
+                                <label class="labelSetting" for="fileInputJsonTemplate">Modèles : </label>
                                 <input type="file" id="fileInputJsonTemplate" accept=".json">
-                                <button class="basicBtn basicBtnA" onclick="importTask('fileInputJsonTemplate','template','pImportTemplateResult')"><img class="iconeMenu" src="./images/IconeUpload.png" alt="Valider" srcset=""> Import Template</button>
+                                <button class="basicBtn basicBtnA" onclick="importTask('fileInputJsonTemplate','template','pImportTemplateResult')"><img class="iconeMenu" src="./images/IconeUpload.png" alt="Valider" srcset=""> Import Modèles</button>
                             </p>
                             <p id="pImportTemplateResult">
+                                <!-- Injection resultat import -->
+                            </p>
+
+                            <!-- Import Timeline -->
+                            <p>
+                                <label class="labelSetting" for="fileInputJsonTimeline">Echéances : </label>
+                                <input type="file" id="fileInputJsonTimeline" accept=".json">
+                                <button class="basicBtn basicBtnA" onclick="importTask('fileInputJsonTimeline','timeline','pImportTimelineResult')"><img class="iconeMenu" src="./images/IconeUpload.png" alt="Valider" srcset=""> Import Echéances</button>
+                            </p>
+                            <p id="pImportTimelineResult">
                                 <!-- Injection resultat import -->
                             </p>
                         </td>
@@ -755,7 +882,7 @@
 
         <!-- div confirme delete -->
 
-        <div class="templateConfirmSupr popup" id="divPopupDeleteTemplate">
+        <div class="confirmSupr popup" id="divPopupDeleteTemplate">
             <p>Etes vous sur de vouloir supprimer ce modèle ?</p>
             <p id="pTemplateToDeleteTitle"></p>
             <button id="btnValidTemplateSuppression" class="basicBtn basicBtnA"><img class="iconeMenu" src="./images/IconeDelete.png" alt="Confirmer" srcset=""></button>
@@ -781,7 +908,7 @@
         <h2>INFO</h2>
             <img class="mainLogo" src="./images/Mind2TaskMainLogo.png" alt="">
             
-            <p>Release : 1.2.4</p>
+            <p>Release : 1.3.0</p>
             <h3>
                 Actualité :
             </h3>
@@ -879,6 +1006,7 @@
     <script src="./scripts/template.js"></script>
     <script src="./scripts/dashboard.js"></script>
     <script src="./scripts/notify.js"></script>
+    <script src="./scripts/timeLine.js"></script>
     <script src="./scripts/App.js"></script>
 </body>
 </html>
