@@ -125,8 +125,9 @@ function onStartDataBase() {
         db = openRequest.result
         console.log("Data Base ready");
 
-        // Premiere actualisation de la page
+        // Premiere actualisation de la page Accueil
         onUpdatePage(true);
+        onUpdateTimelineAccueil();
     };
 
 
@@ -313,18 +314,22 @@ function onChangeMenu(menuTarget) {
             break;
             case "Timeline":
                 onCloseMenuTimeline();
+                onClearTimelineMenu();
             break;
             case "Dashboard":
                 onCloseMenuDashboard();
+                onClearDashboard();
             break;
             case "Setting":
                 onCloseMenuSetting();
             break;
             case "Info":
                 onCloseMenuInfo();
+                onQuitMenuInfo();
             break;     
             case "Template":
                 onCloseMenuTemplate();
+                onQuitMenuTemplate();
             break;      
         
             default:
@@ -340,22 +345,28 @@ function onChangeMenu(menuTarget) {
         switch (menuTarget) {
             case "Accueil":
                 onUpdatePage(false);
+                onUpdateTimelineAccueil();
                 onClickMenuAccueil();
             break;
             case "Timeline": 
                 onClickMenuTimeline();
+                onOpenTimeline();
             break
             case "Dashboard":
                 onClickMenuDashboard();
+                onOpenDashboard();
             break;
             case "Setting":
                 onClickMenuSetting();
+                onDisplaySetting();
             break;
             case "Info":
                 onClickMenuInfo();
+                onOpenMenuInfo();
             break;  
             case "Template":
                 onClickMenuTemplate();
+                onOpenMenuTemplate();
             break;        
         
             default:
@@ -385,21 +396,17 @@ function onCloseMenuAccueil() {
 
 // Menu Timeline
 function onClickMenuTimeline() {
-
     // Gestion affichage
     onChangeDisplay([],["divTimeline"],[],[]);
     // Changement image icone
     document.getElementById("imgIconMainMenuTimeline").src = "./images/IconeTimelineSelected.png";
-
-    onOpenTimeline();
-}
+};
 
 function onCloseMenuTimeline() {
     // Gestion affichage
     onChangeDisplay(["divTimeline","divEditionTimeline","divPopupDeleteTimeline"],[],[],["divFullTimelineZone","divMenuTimeline","divEditionTimeline"]);
     // Changement image icone
     document.getElementById("imgIconMainMenuTimeline").src = "./images/IconeTimeline.png";
-    onClearDashboard();
 };
 
 
@@ -408,13 +415,10 @@ function onCloseMenuTimeline() {
 
 // Menu Dashboard
 function onClickMenuDashboard() {
-
     // Gestion affichage
     onChangeDisplay([],["divDashboard"],[],[]);
     // Changement image icone
     document.getElementById("imgIconMainMenuDashboard").src = "./images/IconeDashboardSelected.png";
-
-    onOpenDashboard();
 };
 
 function onCloseMenuDashboard() {
@@ -422,7 +426,6 @@ function onCloseMenuDashboard() {
     onChangeDisplay(["divDashboard","divPopupCloture"],[],[],["divDashboardContent"]);
     // Changement image icone
     document.getElementById("imgIconMainMenuDashboard").src = "./images/IconeDashboard.png";
-    onClearDashboard();
 };
 
 
@@ -430,31 +433,25 @@ function onCloseMenuDashboard() {
 function onClickMenuSetting() {
     // Gestion affichage
     onChangeDisplay([],["divSetting"],[],[]);
-
-
     // Changement image icone
     document.getElementById("imgIconMainMenuSetting").src = "./images/IconeSettingSelected.png";
-    onDisplaySetting();
 };
 
 function onCloseMenuSetting() {
     // Gestion affichage
     onChangeDisplay(["divSetting"],[],[],[]);
-        // Changement image icone
-        document.getElementById("imgIconMainMenuSetting").src = "./images/IconeSetting.png";
+    // Changement image icone
+    document.getElementById("imgIconMainMenuSetting").src = "./images/IconeSetting.png";
 };
 
 
 
 // Menu Info
 function onClickMenuInfo() {
-
     // Gestion affichage
     onChangeDisplay([],["divInfo"],[],[]);
-
     // Changement image icone
     document.getElementById("imgIconMainMenuInfo").src = "./images/IconeInfoSelected.png";
-    onOpenMenuInfo();
 };
 
 function onCloseMenuInfo() {
@@ -462,20 +459,15 @@ function onCloseMenuInfo() {
     onChangeDisplay(["divInfo"],[],[],[]);
     // Changement image icone
     document.getElementById("imgIconMainMenuInfo").src = "./images/IconeInfo.png";
-
-    onQuitMenuInfo();
 };
 
 
 // Menu Template
 function onClickMenuTemplate() {
-
     // Gestion affichage
     onChangeDisplay([],["divMenuTemplate"],[],[]);
-
     // Changement image icone
     document.getElementById("imgIconMainMenuTemplate").src = "./images/IconeMenuTemplate2Selected.png";
-    onOpenMenuTemplate();
 };
 
 function onCloseMenuTemplate() {
@@ -483,8 +475,6 @@ function onCloseMenuTemplate() {
     onChangeDisplay(["divMenuTemplate"],[],[],[]);
     // Changement image icone
     document.getElementById("imgIconMainMenuTemplate").src = "./images/IconeMenuTemplate2.png";
-
-    onQuitMenuTemplate();
 };
 
 

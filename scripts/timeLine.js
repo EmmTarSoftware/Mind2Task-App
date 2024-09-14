@@ -12,6 +12,7 @@ let timelineColorList = [
 
 let defaultTimelineColor = "#ffffff", //Couleur par défaut
 isNewTimeline = true,//boolean pour savoir si c'est un nouvelle échéance ou une modification
+maxTimelineAccueilItem = 5, //Nombre d'échéance affiché dans le menu accueil
 divEditionTimelineRef, 
 legendEditionTimelineRef,
 inputEditionTimelineTitleRef,
@@ -150,7 +151,7 @@ function onSearchTimelineWithKey(keyRef) {
 
 
 
-
+// Lors de l'ouverture du menu timeline
 function onOpenTimeline() {
     // Referencement
     onReferenceTimelineItems();
@@ -161,7 +162,11 @@ function onOpenTimeline() {
 
     // affichage
     onUpdateTimelinePage();
-}
+};
+
+
+
+
 
 
 
@@ -178,7 +183,7 @@ function onReferenceTimelineItems() {
 
 
     console.log(" [ TIMELINES ] referencement des items");
-}
+};
 
 
 
@@ -573,7 +578,7 @@ function onInsertDataTimeline(e) {
 function onReturnFromTimelineEditor() {
     // Gestion affichage
     onChangeDisplay(["divEditionTimeline"],[],[],["divMenuTimeline","divFullTimelineZone"]);
-}
+};
 
 
 
@@ -683,3 +688,134 @@ function onCancelTimelineSuppression() {
     // Gestion affichage
     onChangeDisplay(["divPopupDeleteTimeline"],[],[],["divEditionTimeline"]);
 };
+
+
+
+
+
+
+
+
+
+
+
+
+// ---------------------- FERMETURE DU MENU TIMELINE ---------------------------------------
+
+
+// Lorsque l'on quitte le menu TIMELINE
+function onClearTimelineMenu (){
+    console.log("[ TIMELINE ] Quitte le menu timeline");
+
+    
+    //vide la zone qui contient les timelines
+    document.getElementById("divFullTimelineZone").innerHTML = "";
+    console.log("[ TIMELINE ] Vide la div qui contient les timelines (divFullTimelineZone)");
+
+
+};
+
+
+
+
+
+
+
+
+
+
+// -------------------------------- DANS LE MENU ACCUEIL ------------------------------------------------
+
+
+// COMMENTAIRE :
+// Dans le menu accueil, les échéances ne sont chargées qu'au lancement de l'accueil. Ensuite il n'est plus
+// mis à jour tant que l'accueil ne sera pas fermé puis ouvert à nouveau.
+
+
+
+
+function onUpdateTimelineAccueil() {
+     // recherche les timelines dans la base 
+     onFindTimelineInDB()
+     .then(isTimelineExist => {
+
+         //Si des timelines exitent, lance la fonction de remplissage
+         if (isTimelineExist === true){
+            onGenerateTimelineOnAccueil(arrayTimeline);
+
+         }else{
+             // Si aucune timeline n'existe
+             console.log("[ TIMELINE ] Menu Accueil  : Aucune timeline");
+         };
+
+     });
+};
+
+
+
+
+
+
+function onGenerateTimelineOnAccueil(timelineData) {
+
+    let nbreItem = 0;
+
+    // reference le parent pour l'insertion
+    let divParentRef = document.getElementById("divAccueilTimelineMonthListParent");
+    // Reset avant insertion
+    divParentRef.innerHTML = "";
+
+
+    console.log("[ TIMELINE ] Génération des échéances dans le menu accueil.");
+    console.log("[ TIMELINE ] Nbre totale d'échéances : " + timelineData.length);
+
+    // Récupère le mois en cours
+    let currentMonthNumber = new Date().getMonth();
+
+    // Recupère les échéances du mois en cours
+    console.log("[ TIMELINE ] Mois des timelines = " + timelineMonthArray[currentMonthNumber]);
+    let timelineDataThisMonth = timelineData.filter((item) =>{
+            return item.month === timelineMonthArray[currentMonthNumber];
+        }
+    );
+
+    console.log("[ TIMELINE ] Nombre d'échéance du mois : " + timelineDataThisMonth.length);
+
+
+    // Création des échéances
+    for (const e of timelineDataThisMonth) {
+        
+
+
+        // Vérification du nombre maximale d'item possible à afficher
+        if (nbreItem < maxTimelineAccueilItem) {
+            // Generation
+            let newDiv = document.createElement("div");
+            newDiv.innerHTML = e.title;
+            newDiv.style.backgroundColor = e.color;
+
+            // Insertion
+            divParentRef.appendChild(newDiv);    
+        }else{
+            // Si Nombre d'item maximal affichable atteint :
+            console.log(" [ TIMELINE ] Menu accueil : Nombre max d'item affichable atteint");
+            let newDiv = document.createElement("div");
+            newDiv.innerHTML = "...+++";
+            newDiv.style.backgroundColor = "white";
+
+            // Insertion
+            divParentRef.appendChild(newDiv);
+            break;
+            
+        };
+        nbreItem++
+    };
+
+};
+
+
+
+
+
+
+

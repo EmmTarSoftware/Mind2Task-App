@@ -121,7 +121,7 @@ button.timelineColorSelected:hover{
 
 /* zone d'affichage des échéances */
 div.accueilTimelineMonth{
-    background-color: orange;
+    background-color: #f8f8f8;;
     position: absolute;
     left: 250px; top: 900px;
     width: 85%; height: 100px;
@@ -131,19 +131,15 @@ div.accueilTimelineMonth{
 
 
 
-
 /* Pour chaque écheance dans le menu accueil */
 div.accueilTimelineMonthList div{
     display: inline-flex;
-    margin: 5px 0;
+    margin: 5px;
     padding: 5px;
     font-size: 14px;
     border: solid 1px black;
     border-radius: 2px;
-    background-color: whitesmoke;
 }
 
-div.accueilTimelineMonthList div:hover{
-background-color: #007bff;
-cursor:default;
-}
+
+
