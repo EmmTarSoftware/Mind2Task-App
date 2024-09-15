@@ -29,7 +29,8 @@ let arrayTimeline = [];//Tableau pour stocker les timelines [title,month,color,k
 let currentTimelineColor = "#ffffff";//la couleur en cours de l'échéance dans l'éditeur d'échéance
 
 
-
+// Tableau de référence des mois.
+// Traité selon l'index dans le reste du code
 let timelineMonthArray = [
     "JAN",
     "FEB",
@@ -278,18 +279,19 @@ function onUpdateTimelinePage(){
 
 // Reset la timeLine
 function onResetTimelineUL() {
-    document.getElementById("timelineULParentJAN").innerHTML = "";
-    document.getElementById("timelineULParentFEB").innerHTML = "";
-    document.getElementById("timelineULParentMAR").innerHTML = "";
-    document.getElementById("timelineULParentAPR").innerHTML = "";
-    document.getElementById("timelineULParentMAY").innerHTML = "";
-    document.getElementById("timelineULParentJUN").innerHTML = "";
-    document.getElementById("timelineULParentJUL").innerHTML = "";
-    document.getElementById("timelineULParentAUG").innerHTML = "";
-    document.getElementById("timelineULParentSEP").innerHTML = "";
-    document.getElementById("timelineULParentOCT").innerHTML = "";
-    document.getElementById("timelineULParentNOV").innerHTML = "";
-    document.getElementById("timelineULParentDEC").innerHTML = "";
+    document.getElementById("timelineULParent" + timelineMonthArray[0]).innerHTML = "";
+    document.getElementById("timelineULParent" + timelineMonthArray[1]).innerHTML = "";
+    document.getElementById("timelineULParent" + timelineMonthArray[2]).innerHTML = "";
+    document.getElementById("timelineULParent" + timelineMonthArray[3]).innerHTML = "";
+    document.getElementById("timelineULParent" + timelineMonthArray[4]).innerHTML = "";
+    document.getElementById("timelineULParent" + timelineMonthArray[5]).innerHTML = "";
+    document.getElementById("timelineULParent" + timelineMonthArray[6]).innerHTML = "";
+    document.getElementById("timelineULParent" + timelineMonthArray[7]).innerHTML = "";
+    document.getElementById("timelineULParent" + timelineMonthArray[8]).innerHTML = "";
+    document.getElementById("timelineULParent" + timelineMonthArray[9]).innerHTML = "";
+    document.getElementById("timelineULParent" + timelineMonthArray[10]).innerHTML = "";
+    document.getElementById("timelineULParent" + timelineMonthArray[11]).innerHTML = "";
+    
 }
 
 
@@ -306,7 +308,7 @@ function onSetULTimelineMonth(month,color,data,keyRef) {
     
     
     // Filtre sur le bon parent selon le mois et Insertion dans le parent
-    let monthRef = "timelineULParent" + month;
+    let monthRef = "timelineULParent" + timelineMonthArray[month];
 
     document.getElementById(monthRef).appendChild(newBtn);
 
@@ -746,6 +748,7 @@ function onUpdateTimelineAccueil() {
          }else{
              // Si aucune timeline n'existe
              console.log("[ TIMELINE ] Menu Accueil  : Aucune timeline");
+
          };
 
      });
@@ -775,41 +778,48 @@ function onGenerateTimelineOnAccueil(timelineData) {
     // Recupère les échéances du mois en cours
     console.log("[ TIMELINE ] Mois des timelines = " + timelineMonthArray[currentMonthNumber]);
     let timelineDataThisMonth = timelineData.filter((item) =>{
-            return item.month === timelineMonthArray[currentMonthNumber];
+            return item.month === currentMonthNumber.toString();
         }
     );
 
     console.log("[ TIMELINE ] Nombre d'échéance du mois : " + timelineDataThisMonth.length);
-
-
-    // Création des échéances
-    for (const e of timelineDataThisMonth) {
-        
-
-
-        // Vérification du nombre maximale d'item possible à afficher
-        if (nbreItem < maxTimelineAccueilItem) {
-            // Generation
-            let newDiv = document.createElement("div");
-            newDiv.innerHTML = e.title;
-            newDiv.style.backgroundColor = e.color;
-
-            // Insertion
-            divParentRef.appendChild(newDiv);    
-        }else{
-            // Si Nombre d'item maximal affichable atteint :
-            console.log(" [ TIMELINE ] Menu accueil : Nombre max d'item affichable atteint");
-            let newDiv = document.createElement("div");
-            newDiv.innerHTML = "...+++";
-            newDiv.style.backgroundColor = "white";
-
-            // Insertion
-            divParentRef.appendChild(newDiv);
-            break;
+    if (timelineDataThisMonth.length > 0) {
+        // Création des échéances
+        for (const e of timelineDataThisMonth) {
             
+            // Vérification du nombre maximal d'item possible à afficher
+            if (nbreItem < maxTimelineAccueilItem) {
+                // Generation
+                let newDiv = document.createElement("div");
+                newDiv.innerHTML = e.title;
+                newDiv.onmouseover = function (){
+                    onSearchTimelineFromAcceuil(this,e.key);
+                };
+                newDiv.onmouseleave = function (){
+                    onRemoveTimelineAccueilPopup();
+                };
+
+                newDiv.style.backgroundColor = e.color;
+
+                // Insertion
+                divParentRef.appendChild(newDiv);    
+            }else{
+                // Si Nombre d'item maximal affichable atteint :
+                console.log(" [ TIMELINE ] Menu accueil : Nombre max d'item affichable atteint : " + maxTimelineAccueilItem);
+                let newDiv = document.createElement("div");
+                newDiv.innerHTML = "...+++";
+                newDiv.style.backgroundColor = "white";
+
+                // Insertion
+                divParentRef.appendChild(newDiv);
+                break;
+                
+            };
+            nbreItem++
         };
-        nbreItem++
-    };
+    }else{
+        divParentRef.innerHTML = "Aucune échéance pour ce mois";
+    }
 
 };
 
@@ -817,5 +827,56 @@ function onGenerateTimelineOnAccueil(timelineData) {
 
 
 
+// Recherche de la timeline via la key
+function onSearchTimelineFromAcceuil(locationRef,keyRef) {
+
+    onSearchTimelineWithKey(keyRef)
+        .then(isTimelineExist => {
+            // Si la timeline existe, lance l'affichage
+            if (isTimelineExist === true) {
+                if (currentTimelineInView) { // Vérifie que currentTimelineInView contient bien les données
+
+                    // set les éléments trouvé et les affichent
+                    onViewTimelineAccueilPopup(locationRef,currentTimelineInView);
+                } else {
+                    console.error("[ TIMELINE ] Erreur: Timeline accueil introuvable après la récupération.");
+                }
+            } else {
+                // Si aucune timeline n'existe
+                console.log("[ TIMELINES ] Menu accueil : Aucune timeline");
+            }
+        })
+        .catch(error => {
+            console.error("[ TIMELINE ] Erreur lors de la recherche de la timeline :", error);
+        });
+
+};
 
 
+
+// Set les éléments et affiches
+function onViewTimelineAccueilPopup(locationRef,item) {
+
+    // Référence le popup
+    let popupTimelineRef = document.getElementById("divTimelineMonthViewAccueil");
+
+    document.getElementById("pTimelineAccueilViewTitle").innerHTML = item.title;
+    document.getElementById("divTimelineAccueilViewDetail").innerHTML = item.comment;
+
+
+    // Recupere la position du bouton sur lequel j'ai cliqué
+    let location = locationRef.getBoundingClientRect();
+
+    // Set la position du popup
+    popupTimelineRef.style.left = (location.left + window.scrollX) + "px";
+
+    // Affiche le popup
+    popupTimelineRef.style.display = "block";
+};
+
+
+
+// Masque le popup timeline Accueil
+function onRemoveTimelineAccueilPopup() {
+    document.getElementById("divTimelineMonthViewAccueil").style.display = "none";
+};

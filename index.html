@@ -24,11 +24,11 @@
     <div class="navBar">
         <div class="mainMenuIcon" onclick="onChangeMenu('Accueil')" >
             <img id="imgIconMainMenuAccueil" class="mainMenuIcon" src="./images/IconeHomeSelected.png" alt="Accueil" srcset="" title="Menu principal">
-            <p class="textMainMenu">Mes tâches</p>
+            <p class="textMainMenu">Tâches</p>
         </div>
         <div class="mainMenuIcon" onclick="onChangeMenu('Timeline')" >
             <img id="imgIconMainMenuTimeline" class="mainMenuIcon" src="./images/IconeTimeline.png" alt="Echéances" srcset="" title="Echéances">
-            <p class="textMainMenu">Mes échéances</p>
+            <p class="textMainMenu">Echéances</p>
         </div>
         <div class="mainMenuIcon"  onclick="onChangeMenu('Dashboard')" >
             <img id="imgIconMainMenuDashboard"class="mainMenuIcon" src="./images/IconeDashboard.png" alt="Statistiques" srcset="" title="Statistiques">
@@ -51,7 +51,6 @@
             <p class="textMainMenu">Plein écran</p>
         </div>
         <p class="release">Release : 1.3.0</p>
-
     </div>
     
 
@@ -334,7 +333,7 @@
 
         <!--------------------- ZONE ECHEANCE DU MOIS ------------------------------------->
         <div class="accueilTimelineMonth">
-            <p>Echéances du mois</p>
+            <p>Echéances du mois : </p>
             <div class="accueilTimelineMonthList" id="divAccueilTimelineMonthListParent">
                 <!-- Injection des échéances du mois  -->
             </div>
@@ -437,6 +436,14 @@
         </div>
         <!-- ---------------------- FIN DIV NOTIFICATION ALERTE -------------------------->
 
+
+        <!-- ---------------------- DIV VISUALISATION ECHEANCE DU MOIS -------------------------->
+        <div id="divTimelineMonthViewAccueil" class="timelineAccueilPopup">
+            <h4 id="pTimelineAccueilViewTitle" class="">Titre TIMELINE</h4>
+            <div id="divTimelineAccueilViewDetail">DETAIL TIMELINE</div>
+        </div>
+        <!-- ---------------------- FIN DIV VISUALISATION ECHEANCE DU MOIS -------------------------->
+
     </div>
     <!-- --------------------------- FIN Div Accueil ------------------------------------- -->
 
@@ -471,23 +478,23 @@
 
             <p>
                 <label for="timelineTitle">Titre :</label>
-                <input class="input-field"  id="timelineTitle" type="text">
+                <input class="input-field"  id="timelineTitle" type="text" maxlength="40" placeholder="40 caractères max">
             </p>
             <p>
                 <label for="timelineMonth">Mois :</label>
                 <select name="timelineMonth" id="timelineMonth">
-                <option value="JAN">Janvier</option>
-                <option value="FEB">Fevrier</option>
-                <option value="MAR">Mars</option>
-                <option value="APR">Avril</option>
-                <option value="MAY">Mai</option>
-                <option value="JUN">Juin</option>
-                <option value="JUL">Juillet</option>
-                <option value="AUG">Aout</option>
-                <option value="SEP">Septembre</option>
-                <option value="OCT">Octobre</option>
-                <option value="NOV">Novembre</option>
-                <option value="DEC">Decembre</option>
+                <option value="0">Janvier</option>
+                <option value="1">Fevrier</option>
+                <option value="2">Mars</option>
+                <option value="3">Avril</option>
+                <option value="4">Mai</option>
+                <option value="5">Juin</option>
+                <option value="6">Juillet</option>
+                <option value="7">Aout</option>
+                <option value="8">Septembre</option>
+                <option value="9">Octobre</option>
+                <option value="10">Novembre</option>
+                <option value="11">Decembre</option>
                 </select>
             </p>
             <!-- Couleur -->
@@ -496,11 +503,11 @@
                 <p class="timelineColorVisualisation" id="pTimelineExempleColor" backgroundColor = "orange">Prévisualisation</p>
 
                 <div id="divColorParentZone">
-
+                    <!-- Injection des couleurs -->
                 </div>
             </div>
             <label for="textareaTimelineComment">Commentaire :</label>
-            <textarea class="textarea-field" name="" id="textareaTimelineComment"></textarea>
+            <textarea class="textarea-field" name="" id="textareaTimelineComment" maxlength="250" placeholder="250 caractères maximum"></textarea>
         
             <p>
                 <button class="basicBtn basicBtnA" onclick="onValidTimeline()"><img class="iconeMenu" src="./images/IconeValider.png" alt="Valider" srcset=""></button>
@@ -767,8 +774,33 @@
                     </tr>
                     <tr>
                         <td class="saveSetting">
-                            <p>Exporter la base vous fera télécharger 5 fichiers distincts !</p>
-                            <button class="basicBtn basicBtnA" onclick="exportData()"><img class="iconeMenu" src="./images/IconeDownload.png" alt="Valider" srcset=""> Télécharger la base</button>
+                            <p>
+                                Sélectionnez les éléments à exporter :
+                            </p>
+                            <button class="basicBtn basicBtnA" onclick="onCheckAllExportSetting()">Tout cocher</button>
+                            <p>
+                                <label for="inputCBImportTask">Tâches</label>
+                                <input type="checkbox" id="inputCBImportTask">
+                            </p>
+                            <p>
+                                <label for="inputCBImportTAG">TAG</label>
+                                <input type="checkbox" id="inputCBImportTAG">
+                            </p>
+                            <p>
+                                <label for="inputCBImportDashboard">Statistiques</label>
+                                <input type="checkbox" id="inputCBImportDashboard">
+                            </p>
+                            <p>
+                                <label for="inputCBImportTemplate">Modèle</label>
+                                <input type="checkbox" id="inputCBImportTemplate">
+                            </p>
+                            <p>
+                                <label for="inputCBImportTimeline">Echéances</label>
+                                <input type="checkbox" id="inputCBImportTimeline">
+                            </p>
+                            <p id="pExportNoSelected"></p>
+                            <button class="basicBtn basicBtnA" onclick="onVerifyCheckedItem()"><img class="iconeMenu" src="./images/IconeDownload.png" alt="Valider" srcset="">Télécharger</button>
+
                         </td>
                         <td class="importSetting">
                             <!-- Import TASK -->

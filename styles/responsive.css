@@ -2,7 +2,7 @@
 
 
 
-/* ----------------  -----   Grand ecrans  ------- ------------------- */
+/* ----------------  -----   Grand ecrans + 1850 ------- ------------------- */
 
 
 
@@ -178,10 +178,11 @@
     }
 
 
-
-
-
-
+    /* Echéance du mois dans l'accueil */
+    div.accueilTimelineMonth{
+        display: block;
+    }
 
 
 }
+/* ----------------  -----  FIN Grand ecrans + 1850 ------- ------------------- */

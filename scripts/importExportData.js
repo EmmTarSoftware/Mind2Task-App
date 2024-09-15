@@ -1,6 +1,17 @@
 // La date du jour pour l'export
 let exportDate;
 
+// Les boolean de l'export
+let isSaveTask = false,
+isSaveTAG = false,
+isSaveDashboard = false,
+isSaveTemplate = false,
+isSaveTimeline = false;
+
+
+
+
+
 // Sauvegarde de la base de donnée
 
 
@@ -9,24 +20,30 @@ function exportData() {
     exportDate = onFormatDateToday();
 
 
-        console.log("Demande d'export data");
-        var transaction = db.transaction([taskStoreName], 'readonly');
-        var store = transaction.objectStore(taskStoreName);
+    // Si les tâches ne sont pas cochées, passe au suivant.
+    if (isSaveTask === false) {
+        exportDataTAG();
+        return
+    };
 
-        var exportRequest = store.getAll();
+    console.log("Demande d'export data");
+    var transaction = db.transaction([taskStoreName], 'readonly');
+    var store = transaction.objectStore(taskStoreName);
 
-        exportRequest.onsuccess = function() {
-            var data = exportRequest.result;
-            downloadJSON(data, `Mind2Task_${exportDate}_exported_Task.json`);
-        };
+    var exportRequest = store.getAll();
 
-        exportRequest.onerror = function(error) {
-            console.log('Erreur lors de l\'export des données : ', error);
-        };
+    exportRequest.onsuccess = function() {
+        var data = exportRequest.result;
+        downloadJSON(data, `Mind2Task_${exportDate}_exported_Taches.json`);
+    };
 
-        transaction.oncomplete = function(){
-            exportDataTAG();
-        };
+    exportRequest.onerror = function(error) {
+        console.log('Erreur lors de l\'export des données : ', error);
+    };
+
+    transaction.oncomplete = function(){
+        exportDataTAG();
+    };
 
 
 
@@ -35,31 +52,48 @@ function exportData() {
 
 
 function exportDataTAG() {
-        console.log("Demande d'export data");
-        var transaction = db.transaction([tagStoreName], 'readonly');
-        var store = transaction.objectStore(tagStoreName);
-
-        var exportRequest = store.getAll();
-
-        exportRequest.onsuccess = function() {
-            var data = exportRequest.result;
-            downloadJSON(data, `Mind2Task_${exportDate}_exported_TAG.json`);
-        };
-
-        exportRequest.onerror = function(error) {
-            console.log('Erreur lors de l\'export des données : ', error);
-        };
 
 
-        transaction.oncomplete = function(){
-            exportDataDashboard();
-        };
+    // Si les TAG ne sont pas cochées, passe au suivant.
+    if (isSaveTAG === false) {
+        exportDataDashboard();
+        return
+    };
+
+    console.log("Demande d'export data");
+
+    var transaction = db.transaction([tagStoreName], 'readonly');
+    var store = transaction.objectStore(tagStoreName);
+
+    var exportRequest = store.getAll();
+
+    exportRequest.onsuccess = function() {
+        var data = exportRequest.result;
+        downloadJSON(data, `Mind2Task_${exportDate}_exported_TAG.json`);
+    };
+
+    exportRequest.onerror = function(error) {
+        console.log('Erreur lors de l\'export des données : ', error);
+    };
+
+
+    transaction.oncomplete = function(){
+        exportDataDashboard();
+    };
         
 
 };
 
 
 function exportDataDashboard() {
+
+    // Si le DASHBOARD n'est pas cochées, passe au suivant.
+    if (isSaveDashboard === false) {
+        exportDataTemplate();
+        return
+    };
+    
+
     console.log("Demande d'export data");
     var transaction = db.transaction([dashBoardStoreName], 'readonly');
     var store = transaction.objectStore(dashBoardStoreName);
@@ -68,7 +102,7 @@ function exportDataDashboard() {
 
     exportRequest.onsuccess = function() {
         var data = exportRequest.result;
-        downloadJSON(data, `Mind2Task_${exportDate}_exported_Dashboard.json`);
+        downloadJSON(data, `Mind2Task_${exportDate}_exported_Stastistiques.json`);
     };
 
     exportRequest.onerror = function(error) {
@@ -83,6 +117,14 @@ function exportDataDashboard() {
 
 
 function exportDataTemplate() {
+
+    // Si le TEMPLATE n'est pas cochées, passe au suivant.
+    if (isSaveTemplate === false) {
+        exportDataTimeline();
+        return
+    };
+
+
     console.log("Demande d'export data");
     var transaction = db.transaction([templateStoreName], 'readonly');
     var store = transaction.objectStore(templateStoreName);
@@ -91,7 +133,7 @@ function exportDataTemplate() {
 
     exportRequest.onsuccess = function() {
         var data = exportRequest.result;
-        downloadJSON(data, `Mind2Task_${exportDate}_exported_Template.json`);
+        downloadJSON(data, `Mind2Task_${exportDate}_exported_Modeles.json`);
     };
 
     exportRequest.onerror = function(error) {
@@ -107,6 +149,14 @@ function exportDataTemplate() {
 
 
 function exportDataTimeline() {
+
+
+    // Si TIMELINE n'est pas cochées, passe au suivant.
+    if (isSaveTimeline === false) {
+
+        return
+    };
+
     console.log("Demande d'export data");
     var transaction = db.transaction([timelineStoreName], 'readonly');
     var store = transaction.objectStore(timelineStoreName);
@@ -115,7 +165,7 @@ function exportDataTimeline() {
 
     exportRequest.onsuccess = function() {
         var data = exportRequest.result;
-        downloadJSON(data, `Mind2Task_${exportDate}_exported_Timeline.json`);
+        downloadJSON(data, `Mind2Task_${exportDate}_exported_Echeances.json`);
     };
 
     exportRequest.onerror = function(error) {

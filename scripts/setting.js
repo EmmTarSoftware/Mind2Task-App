@@ -305,4 +305,68 @@ function onDisplaySetting() {
     // Set les éléments de notification
     onSetNotifySetting();
 
+    // Set les éléments d'export de la base
+    onResetExportSetting();
+};
+
+
+
+// ---------------------------- EXPORT -------------------------------------
+
+
+
+
+
+// Referencement
+let inputCBImportTaskRef = document.getElementById("inputCBImportTask"),
+inputCBImportTAGRef = document.getElementById("inputCBImportTAG"),
+inputCBImportDashboardRef = document.getElementById("inputCBImportDashboard"),
+inputCBImportTemplateRef = document.getElementById("inputCBImportTemplate"),
+inputCBImportTimelineRef = document.getElementById("inputCBImportTimeline");
+
+
+// Reset les options d'export
+function onResetExportSetting() {
+    // Les checkbox
+    inputCBImportTaskRef.checked = false;
+    inputCBImportTAGRef.checked = false;
+    inputCBImportDashboardRef.checked = false;
+    inputCBImportTemplateRef.checked = false;
+    inputCBImportTimelineRef.checked = false;
+
+};
+
+
+// Coche tous les menu pour l'export
+function onCheckAllExportSetting() {
+    // Les checkbox
+    inputCBImportTaskRef.checked = true;
+    inputCBImportTAGRef.checked = true;
+    inputCBImportDashboardRef.checked = true;
+    inputCBImportTemplateRef.checked = true;
+    inputCBImportTimelineRef.checked = true;
+
+};
+
+// Vérifie les éléments cochés ou non avant l'export
+// Et set les boolean selon
+function onVerifyCheckedItem() {
+    console.log("[ EXPORT ] Export demandé, vérification des éléments à exporter.");
+    isSaveTask = inputCBImportTaskRef.checked;
+    isSaveTAG = inputCBImportTAGRef.checked;
+    isSaveDashboard = inputCBImportDashboardRef.checked;
+    isSaveTemplate = inputCBImportTemplateRef.checked;
+    isSaveTimeline = inputCBImportTimelineRef.checked;
+
+
+
+    // Si aucun des bollean n'est à vrai (rien n'est coché), prévient l'utilisateur
+    if (![isSaveTask, isSaveTAG, isSaveDashboard, isSaveTemplate, isSaveTimeline].some(Boolean)) {
+        console.log("[ EXPORT ] Aucun élément coché");
+        document.getElementById("pExportNoSelected").innerHTML = "Veuillez selectionner un élément !";
+    } else {
+        document.getElementById("pExportNoSelected").innerHTML = "";
+        exportData();
+    };
+    
 };

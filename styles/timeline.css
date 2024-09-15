@@ -123,13 +123,17 @@ button.timelineColorSelected:hover{
 div.accueilTimelineMonth{
     background-color: #f8f8f8;;
     position: absolute;
-    left: 250px; top: 900px;
-    width: 85%; height: 100px;
+    left: 250px; top: 880px;
+    width: 85%; height: 80px;
     border-radius: 5px;
     text-align: center;
+    display: none;/*Ne s'affiche que sur les grands écrans (voir fichier responsive)*/
 }
 
-
+div.accueilTimelineMonth p{
+    font-weight: bold;
+    margin: 4px;
+}
 
 /* Pour chaque écheance dans le menu accueil */
 div.accueilTimelineMonthList div{
@@ -143,3 +147,36 @@ div.accueilTimelineMonthList div{
 
 
 
+div.accueilTimelineMonthList div:hover{
+    cursor:default;
+}
+
+
+
+/* POPUP visualisation échéances */
+div.timelineAccueilPopup {
+    background-color: #f6dd89;
+    text-align: center;
+    position: absolute;
+    z-index: 5;
+    width: auto; /* Permet à la div de s'ajuster en fonction du contenu */
+    max-width: 450px;
+    display: none;
+    border-radius: 10px;
+    border: solid 1px var(--blueColor);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Ombre portée */
+    padding: 10px;
+    box-sizing: border-box;
+    bottom: calc(100vh - 900px); /* Place le bas de la div à 800px du haut */
+}
+
+
+/* Le commentaire de l'échéance */
+
+div.timelineAccueilPopup div{
+    white-space: pre-line;
+	white-space: pre-wrap;
+    overflow: auto; /* Ajoute une barre de défilement si le contenu dépasse la taille de la div */
+    padding: 10px; 
+	text-align: left;
+}
