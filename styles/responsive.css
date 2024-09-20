@@ -60,27 +60,27 @@
 
     /* Visionneuse de note */
     div.noteViewArea {
-        min-height: 800px;
+        min-height: 700px;
         left: 1000px;top: 50px;
     }
 
     tr.tableViewNoteRowDetail {
-        height: 250px;
+        height: 150px;
       }
       
     div.viewNoteDetail{
-        height: 250px;
+        height: 150px;
     }
 
 
     tr.tableViewNoteRowStep{
-        height: 230px;
+        height: 220px;
         
     }
     
     /* Pour la barre de défilement des steps */
     .scrollable-td-step-view {
-        height: 230px; 
+        height: 220px; 
     
     }
 
@@ -89,30 +89,30 @@
 
     /* Editeur de note */
     .divNoteEditor {
-        min-height: 800px;
+        min-height: 700px;
         left: 1000px;top: 50px;
         
     }
 
     tr.editorDetailRow{
-        height: 230px;
+        height: 150px;
     }
     
     .textarea-field{
-        height: 200px;
+        height: 150px;
         
       }
 
  /* LES ETAPES */
  tr.editorStepRow{
-	height: 250px;
+	height: 180px;
 }
 
 
 /* Pour la barre de défilement des steps */
 .scrollable-td-step-editor {
 	width: 600px;
-    height: 250px; /* Hauteur fixe de la cellule */
+    height: 180px; /* Hauteur fixe de la cellule */
 }
 
 

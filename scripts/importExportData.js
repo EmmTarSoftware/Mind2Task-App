@@ -102,7 +102,7 @@ function exportDataDashboard() {
 
     exportRequest.onsuccess = function() {
         var data = exportRequest.result;
-        downloadJSON(data, `Mind2Task_${exportDate}_exported_Stastistiques.json`);
+        downloadJSON(data, `Mind2Task_${exportDate}_exported_Statistiques.json`);
     };
 
     exportRequest.onerror = function(error) {

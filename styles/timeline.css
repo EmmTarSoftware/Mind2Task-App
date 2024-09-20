@@ -76,6 +76,7 @@ div.editionTimeline{
 
 .timeLineTask ul button:hover {
     cursor: pointer;
+
 }
 
 
@@ -123,7 +124,7 @@ button.timelineColorSelected:hover{
 div.accueilTimelineMonth{
     background-color: #f8f8f8;;
     position: absolute;
-    left: 250px; top: 880px;
+    left: 250px; top: 780px;
     width: 85%; height: 80px;
     border-radius: 5px;
     text-align: center;
@@ -149,6 +150,8 @@ div.accueilTimelineMonthList div{
 
 div.accueilTimelineMonthList div:hover{
     cursor:default;
+    border: solid 2px black;
+    border-radius: 5px;
 }
 
 
@@ -167,7 +170,7 @@ div.timelineAccueilPopup {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Ombre portée */
     padding: 10px;
     box-sizing: border-box;
-    bottom: calc(100vh - 900px); /* Place le bas de la div à 800px du haut */
+    bottom: calc(100vh - 800px); /* Place le bas de la div à 800px du haut */
 }
 
 
