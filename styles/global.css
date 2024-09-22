@@ -154,8 +154,12 @@ p.textMainMenu{
 
 p.release{
 	margin-top: 50px;
+}
+
+p.release a{
 	color: white;
 }
+
 
 /* Div avec les deux boutons de nouvelle tâches */
 div.btnNewTask{

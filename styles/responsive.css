@@ -180,9 +180,12 @@
 
     /* Echéance du mois dans l'accueil */
     div.accueilTimelineMonth{
-        display: block;
+        left: 250px; top: 780px;
     }
 
+    div.timelineAccueilPopup {
+        bottom: calc(100vh - 800px); /* Place le bas de la div à 800px du haut */
+    }
 
 }
 /* ----------------  -----  FIN Grand ecrans + 1850 ------- ------------------- */

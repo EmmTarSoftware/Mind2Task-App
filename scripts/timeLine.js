@@ -205,13 +205,21 @@ function onGenerateTimelineMonth() {
     let divParentRef = document.getElementById("divFullTimelineZone");
     divParentRef.innerHTML = "";
 
-    timelineMonthArray.forEach(e=>{
+    timelineMonthArray.forEach((e,index)=>{
 
-        // CREATION
+        // CREATION 
 
         // Div pour chaque mois
         let newMainMonthDiv = document.createElement("div");
         newMainMonthDiv.className = "timelineMonth";
+
+        newMainMonthDiv.onclick = function (){
+            onClickNewTimeline(true,index);
+        };
+
+
+
+
 
         // div du label (avec différentation du mois en cours)
         let newMonthLabelDiv = document.createElement("div");
@@ -302,7 +310,8 @@ function onSetULTimelineMonth(month,color,data,keyRef) {
     let newBtn = document.createElement("button");
     newBtn.style = "background-color: " + color;
     newBtn.innerHTML = data;
-    newBtn.onclick = function () {
+    newBtn.onclick = function (event) {
+        event.stopPropagation();// Empêche la propagation du clic activant la fonction de la div inférieure
         onClickModifyTimeline(keyRef);
     };
     
@@ -328,18 +337,28 @@ function onSetULTimelineMonth(month,color,data,keyRef) {
 
 
 
-// CREATION
-function onClickNewTimeline() {
+// CREATION d'une nouvelle timeline
+function onClickNewTimeline(isFromMonthArea,monthTarget) {
+
+    
+    if(isFromMonthArea === false){
+        console.log("[ TIMELINE ]  Nouvelle Echeance depuis bouton nouveau");
+    }else{
+        console.log("[ TIMELINE ]  Nouvelle Echeance depuis le mois : " + timelineMonthArray[monthTarget] + ". Index : " + monthTarget);
+    };
+    
 
     // N'affiche pas le bouton "supprimer"
     btnDeleteTimelineRef.style.display = "none";
 
-    onEditTimeline(true,);
+    onEditTimeline(true,null,isFromMonthArea,monthTarget);
 
 };
 
 
-
+function onTest(monthTarget) {
+    alert(monthTarget);
+}
 
 
 
@@ -358,7 +377,7 @@ function onClickModifyTimeline(keyRef) {
 
 
 // Affichage de l'éditeur de timeline
-function onEditTimeline(isNew, keyRef) {
+function onEditTimeline(isNew, keyRef,isFromMonthArea,monthIndexRef) {
 
     // Set le boolean pour savoir si c'est une création ou modification
     isNewTimeline = isNew;
@@ -387,10 +406,14 @@ function onEditTimeline(isNew, keyRef) {
     if (isNewTimeline === true) {
         legendEditionTimelineRef.innerHTML = "Créer une échéance";
         pTimelineExempleColorRef.style.backgroundColor = currentTimelineColor;
+
+        // Si nouvelle timeline depuis la zone du mois, set déjà le mois
+        if (isFromMonthArea === true) {   selectEditionTimelineMonthRef.value = monthIndexRef;     };
+
     }else{
         legendEditionTimelineRef.innerHTML = "Modifier une échéance";
         // Recherche la timeline dans la base
-        onSearchTimeTimelineBeforeSet(keyRef);
+        onSearchTimelineBeforeSet(keyRef);
     };
     
     onChangeDisplay([], ["divEditionTimeline"], ["divMenuTimeline", "divFullTimelineZone"], []);
@@ -409,7 +432,7 @@ function onSetColorSelectedByUser(colorRef) {
 
 
 // Remplit les éléments lors d'une modification
-function onSearchTimeTimelineBeforeSet(keyRef) {
+function onSearchTimelineBeforeSet(keyRef) {
     // recherche la timeline avec cette clé dans la base 
     onSearchTimelineWithKey(keyRef)
         .then(isTimelineExist => {
@@ -807,6 +830,12 @@ function onGenerateTimelineOnAccueil(timelineData) {
                 // Si Nombre d'item maximal affichable atteint :
                 console.log(" [ TIMELINE ] Menu accueil : Nombre max d'item affichable atteint : " + maxTimelineAccueilItem);
                 let newDiv = document.createElement("div");
+                newDiv.onmouseover = function (){
+                    onViewTimelineAccueilPopup(this,null,true);
+                };
+                newDiv.onmouseleave = function (){
+                    onRemoveTimelineAccueilPopup();
+                };
                 newDiv.innerHTML = "...+++";
                 newDiv.style.backgroundColor = "white";
 
@@ -837,7 +866,7 @@ function onSearchTimelineFromAcceuil(locationRef,keyRef) {
                 if (currentTimelineInView) { // Vérifie que currentTimelineInView contient bien les données
 
                     // set les éléments trouvé et les affichent
-                    onViewTimelineAccueilPopup(locationRef,currentTimelineInView);
+                    onViewTimelineAccueilPopup(locationRef,currentTimelineInView,false);
                 } else {
                     console.error("[ TIMELINE ] Erreur: Timeline accueil introuvable après la récupération.");
                 }
@@ -855,13 +884,24 @@ function onSearchTimelineFromAcceuil(locationRef,keyRef) {
 
 
 // Set les éléments et affiches
-function onViewTimelineAccueilPopup(locationRef,item) {
+function onViewTimelineAccueilPopup(locationRef,item,isMoreTimeAvailable) {
 
-    // Référence le popup
-    let popupTimelineRef = document.getElementById("divTimelineMonthViewAccueil");
+    // Reference
+    let popupTimelineRef = document.getElementById("divTimelineMonthViewAccueil"),
+    popupTimelineTitleRef = document.getElementById("pTimelineAccueilViewTitle"),
+    popupTimelineDetailRef =document.getElementById("divTimelineAccueilViewDetail");
 
-    document.getElementById("pTimelineAccueilViewTitle").innerHTML = item.title;
-    document.getElementById("divTimelineAccueilViewDetail").innerHTML = item.comment;
+    if (isMoreTimeAvailable === true) {
+        popupTimelineTitleRef.innerHTML = "D'autres échéances disponibles";
+        popupTimelineDetailRef.innerHTML = "Veuillez vous rendre dans le menu des échéances afin de les consulter.";
+    }else{
+        popupTimelineTitleRef.innerHTML = item.title;
+        popupTimelineDetailRef.innerHTML = item.comment;
+    };
+
+  
+
+    
 
 
     // Recupere la position du bouton sur lequel j'ai cliqué
