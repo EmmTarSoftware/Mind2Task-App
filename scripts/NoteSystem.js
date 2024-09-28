@@ -890,7 +890,9 @@ function onAddStep() {
             stepName: '',
             stepHour: 0,
             stepMinutes: 0,
-            stepChecked: false
+            stepChecked: false,
+            stepDate:"",
+            stepDateChecked: false
         };
         tempStepArray.push(newStep);
         onDisplayStep();
@@ -898,6 +900,13 @@ function onAddStep() {
         eventUserMessage(arrayUserMessage.emptyStepField,"error");
     };
 };
+
+
+
+
+
+
+
 
 // Vérification des champs d'étapes remplit
 function areAllStepsFilled() {
@@ -919,6 +928,9 @@ function isMaxStepsReached() {
 function onDisplayStep() {
     let stepListParentRef = document.getElementById("ulNoteEditorStep");
     stepListParentRef.innerHTML = "";
+
+    console.log(tempStepArray);
+
 
     tempStepArray.forEach((e, index) => {
         let newLi = document.createElement("li");
@@ -990,6 +1002,52 @@ function onDisplayStep() {
 
 
 
+        // ---------------- TEST DATE STEP ----------------
+
+
+
+
+        // date des étapes
+        let newStepDate = document.createElement("input");
+        newStepDate.type = "date";
+        newStepDate.value = e.stepDate;
+        newStepDate.addEventListener('change', (event) => {
+            tempStepArray[index].stepDate = event.target.value; 
+        });
+
+
+        // Notification des dates
+        let newHiddendStepDateNotify = document.createElement("input");
+        newHiddendStepDateNotify.type = "checkbox";
+        newHiddendStepDateNotify.id = "stepDateNotifyID" + index;
+        newHiddendStepDateNotify.checked = e.stepDateChecked ;
+        newHiddendStepDateNotify.style.display = "none";
+
+
+        let newLabelStepDateNotify = document.createElement("label");
+        newLabelStepDateNotify.htmlFor = "stepDateNotifyID" + index;
+
+        let newImgStepDateNotify = document.createElement("img");
+        newImgStepDateNotify.className = "iconeToggleNotify";
+        newImgStepDateNotify.src = e.stepDateChecked === true ? "./images/IconeNotifyEnabled.png" : "./images/IconeNotifyDisabled.png";
+
+        newLabelStepDateNotify.appendChild(newImgStepDateNotify);
+
+
+
+
+        newHiddendStepDateNotify.addEventListener('change', (event) => {
+            tempStepArray[index].stepDateChecked = event.target.checked;
+            if (event.target.checked) {
+                newImgStepDateNotify.src = "./images/IconeNotifyEnabled.png";
+            } else {
+                newImgStepDateNotify.src = "./images/IconeNotifyDisabled.png" ;
+            }
+        });
+
+
+        // ----------------FIN TEST DATE STEP ----------------
+
 
 
         // Creation des boutons
@@ -1017,13 +1075,29 @@ function onDisplayStep() {
         // Insertions
         newLi.appendChild(newCheckbox);
         newLi.appendChild(newInput);
-        newLi.appendChild(newInputHour);
-        newLi.appendChild(newTextHour);
-        newLi.appendChild(newInputMinutes);
-        newLi.appendChild(newTextMinute);
+
+        // ----------------TEST DATE STEP ----------------
+
+
+        newLi.appendChild(newStepDate);
+        newLi.appendChild(newHiddendStepDateNotify);
+        newLi.appendChild(newLabelStepDateNotify);
+
+        // ----------------FIN TEST DATE STEP ----------------
+
+
         newLi.appendChild(btnStepUp);
         newLi.appendChild(btnStepDown);
         newLi.appendChild(btnDeleteStep);
+
+        // Fonctionnalité des heures pour les étapes masquées pour le moment
+        // newLi.appendChild(newInputHour);
+        // newLi.appendChild(newTextHour);
+        // newLi.appendChild(newInputMinutes);
+        // newLi.appendChild(newTextMinute);
+
+
+
 
         stepListParentRef.appendChild(newLi);
     });
@@ -1139,7 +1213,13 @@ function onFormatNote(){
 
     if (tempStepArray.length > 0) {
         // Premiere lettre en majuscule pour les étapes
-        tempStepArray.forEach(i=> formatedEditorStepArray.push({stepName:onSetFirstLetterUppercase(i.stepName),stepChecked:i.stepChecked,stepHour:i.stepHour,stepMinutes:i.stepMinutes}));
+
+        console.log("avant passage majuscule");
+        console.log(tempStepArray);
+        tempStepArray.forEach(i=> formatedEditorStepArray.push({stepName:onSetFirstLetterUppercase(i.stepName),stepChecked:i.stepChecked,stepHour:i.stepHour,stepMinutes:i.stepMinutes,stepDate:i.stepDate, stepDateChecked:i.stepDateChecked}));
+
+        console.log("Après passage majuscule");
+        console.log(tempStepArray);
 
     }else{console.log("Aucune étape à traiter")};
 
@@ -1171,7 +1251,7 @@ function onFormatNote(){
 
 
     if (formatedEditorStepArray.length > 0) {
-        formatedEditorStepArray.forEach(i=> secureEditorStepArray.push({stepName:securitySearchforbiddenItem(i.stepName),stepChecked:i.stepChecked,stepHour:i.stepHour,stepMinutes:i.stepMinutes}));
+        formatedEditorStepArray.forEach(i=> secureEditorStepArray.push({stepName:securitySearchforbiddenItem(i.stepName),stepChecked:i.stepChecked,stepHour:i.stepHour,stepMinutes:i.stepMinutes,stepDate:i.stepDate, stepDateChecked:i.stepDateChecked}));
     };
 
     // Notification des dates
@@ -1388,6 +1468,11 @@ function onClickBtnAnnulNoteEditor() {
 
 
 
+
+
+
+
+
 // ------------------------------------------ Afficher notes ---------------------------------
 
 
@@ -1494,14 +1579,19 @@ function onDisplayNote(e) {
 
     e.stepArray.forEach(i=>
             {
+                // notification date d'étape active ou non
+                let stepDateNotify = i.stepDateChecked === true ? "&#x1F514;" : ""; // Symbole de la cloche
+                // Convertion de la date en FR
+                let stepDateFr = onFormatDateToFr(i.stepDate);
+
                 // Creation des éléments
                 let newLi = document.createElement("li");
 
                 if (i.stepChecked === true) {
                     // Texte rayé
-                    newLi.innerHTML = "<del>" + i.stepName + "</del>";
+                    newLi.innerHTML = `<del> ${i.stepName} <i> ${stepDateFr} </i> ${stepDateNotify} </del>`;
                 }else{    
-                    newLi.innerHTML = i.stepName;
+                    newLi.innerHTML = ` ${i.stepName}  <i> ${stepDateFr} </i> ${stepDateNotify}`;
                 };
                 
                 // Insertion 
@@ -1515,7 +1605,7 @@ function onDisplayNote(e) {
     // Rend la visionneuse de note visible
     onChangeDisplay([],["divNoteView"],[],["divNoteView"]);
 
-}
+};
 
 
 // Clear le visualiseur de note
@@ -1640,14 +1730,13 @@ function eventNoteTerminer(dataToSave,keyToDelete) {
     document.getElementById("TaskDurationMinutes").value = 0;
 
     // Proposition heure
-    let pStepTotalTimeInfoRef = document.getElementById("pStepTotalTimeInfo");
-        pStepTotalTimeInfoRef.innerHTML = "";
 
     // Calcul la durée total des étapes pour proposition d'heure et l'affiche pour info
     if (dataToSave.stepArray.length > 0){
         let totalStepMinutes = onCalculTotalStepDuration(dataToSave.stepArray);
         
-        pStepTotalTimeInfoRef.innerHTML = ("La durée totale des étapes est de :" + totalStepMinutes.heures + " heures et " + totalStepMinutes.minutes + " minutes");
+        // Affiche la durée 
+        onDisplayTotalStepDuration(totalStepMinutes.heures,totalStepMinutes.minutes);
     };
     
 
@@ -1688,14 +1777,13 @@ function quickEventNoteTerminer() {
 
 
     // Proposition heure
-    let pStepTotalTimeInfoRef = document.getElementById("pStepTotalTimeInfo");
-        pStepTotalTimeInfoRef.innerHTML = "";
 
     // Calcul la durée total des étapes pour proposition d'heure et l'affiche pour info
     if (currentNoteInView.stepArray.length > 0){
         let totalStepMinutes = onCalculTotalStepDuration(currentNoteInView.stepArray);
         
-        pStepTotalTimeInfoRef.innerHTML = ("La durée totale des étapes est de :" + totalStepMinutes.heures + " heures et " + totalStepMinutes.minutes + " minutes");
+        // Affiche la durée 
+        onDisplayTotalStepDuration(totalStepMinutes.heures,totalStepMinutes.minutes);
     };
     
 
@@ -1721,6 +1809,20 @@ function quickEventNoteTerminer() {
 
 };
 
+
+
+// Affiche la durée des étapes
+function onDisplayTotalStepDuration(hour,minutes) {
+
+    // Fonction actuellement désactivée car pour l'instant je ne traite plus les heures des étapes
+    // Pour réactiver, retirer le "return"
+    return
+
+    let pStepTotalTimeInfoRef = document.getElementById("pStepTotalTimeInfo");
+        pStepTotalTimeInfoRef.innerHTML = "";
+
+    pStepTotalTimeInfoRef.innerHTML = ("La durée totale des étapes est de :" + hour + " heures et " + minutes + " minutes");
+};
 
 // Annulation du popup "Terminer"
 function onCancelPopupTerminer(isQuickAction) {

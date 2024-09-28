@@ -211,23 +211,27 @@ function onUpdateNotifyDate(array) {
 
 // notification du jours
 function onNotifyDateToday(array,dateTarget) {
-
+    console.log("[ NOTIFICATION ] traitement des notifications du jours");
     // En mode manuel, ne notifie que ce qui a été demandé
     if (isNotifyManualMode === true) {
+        console.log("[ NOTIFICATION ] Mode Manuel");
         array.forEach(e => {
             if (e.dateStart.value === dateTarget && e.dateStart.notify === true) {
                 notifyTodayArray.push({tag: e.tag, title :e.title});
-            }
+            };
         });
     }else{
         // En mode auto, notifie tout
+        console.log("[ NOTIFICATION ] Mode Auto");
         array.forEach(e => {
             if (e.dateStart.value === dateTarget) {
                 notifyTodayArray.push({tag: e.tag, title :e.title});
-            }
+            };
         });
 
-    }
+    };
+
+    console.log("[ NOTIFICATION ] Nbre notification aujourd'hui : " + notifyTodayArray.length);
 
     // Notification date en retard
     onNotifyDateLate(array,dateTarget);
@@ -237,27 +241,29 @@ function onNotifyDateToday(array,dateTarget) {
 
 // Date en retard
 function onNotifyDateLate(array,dateToday) {
-
+    console.log("[ NOTIFICATION ] traitement des notifications en retard");
     // En mode manuel, ne notifie que ce qui a été demandé
     if (isNotifyManualMode === true) {
+        console.log("[ NOTIFICATION ] Mode Manuel");
         array.forEach(e => {
             if (dateToday > e.dateEnd.value && e.dateEnd.notify === true) {
                 notifyLateArray.push({tag: e.tag, title :e.title , date: onFormatDateToFr(e.dateEnd.value)});
-            }
+            };
         });
     }else{
         // En mode auto, notifie tout
+        console.log("[ NOTIFICATION ] Mode Auto");
         array.forEach(e => {
             if (dateToday > e.dateEnd.value) {
                 notifyLateArray.push({tag: e.tag, title :e.title , date: onFormatDateToFr(e.dateEnd.value)});
-            }
+            };
         });
     };
 
 
     
 
-
+    console.log("[ NOTIFICATION ] Nbre notification en retard : " + notifyLateArray.length);
     // Traitement de l'affichage
     onTraiteNotifyDate();
 };
@@ -267,6 +273,8 @@ function onNotifyDateLate(array,dateToday) {
 
 // Traitement des notifications
 function onTraiteNotifyDate() {
+    console.log("[ NOTIFICATION ] Traitement affichage");
+
     // Reference l'icone de notification
     let imgNotifyAvailableRef = document.getElementById("imgNotifyAvailable");
 

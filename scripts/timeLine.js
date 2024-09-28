@@ -310,6 +310,7 @@ function onSetULTimelineMonth(month,color,data,keyRef) {
     let newBtn = document.createElement("button");
     newBtn.style = "background-color: " + color;
     newBtn.innerHTML = data;
+    // newBtn.draggable = true;
     newBtn.onclick = function (event) {
         event.stopPropagation();// Empêche la propagation du clic activant la fonction de la div inférieure
         onClickModifyTimeline(keyRef);
