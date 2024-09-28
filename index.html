@@ -50,7 +50,7 @@
             <img class="mainMenuIcon" src="./images/IconeScreen.png" alt="Plein écran" srcset="" title="Plein écran">
             <p class="textMainMenu">Plein écran</p>
         </div>
-        <p class="release"><a class="release" target="_blank" href="https://emmtarsoftware.github.io/Mind2Task-Info/actualite.html">Release : 1.3.2</a></p>
+        <p class="release"><a class="release" target="_blank" href="https://emmtarsoftware.github.io/Mind2Task-Info/actualite.html">Release : 1.4.0</a></p>
         
     </div>
     
@@ -297,7 +297,7 @@
                         <tr>
                             <!-- Les dates -->
                             <td colspan="3">
-                                <label for="inputNoteDateStart">Date début</label>
+                                <label for="inputNoteDateStart">Date début : </label>
                                 <input type="date" name="" id="inputNoteDateStart">
 
                                 <input type="checkbox" id="checkboxDateStartNotify" onchange="onChangeNotifyStatus(this,'imgCheckboxDateStartNotify')" style="display: none;">
@@ -305,7 +305,7 @@
                                     <img class="iconeToggleNotify" id="imgCheckboxDateStartNotify" src="./images/IconeNotifyDisabled.png" alt="Checkbox Image">
                                 </label>
 
-                                <label for="inputNoteDateEnd">Date fin</label>
+                                <label for="inputNoteDateEnd">Date fin : </label>
                                 <input type="date" name="" id="inputNoteDateEnd">
 
                                 <input type="checkbox" id="checkboxDateEndNotify" onchange="onChangeNotifyStatus(this,'imgCheckboxDateEndNotify')" style="display: none;">
@@ -412,8 +412,9 @@
             <h2>Notification</h2>
             <table>
                 <tr>
-                    <th><h3>Aujourd'hui :</h3></th>
-                    <th><h3>En retard :</h3></th>
+                    <th><h3>Tâche(s) du jour :</h3></th>
+                    <th><h3>Etapes(s) du jour :</h3></th>
+                    <th><h3>Tâche(s) en retard :</h3></th>
                 </tr>
                 <tr>
                     <td>
@@ -421,6 +422,14 @@
                             <!-- Injection -->
                             <li>
                                 test Today
+                            </li>
+                        </ul>
+                    </td>
+                    <td>
+                        <ul id="ulListStepNotifyToday">
+                            <!-- Injection -->
+                            <li>
+                                test étapes Today
                             </li>
                         </ul>
                     </td>
@@ -937,7 +946,7 @@
             <img class="mainLogo" src="./images/Mind2TaskMainLogo.png" alt="">
             
             
-            <p>Release : 1.3.2</p>
+            <p>Release : 1.4.0</p>
             <h3>
                 Actualité :
             </h3>

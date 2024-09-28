@@ -892,7 +892,7 @@ function onAddStep() {
             stepMinutes: 0,
             stepChecked: false,
             stepDate:"",
-            stepDateChecked: false
+            stepDateNotify: false
         };
         tempStepArray.push(newStep);
         onDisplayStep();
@@ -1002,7 +1002,7 @@ function onDisplayStep() {
 
 
 
-        // ---------------- TEST DATE STEP ----------------
+        // ----------------  DATE STEP ----------------
 
 
 
@@ -1020,7 +1020,7 @@ function onDisplayStep() {
         let newHiddendStepDateNotify = document.createElement("input");
         newHiddendStepDateNotify.type = "checkbox";
         newHiddendStepDateNotify.id = "stepDateNotifyID" + index;
-        newHiddendStepDateNotify.checked = e.stepDateChecked ;
+        newHiddendStepDateNotify.checked = e.stepDateNotify ;
         newHiddendStepDateNotify.style.display = "none";
 
 
@@ -1029,7 +1029,7 @@ function onDisplayStep() {
 
         let newImgStepDateNotify = document.createElement("img");
         newImgStepDateNotify.className = "iconeToggleNotify";
-        newImgStepDateNotify.src = e.stepDateChecked === true ? "./images/IconeNotifyEnabled.png" : "./images/IconeNotifyDisabled.png";
+        newImgStepDateNotify.src = e.stepDateNotify === true ? "./images/IconeNotifyEnabled.png" : "./images/IconeNotifyDisabled.png";
 
         newLabelStepDateNotify.appendChild(newImgStepDateNotify);
 
@@ -1037,7 +1037,7 @@ function onDisplayStep() {
 
 
         newHiddendStepDateNotify.addEventListener('change', (event) => {
-            tempStepArray[index].stepDateChecked = event.target.checked;
+            tempStepArray[index].stepDateNotify = event.target.checked;
             if (event.target.checked) {
                 newImgStepDateNotify.src = "./images/IconeNotifyEnabled.png";
             } else {
@@ -1046,7 +1046,7 @@ function onDisplayStep() {
         });
 
 
-        // ----------------FIN TEST DATE STEP ----------------
+        // ---------------- FIN DATE STEP ----------------
 
 
 
@@ -1076,14 +1076,20 @@ function onDisplayStep() {
         newLi.appendChild(newCheckbox);
         newLi.appendChild(newInput);
 
-        // ----------------TEST DATE STEP ----------------
+
+        // ---------------- DATE STEP ----------------
 
 
         newLi.appendChild(newStepDate);
-        newLi.appendChild(newHiddendStepDateNotify);
-        newLi.appendChild(newLabelStepDateNotify);
 
-        // ----------------FIN TEST DATE STEP ----------------
+        // Les clôches ne sont visible qu'en mode manuel
+        if (isNotifyManualMode === true) {
+            newLi.appendChild(newHiddendStepDateNotify);
+            newLi.appendChild(newLabelStepDateNotify);
+        };
+        
+
+        // ----------------FIN DATE STEP ----------------
 
 
         newLi.appendChild(btnStepUp);
@@ -1159,11 +1165,43 @@ function onCheckNoteError() {
     // Detection de mauvaise date
     let isErrorDate = onCheckDateError(inputNoteDateStartRef.value,inputNoteDateEndRef.value);
 
-    if (isEmptyTitleField === true || isErrorDate === true || isStepFieldFilled === false) {
-        console.log("au moins une erreur détéctée. Ne valide pas la création/modification de la note");
-    }else{
+    // Detection d'une date d'étape hors créneaux
+    // Ne bloc pas la suite mais averti juste l'utilisateur
+    let isErrorStepDate = false;
+    if (tempStepArray.length > 0) {
+        isErrorStepDate = onCheckStepDateError(tempStepArray,inputNoteDateStartRef.value,inputNoteDateEndRef.value);
+    };
+    if (isErrorStepDate) {
+        console.log("[ RECHERCHE ERREUR NOTE ] Date d'étape hors créneaux de note.");
+        eventUserMessage(arrayUserMessage.errorStepDate, "warning");
+    };
+
+
+
+
+
+
+    if (isEmptyTitleField || isErrorDate || !isStepFieldFilled) {
+        console.log("[ RECHERCHE ERREUR NOTE ] Au moins une erreur détectée. Ne valide pas la création/modification de la note : ");
+    
+        const errorMessages = [];
+        
+        if (isEmptyTitleField) {
+            errorMessages.push("[ RECHERCHE ERREUR NOTE ] Champ Titre vide");
+        }
+        if (isErrorDate) {
+            errorMessages.push("[ RECHERCHE ERREUR NOTE ] Date tâche incorrecte");
+        }
+        if (!isStepFieldFilled) {
+            errorMessages.push("[ RECHERCHE ERREUR NOTE ] Champ d'étape vide");
+        }
+    
+        errorMessages.forEach((message) => console.log(message));
+    
+    } else {
         onFormatNote();
     };
+    
 };
 
 
@@ -1216,7 +1254,7 @@ function onFormatNote(){
 
         console.log("avant passage majuscule");
         console.log(tempStepArray);
-        tempStepArray.forEach(i=> formatedEditorStepArray.push({stepName:onSetFirstLetterUppercase(i.stepName),stepChecked:i.stepChecked,stepHour:i.stepHour,stepMinutes:i.stepMinutes,stepDate:i.stepDate, stepDateChecked:i.stepDateChecked}));
+        tempStepArray.forEach(i=> formatedEditorStepArray.push({stepName:onSetFirstLetterUppercase(i.stepName),stepChecked:i.stepChecked,stepHour:i.stepHour,stepMinutes:i.stepMinutes,stepDate:i.stepDate, stepDateNotify:i.stepDateNotify}));
 
         console.log("Après passage majuscule");
         console.log(tempStepArray);
@@ -1251,7 +1289,7 @@ function onFormatNote(){
 
 
     if (formatedEditorStepArray.length > 0) {
-        formatedEditorStepArray.forEach(i=> secureEditorStepArray.push({stepName:securitySearchforbiddenItem(i.stepName),stepChecked:i.stepChecked,stepHour:i.stepHour,stepMinutes:i.stepMinutes,stepDate:i.stepDate, stepDateChecked:i.stepDateChecked}));
+        formatedEditorStepArray.forEach(i=> secureEditorStepArray.push({stepName:securitySearchforbiddenItem(i.stepName),stepChecked:i.stepChecked,stepHour:i.stepHour,stepMinutes:i.stepMinutes,stepDate:i.stepDate, stepDateNotify:i.stepDateNotify}));
     };
 
     // Notification des dates
@@ -1562,7 +1600,7 @@ function onDisplayNote(e) {
         // En mode auto, n'affiche jamais la cloche de notification
         noteViewDateInfoRef.innerHTML = `<b>Début : </b> ${dateStartFR} - - - <b>Fin : </b> ${dateEndFR}`;
         noteViewDateCreatedRef.innerHTML = "<b>Note créée le : </b>" + dateCreatedFR + " - - - <b>Modifié le : </b> " + dateLastModificationFR;
-    }
+    };
 
 
 
@@ -1580,9 +1618,24 @@ function onDisplayNote(e) {
     e.stepArray.forEach(i=>
             {
                 // notification date d'étape active ou non
-                let stepDateNotify = i.stepDateChecked === true ? "&#x1F514;" : ""; // Symbole de la cloche
-                // Convertion de la date en FR
-                let stepDateFr = onFormatDateToFr(i.stepDate);
+                // Uniquement en mode notificationmanuel
+                let stepDateNotify = false;
+
+                if (isNotifyManualMode === true) {
+                    stepDateNotify = i.stepDateNotify === true ? "&#x1F514;" : ""; // Symbole de la cloche
+                }else{
+                    stepDateNotify = "";
+                };
+
+                
+                // Convertion de la date en FR uniquement si il y a une date
+                let stepDateFr = "";
+
+                if (i.stepDate) {
+                    stepDateFr = onFormatDateToFr(i.stepDate);
+
+                };
+
 
                 // Creation des éléments
                 let newLi = document.createElement("li");

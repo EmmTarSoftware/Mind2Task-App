@@ -253,6 +253,26 @@ function onCheckDateError(dateDebut, dateFin) {
 };
 
 
+
+
+
+// detection date d'étape hors créneaux
+
+function onCheckStepDateError(stepArray, dateDebut, dateFin) {
+    // Convertion des strings en objets Date
+    let tempDateDebut = new Date(dateDebut),
+        tempDateFin = new Date(dateFin);
+
+    // Utilisation de `some()` pour vérifier si au moins une date est en dehors de la plage
+    return stepArray.some(step => {
+        let currentStepDate = new Date(step.stepDate);
+
+        // Vérifier si la date est en dehors de l'intervalle [tempDateDebut, tempDateFin]
+        return currentStepDate < tempDateDebut || currentStepDate > tempDateFin;
+    });
+};
+
+
 // Fonction de limite des nombres dans un input
 
 function onlimitNumberLength(input, maxLength, maxValue) {
