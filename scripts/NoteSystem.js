@@ -977,6 +977,17 @@ function onDisplayStep() {
         let newCheckbox = document.createElement("input");
         newCheckbox.type = "checkbox";
         newCheckbox.checked = e.stepChecked;
+        // Action sur l'input de la même ligne pour la mettre en évidence
+        newCheckbox.onmouseover = function (){
+            newInput.style.borderColor = "black";
+        };
+        newCheckbox.onmouseleave = function (){
+            newInput.style.borderColor = "";
+        };
+
+
+
+
 
 
         // Fonction pour changer la valeur du contenu et l'état coché ou non
@@ -1029,6 +1040,16 @@ function onDisplayStep() {
         newImgStepDateNotify.className = "iconeToggleNotify";
         newImgStepDateNotify.src = e.stepDateNotify === true ? "./images/IconeNotifyEnabled.png" : "./images/IconeNotifyDisabled.png";
 
+        // Action sur l'input date de la même ligne pour la mettre en évidence
+        newImgStepDateNotify.onmouseover = function (){
+            newStepDate.style.borderColor = "black";
+        };
+        newImgStepDateNotify.onmouseleave = function (){
+            newStepDate.style.borderColor = "";
+        };
+
+
+
         newLabelStepDateNotify.appendChild(newImgStepDateNotify);
 
 
@@ -1054,6 +1075,13 @@ function onDisplayStep() {
         btnStepUp.className = "IconManageStep";
         btnStepUp.src = "./images/IconStepUp.png";
         btnStepUp.onclick = () => onMoveStep(index, 'up');
+        // Action sur l'input de la même ligne pour la mettre en évidence
+        btnStepUp.onmouseover = function (){
+            newInput.style.borderColor = "black";
+        };
+        btnStepUp.onmouseleave = function (){
+            newInput.style.borderColor = "";
+        };
 
 
         // Descendre
@@ -1061,14 +1089,26 @@ function onDisplayStep() {
         btnStepDown.className = "IconManageStep";
         btnStepDown.src = "./images/IconStepDown.png";
         btnStepDown.onclick = () => onMoveStep(index, 'down');
-
+        // Action sur l'input de la même ligne pour la mettre en évidence
+        btnStepDown.onmouseover = function (){
+            newInput.style.borderColor = "black";
+        };
+        btnStepDown.onmouseleave = function (){
+            newInput.style.borderColor = "";
+        };
 
         // Supprimer
         let btnDeleteStep = document.createElement("img");
         btnDeleteStep.className = "IconManageStep";
         btnDeleteStep.src = "./images/IconeDelete3.png";
         btnDeleteStep.onclick = () => onDeleteStep(index);
-
+        // Action sur l'input de la même ligne pour la mettre en évidence
+        btnDeleteStep.onmouseover = function (){
+            newInput.style.borderColor = "red";
+        };
+        btnDeleteStep.onmouseleave = function (){
+            newInput.style.borderColor = "";
+        };
 
         // Insertions
         newLi.appendChild(newCheckbox);

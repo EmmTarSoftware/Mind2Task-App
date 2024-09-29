@@ -264,9 +264,11 @@ img.iconeAddStep:hover{
 img.IconManageStep{
 	width: 18px;
 	cursor: pointer;
+	margin-right: 5px;
+	margin-left: 5px;
 }
 img.IconManageStep:hover{
-	transform: scale(1.1);
+	transform: scale(1.2);
 }
 
 

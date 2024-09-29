@@ -74,13 +74,13 @@
 
 
     tr.tableViewNoteRowStep{
-        height: 220px;
+        height: 230px;
         
     }
     
     /* Pour la barre de défilement des steps */
     .scrollable-td-step-view {
-        height: 220px; 
+        height: 230px; 
     
     }
 
@@ -105,14 +105,14 @@
 
  /* LES ETAPES */
  tr.editorStepRow{
-	height: 180px;
+	height: 230px;
 }
 
 
 /* Pour la barre de défilement des steps */
 .scrollable-td-step-editor {
 	width: 600px;
-    height: 180px; /* Hauteur fixe de la cellule */
+    height: 230px; /* Hauteur fixe de la cellule */
 }
 
 
