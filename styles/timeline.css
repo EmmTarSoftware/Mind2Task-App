@@ -126,9 +126,11 @@ div.accueilTimelineMonth{
     position: absolute;
     left: 200px; top: 700px;
     width: 85%; height: 80px;
-    border-radius: 5px;
     text-align: center;
-    display: block;/*Ne s'affiche que sur les grands écrans (voir fichier responsive)*/
+    display: block;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    border-radius: var(--divNoteViewEditorRadius);
+	background-color: var(--colorBackground2);
 }
 
 div.accueilTimelineMonth p{

@@ -929,8 +929,6 @@ function onDisplayStep() {
     let stepListParentRef = document.getElementById("ulNoteEditorStep");
     stepListParentRef.innerHTML = "";
 
-    console.log(tempStepArray);
-
 
     tempStepArray.forEach((e, index) => {
         let newLi = document.createElement("li");
@@ -1251,13 +1249,8 @@ function onFormatNote(){
 
     if (tempStepArray.length > 0) {
         // Premiere lettre en majuscule pour les étapes
-
-        console.log("avant passage majuscule");
-        console.log(tempStepArray);
+        console.log("Passage des étapes 1er lettre majuscule");
         tempStepArray.forEach(i=> formatedEditorStepArray.push({stepName:onSetFirstLetterUppercase(i.stepName),stepChecked:i.stepChecked,stepHour:i.stepHour,stepMinutes:i.stepMinutes,stepDate:i.stepDate, stepDateNotify:i.stepDateNotify}));
-
-        console.log("Après passage majuscule");
-        console.log(tempStepArray);
 
     }else{console.log("Aucune étape à traiter")};
 

@@ -283,6 +283,7 @@ function onTraiteStepNotifyToday(array,dateToday) {
         // Est ce que j'ai une étape ?
         if (task.stepArray.length > 0) {
             // Stoque toutes les étapes qui remplissent les conditions
+            console.log("[ NOTIFICATION ] Recherche de notification d'étape");
             task.stepArray.forEach(step=>{onSearchStepDateNotify(task.tag,task.title,step,dateToday)});
         }else{
             // pas d'étape, aucune traitement
@@ -301,13 +302,12 @@ function onSearchStepDateNotify(tagRef,titleRef,step,dateRef) {
      // En mode manuel, ne notifie que ce qui a été demandé
 
      if (isNotifyManualMode === true) {
-        console.log("[ NOTIFICATION ] Recherche d'étape Mode Manuel");
+        
         if (step.stepDate === dateRef && step.stepDateNotify === true) {
             notifyStepTodayArray.push({tag: tagRef, titleTask : titleRef, stepName : step.stepName});
         };
     }else{
         // En mode auto, notifie tout
-        console.log("[ NOTIFICATION ] Recherche d'étape Mode Auto");
         if (step.stepDate === dateRef) {
             notifyStepTodayArray.push({tag: tagRef, titleTask : titleRef, stepName : step.stepName});
         };
@@ -341,6 +341,11 @@ function onTraiteNotifyDate() {
 
 // Affichage des notifications
 function onDisplayNotifyDate(isDisplay) {
+
+    // Information du mode de notification
+    document.getElementById("pAccueilNotifyMode").innerHTML = isNotifyManualMode === true ?"Mode manuel" : "Mode automatique";
+
+
     // Reference et reset
     let ulListNotifyTodayRef = document.getElementById("ulListNotifyToday"),
     ulListStepNotifyTodayRef = document.getElementById("ulListStepNotifyToday"),
@@ -349,6 +354,9 @@ function onDisplayNotifyDate(isDisplay) {
     ulListStepNotifyTodayRef.innerHTML = "";
     ulListNotifyLateRef.innerHTML = "";
 
+    
+
+
 
     if (isDisplay === true) {
 
@@ -356,7 +364,7 @@ function onDisplayNotifyDate(isDisplay) {
         if (notifyTodayArray.length > 0) {
             notifyTodayArray.forEach(e=>{
                 let newLi = document.createElement("li");
-                newLi.innerHTML = `<i>${e.tag}</i> : ${e.title}`;
+                newLi.innerHTML = `<i>${e.tag}</i> : <B> ${e.title} </B>`;
                 newLi.className = "notifyDate";
 
                 ulListNotifyTodayRef.appendChild(newLi);
@@ -369,7 +377,7 @@ function onDisplayNotifyDate(isDisplay) {
         if (notifyStepTodayArray.length > 0) {
             notifyStepTodayArray.forEach(e=>{
                 let newLi = document.createElement("li");
-                newLi.innerHTML = `<i>${e.tag} - ${e.titleTask} </i> : ${e.stepName}`;
+                newLi.innerHTML = `<i>${e.tag} - ${e.titleTask} </i> : <B> ${e.stepName}</B>`;
                 newLi.className = "notifyDate";
 
                 ulListStepNotifyTodayRef.appendChild(newLi);
@@ -385,7 +393,7 @@ function onDisplayNotifyDate(isDisplay) {
         if (notifyLateArray.length > 0) {
             notifyLateArray.forEach(e=>{
                 let newLi = document.createElement("li");
-                newLi.innerHTML = ` <i>${e.tag}</i> : ${e.title} => ${e.date}`;
+                newLi.innerHTML = ` <i>${e.tag}</i> : <B> ${e.title} </B> => ${e.date}`;
                 newLi.className = "notifyDate";
 
                 ulListNotifyLateRef.appendChild(newLi);
