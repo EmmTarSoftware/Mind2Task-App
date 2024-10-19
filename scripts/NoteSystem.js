@@ -1436,11 +1436,12 @@ function onInsertData(e) {
     };
 
     insertRequest.onerror = function(event){
-        console.log("Error");
+        console.log("Error d'insertion de note");
         let errorMsg = event.target.error.toString();
+        console.log(errorMsg);
         
         // User message pour titre en doublon
-        if (errorMsg.includes("title")) {
+        if (errorMsg.includes("ConstraintError")) {
             eventUserMessage(arrayUserMessage.errorDoubleTitle,"error");
         };
     };

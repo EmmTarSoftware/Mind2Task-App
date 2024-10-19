@@ -198,13 +198,15 @@ function onExtractUserMessage() {
 
 let notifyTodayArray = [],
     notifyLateArray = [],
-    notifyStepTodayArray = [];
+    notifyStepTodayArray = [],
+    notifyStepLateArray = [];
 
 function onUpdateNotifyDate(array) {
     // Reset les éléments
     notifyTodayArray = [];
     notifyLateArray = [];
     notifyStepTodayArray = [];
+    notifyStepLateArray = [];
 
     // Recupere la date du jours
     let currentDate = onFormatDateToday();
@@ -214,7 +216,7 @@ function onUpdateNotifyDate(array) {
 };
 
 
-// notification du jours
+// notification taches du jours
 function onNotifyDateToday(array,dateTarget) {
     console.log("[ NOTIFICATION ] traitement des notifications du jours");
     // En mode manuel, ne notifie que ce qui a été demandé
@@ -244,7 +246,7 @@ function onNotifyDateToday(array,dateTarget) {
 
 
 
-// Date en retard
+// Notification taches en retards
 function onNotifyDateLate(array,dateToday) {
     console.log("[ NOTIFICATION ] traitement des notifications en retard");
     // En mode manuel, ne notifie que ce qui a été demandé
@@ -265,7 +267,7 @@ function onNotifyDateLate(array,dateToday) {
         });
     };
 
-    console.log("[ NOTIFICATION ] Nbre notification en retard : " + notifyLateArray.length);
+    console.log("[ NOTIFICATION ] Nbre notification tâche en retard : " + notifyLateArray.length);
 
     // Traitement des étapes du jour
     onTraiteStepNotifyToday(array,dateToday);
@@ -293,28 +295,78 @@ function onTraiteStepNotifyToday(array,dateToday) {
 
     console.log("[ NOTIFICATION ] Nbre notification d'étapes du jours : " + notifyStepTodayArray.length);
 
+    // Traitement des étapes en retards
+    onTraiteStepNotifyLate(array,dateToday);
+};
+
+
+
+// Notification des étapes en retards
+function onTraiteStepNotifyLate(array,dateToday) {
+    console.log("[ NOTIFICATION ] traitement des notifications pour étapes en retard.");
+
+    array.forEach(task => {
+
+        // Est ce que j'ai une étape ?
+        if (task.stepArray.length > 0) {
+            // Stoque toutes les étapes qui remplissent les conditions
+            console.log("[ NOTIFICATION ] Recherche de notification d'étape");
+            task.stepArray.forEach(step=>{onSearchStepLateNotify(task.tag,task.title,step,dateToday)});
+        }else{
+            // pas d'étape, aucun traitement
+        };
+    });
+
+
+    console.log("[ NOTIFICATION ] Nbre notification d'étapes en retard : " + notifyStepLateArray.length);
+
+
     // Traitement de l'affichage
     onTraiteNotifyDate();
 };
 
-// Fcontion pour aller fouiller dans chaque étape et remonter les éléments nécessaires.
+
+
+
+
+
+
+// Fcontion pour aller fouiller dans chaque étape et remonter les éléments nécessaires pour la date du jours.
 function onSearchStepDateNotify(tagRef,titleRef,step,dateRef) {
      // En mode manuel, ne notifie que ce qui a été demandé
 
      if (isNotifyManualMode === true) {
         
-        if (step.stepDate === dateRef && step.stepDateNotify === true) {
+        if (step.stepDate === dateRef && step.stepDateNotify === true && !step.stepChecked) {
             notifyStepTodayArray.push({tag: tagRef, titleTask : titleRef, stepName : step.stepName});
         };
     }else{
         // En mode auto, notifie tout
-        if (step.stepDate === dateRef) {
+        if (step.stepDate === dateRef && !step.stepChecked) {
             notifyStepTodayArray.push({tag: tagRef, titleTask : titleRef, stepName : step.stepName});
         };
 
     };
 };
 
+
+// Fcontion pour aller fouiller dans chaque étape et remonter les éléments nécessaires pour les dates en retards.
+function onSearchStepLateNotify(tagRef,titleRef,step,dateRef) {
+    // En mode manuel, ne notifie que ce qui a été demandé
+
+    if (isNotifyManualMode === true) {
+       
+       if (dateRef > step.stepDate && step.stepDateNotify === true && !step.stepChecked) {
+           notifyStepLateArray.push({tag: tagRef, titleTask : titleRef, stepName : step.stepName, date : onFormatDateToFr(step.stepDate)});
+       };
+   }else{
+       // En mode auto, notifie tout
+       if (dateRef > step.stepDate && !step.stepChecked) {
+           notifyStepLateArray.push({tag: tagRef, titleTask : titleRef, stepName : step.stepName, date : onFormatDateToFr(step.stepDate)});
+       };
+
+   };
+};
 
 
 
@@ -349,11 +401,13 @@ function onDisplayNotifyDate(isDisplay) {
     // Reference et reset
     let ulListNotifyTodayRef = document.getElementById("ulListNotifyToday"),
     ulListStepNotifyTodayRef = document.getElementById("ulListStepNotifyToday"),
-    ulListNotifyLateRef = document.getElementById("ulListNotifyLate");
+    ulListNotifyLateRef = document.getElementById("ulListNotifyLate"),
+    ulListStepNotifyLateRef = document.getElementById("ulListStepNotifyLate");
+
     ulListNotifyTodayRef.innerHTML = "";
     ulListStepNotifyTodayRef.innerHTML = "";
     ulListNotifyLateRef.innerHTML = "";
-
+    ulListStepNotifyLateRef.innerHTML = "";
     
 
 
@@ -371,7 +425,7 @@ function onDisplayNotifyDate(isDisplay) {
             })
         }else{
             ulListNotifyTodayRef.innerHTML = "Aucune notification";
-        }
+        };
         
         // les étapes du jours
         if (notifyStepTodayArray.length > 0) {
@@ -384,7 +438,7 @@ function onDisplayNotifyDate(isDisplay) {
             })
         }else{
             ulListStepNotifyTodayRef.innerHTML = "Aucune notification";
-        }
+        };
 
 
 
@@ -400,12 +454,29 @@ function onDisplayNotifyDate(isDisplay) {
             })
         }else{
             ulListNotifyLateRef.innerHTML = "Aucune notification";
-        }
+        };
+
+        // les étapes en retards
+        if (notifyStepLateArray.length > 0) {
+            notifyStepLateArray.forEach(e=>{
+                let newLi = document.createElement("li");
+                newLi.innerHTML = `<i>${e.tag} - ${e.titleTask} </i> : <B> ${e.stepName} </B> => ${e.date}`;
+                newLi.className = "notifyDate";
+
+                ulListStepNotifyLateRef.appendChild(newLi);
+            })
+        }else{
+            ulListStepNotifyLateRef.innerHTML = "Aucune notification";
+        };
+
+
         
     }else{
         ulListNotifyTodayRef.innerHTML = "";
+        ulListStepNotifyTodayRef.innerHTML = "";
         ulListNotifyLateRef.innerHTML = "";
-    }
+        ulListStepNotifyLateRef.innerHTML = "";
+    };
 
 
     document.getElementById("divNotifyAlert").style.display = isDisplay === true ? "block" : "none";

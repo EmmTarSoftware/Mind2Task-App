@@ -10,6 +10,8 @@ let timelineColorList = [
     "#d7dbdd",//Gris
 ];
 
+
+
 let defaultTimelineColor = "#ffffff", //Couleur par défaut
 isNewTimeline = true,//boolean pour savoir si c'est un nouvelle échéance ou une modification
 maxTimelineAccueilItem = 5, //Nombre d'échéance affiché dans le menu accueil
@@ -212,10 +214,34 @@ function onGenerateTimelineMonth() {
         // Div pour chaque mois
         let newMainMonthDiv = document.createElement("div");
         newMainMonthDiv.className = "timelineMonth";
-
+        
         newMainMonthDiv.onclick = function (){
             onClickNewTimeline(true,index);
         };
+
+
+
+
+
+
+
+        // // DRAG N DROP DIV des mois
+        // newMainMonthDiv.ondragenter =  function (){
+        //     console.log("Detection : " + e);
+        //     newMainMonthDiv.style.backgroundColor = "orange";
+        //     dataToTransfer.MonthTarget = index;
+        //     console.log("MontTargetIndex = " + dataToTransfer.MonthTarget);
+        // };
+        // newMainMonthDiv.ondragleave =  function (){
+        //     console.log("Detection : " + e);
+        //     newMainMonthDiv.style.backgroundColor = "";
+        //     // dataToTransfer.MonthTarget = null;
+        //     console.log("MontTargetIndex = " + dataToTransfer.MonthTarget);
+        //     console.log("mainDivDragLeave");
+        // };
+
+
+
 
 
 
@@ -306,16 +332,30 @@ function onResetTimelineUL() {
 
 // Remplit par mois
 function onSetULTimelineMonth(month,color,data,keyRef) {
-    // Creation 
+    // Creation de l'échéance elle même
     let newBtn = document.createElement("button");
     newBtn.style = "background-color: " + color;
     newBtn.innerHTML = data;
     // newBtn.draggable = true;
+    // Modification
     newBtn.onclick = function (event) {
         event.stopPropagation();// Empêche la propagation du clic activant la fonction de la div inférieure
         onClickModifyTimeline(keyRef);
     };
+
+    // // Drag N Drop
+    // newBtn.ondragstart = function (e) {
+    //     console.log(e.target);
+    //     e.target.style.opacity = 0.3;
+    // };
+    // newBtn.ondragend = function (e) {
+    //     console.log(e.target);
+    //     e.target.style.opacity = 1;
+    //     console.log("newBtnDragEnd");
+
+    // };
     
+
     
     // Filtre sur le bon parent selon le mois et Insertion dans le parent
     let monthRef = "timelineULParent" + timelineMonthArray[month];
