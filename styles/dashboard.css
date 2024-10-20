@@ -13,8 +13,9 @@ div.divDashboard{
 .dashboard-table-container {
     display: flex;
     justify-content: space-around;
-    border: thick double var(--blueColor);
-    background-color: var(--colorBackground2);
+    background-color: #f8f8f8;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .month-column {
@@ -41,7 +42,8 @@ div.divDashboard{
 .dashboard-TaskCount-Progress-fill {
     width: 100%;
     height: 0;
-    background-color:var(--yellowColor); /* Ajout de la couleur pour la partie remplie */
+    background-color:#c39bd3; /* Ajout de la couleur pour la partie remplie */
+    background:linear-gradient(90deg, #c39bd3,#dedede);
     position: absolute;
     bottom: 0;
     transition: height 0.3s ease;
@@ -50,7 +52,7 @@ div.divDashboard{
 .dashboard-TaskDuration-Progress-fill {
     width: 100%;
     height: 0;
-    background-color: var(--blueColor); /* Ajout de la couleur pour la partie remplie */
+    background: linear-gradient(90deg, #5673e2,#9cc5ff); /* Ajout de la couleur pour la partie remplie */
     position: absolute;
     bottom: 0;
     transition: height 0.3s ease;
@@ -63,6 +65,22 @@ div.divDashboard{
 .dashboard-progress-count {
     margin-top: 5px;
 }
+
+
+/* Met en evidence le plus grand nbre de tache et d'heure */
+.dashboard-progress-count-high {
+    margin-top: 5px;
+    font-weight: bold;
+    color: #c39bd3;
+}
+
+.dashboard-progress-hour-high {
+    margin-top: 5px;
+    font-weight: bold;
+    color: var(--blueColor);
+}
+
+
 
 
 /* Legend */
@@ -80,12 +98,13 @@ img.dashboardLegend{
 .statisticDivers {
     border-collapse: collapse;
     width: 100%; 
-    border: thick double var(--blueColor);
-    background-color: var(--colorBackground2);
+    background-color: #f8f8f8;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .statisticDivers th, .statisticDivers td {
-    border: 1px solid black; 
+
     padding: 8px; 
     text-align: left; 
 }
@@ -95,6 +114,13 @@ img.dashboardLegend{
 }
 
 
+/* couleur classement top 3 */
+h4.statisticHour{
+    color:#5673e2;
+}
+h4.statisticCount{
+    color: #c39bd3;
+}
 
 /* Cloture de session */
 

@@ -6,10 +6,12 @@ function securitySearchforbiddenItem(e) {
 
     // Expression régulière pour détecter un numéro de téléphone
     if (isPhoneNumberDisplay === false) {
-        let phoneNumberRegex = /(?:\+?\d{1,4}[\s.\-]?)?(?:\d{2}[\s.\-]?\d{2}[\s.\-]?\d{2}[\s.\-]?\d{2}|\d{10})/g;
+        let phoneNumberRegex = /(?:(\+33|0)[1-9](?:[\s.-]?(\d{2})){4})/g;
 
         // Utilisation de la méthode replace pour remplacer chaque chiffre par "X"
-        secureText = secureText.replace(phoneNumberRegex, match => 'X'.repeat(match.length));
+        secureText = secureText.replace(phoneNumberRegex, (match) => {
+            return match.replace(/\d/g, 'X'); // Remplacer uniquement les chiffres par 'X'
+        });
 
         
     };

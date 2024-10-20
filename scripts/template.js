@@ -1,5 +1,5 @@
 let arrayTemplate = [],
-    maxTemplate = 10;
+    maxTemplate = 20;
 
 
 // Promese pour récupérer les templates dans la base
@@ -342,7 +342,8 @@ function onUpdateTemplateFromManager() {
     onChangeDisplay(["divRenameTemplate","divPopupDeleteTemplate"],["divGestionTemplateList"],[],["divGestionTemplateList","divPopupDeleteTemplate","divRenameTemplate"]);
 
     // Reset la liste
-    document.getElementById("divGestionTemplateList").innerHTML ="";
+    document.getElementById("gestionTemplateList1").innerHTML ="";
+    document.getElementById("gestionTemplateList2").innerHTML ="";
 
 
     // Recherche les templates dans la base et affiche en conséquence
@@ -354,7 +355,7 @@ function onUpdateTemplateFromManager() {
                 onSetTemplateManagerList();
             }else{
                 // Si aucun template
-                document.getElementById("divGestionTemplateList").innerHTML = arrayUserMessage.templateListEmpty;
+                document.getElementById("gestionTemplateList1").innerHTML = arrayUserMessage.templateListEmpty;
             };
 
         })
@@ -370,6 +371,10 @@ function onUpdateTemplateFromManager() {
 
 // Fonction de génération de la liste des templates dans le gestionnaire de template
 function onSetTemplateManagerList() {
+
+    // compteur pour afficher les 10 premiers puis les suivants dans l'autre colonne.
+    let templateCount = 0;
+
     console.log("[ TEMPLATE ] Remplissage de la liste");
     arrayTemplate.forEach(e=>{
 
@@ -405,7 +410,15 @@ function onSetTemplateManagerList() {
         newMainDiv.appendChild(newBtnRename);
         newMainDiv.appendChild(newBtnDelete);
 
-        document.getElementById("divGestionTemplateList").appendChild(newMainDiv);
+        
+
+        if (templateCount < 10) {
+            document.getElementById("gestionTemplateList1").appendChild(newMainDiv);
+        }else{
+            document.getElementById("gestionTemplateList2").appendChild(newMainDiv);
+        }
+        // Incrémente
+        templateCount++
 
     });
 };
@@ -573,7 +586,8 @@ function onOpenMenuTemplate() {
 };
 
 function onQuitMenuTemplate() {
-    document.getElementById("divGestionTemplateList").innerHTML ="";
+    document.getElementById("gestionTemplateList1").innerHTML ="";
+    document.getElementById("gestionTemplateList2").innerHTML ="";
 };
 
 

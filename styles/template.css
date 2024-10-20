@@ -2,25 +2,27 @@ div.template{
     
     padding-left: 120px;
     display: none;
-    width: 1000px;
-    height: 600px;
+    width: 90%;
     text-align: left;
 
 }
 
 
 div.menuTemplateList{
-    width: 600px;
-    height: 500px;
+    width: 1200px;
+    height: 400px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 	border-radius: 10px;
 	margin-top: 10px;
 	background-color: var(--colorBackground2);
+	display: inline-block;
 }
 
 
-
-
+/* tableau qui contient la liste des templates dans le gestionnaire de template */
+td.template{
+	vertical-align: top;
+}
 
 
 

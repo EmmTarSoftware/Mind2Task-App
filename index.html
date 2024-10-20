@@ -50,7 +50,7 @@
             <img class="mainMenuIcon" src="./images/IconeScreen.png" alt="Plein écran" srcset="" title="Plein écran">
             <p class="textMainMenu">Plein écran</p>
         </div>
-        <p class="release"><a class="release" target="_blank" href="https://emmtarsoftware.github.io/Mind2Task-Info/actualite.html">Release : 1.4.1</a></p>
+        <p class="release"><a class="release" target="_blank" href="https://emmtarsoftware.github.io/Mind2Task-Info/actualite.html">Release : 1.4.2</a></p>
         
 
     </div>
@@ -485,7 +485,11 @@
 
 
     <div class="divTimeline" id="divTimeline">
-        <h2>ECHEANCES</h2>
+        <p class="titleMenu">
+            <img class="titleMenu" src="./images/IconeTimeline-blue.png" alt="Echéances" srcset="" title="Echéances">
+            ECHEANCES
+        </p>
+        
         <!-- Menu timeline -->
          <div id="divMenuTimeline">
             <button class="basicBtn basicBtnA" onclick="onClickNewTimeline(false)">Nouveau</button>
@@ -580,11 +584,14 @@
     <!-- -------------------------   div Dashboard----------------------------------- -->
     <div class="divDashboard" id="divDashboard">
         <div id="divDashboardContent">
-            <h2>statistiques</h2>
+            <p class="titleMenu">
+                <img class="titleMenu" src="./images/IconeDashboard-blue.png" alt="Statistiques" srcset="" title="Statistiques">
+                STATISTIQUES
+            </p>
 
 
             <table class="statisticDivers">
-                <tr>
+                <tr class="rowTopLine">
                     <th>DIVERS</th>
                     <th>CLASSEMENT TOP 3</th>
 
@@ -608,11 +615,11 @@
                         </ul>
                     </td>
                     <td>
-                        <h4>TAG cumulant le plus grand nombre d'heures :</h4>
+                        <h4 class="statisticHour">TAG cumulant le plus grand nombre d'heures :</h4>
                         <ol id="olTop3TAGDuration">
                             <!-- Injection -->
                         </ol>
-                        <h4>TAG cumulant le plus grand nombre de tâches :</h4>
+                        <h4 class="statisticCount">TAG cumulant le plus grand nombre de tâches :</h4>
                         <ol id="olTop3TAGNbre">
                             <!-- Injection -->
                         </ol>
@@ -667,7 +674,13 @@
 
     <!-- -------------------------   div Setting ----------------------------------- -->
     <div class="divSetting" id="divSetting">
-        <h2>PARAMETRES</h2>
+        
+        <p class="titleMenu">
+            <img class="titleMenu" src="./images/IconeSetting-blue.png" alt="Paramètres" srcset="" title="Paramètres">
+            PARAMETRES
+        </p>
+
+
         <div class="divSettingScrollZone">
             <!-- div personnalisation -->
             <div>
@@ -913,10 +926,31 @@
 
     <!-- -------------------------   DIV TEMPLATE  ----------------------------------- -->
     <div id="divMenuTemplate" class="template">
-        <h2>MODELES</h2>
+
+        <p class="titleMenu">
+            <img class="titleMenu" src="./images/IconeMenuTemplate2-blue.png" alt="Modèles" srcset="" title="Modèles">
+            MODELES
+        </p>
+
+
+
         <p>Renommez ou supprimez vos modèles :</p>
+
         <div class="menuTemplateList" id="divGestionTemplateList">
-            <!-- injection des listes de template -->
+            <table>
+                <tr class="rowTopLine">
+                    <th>Modèles 1 - 10</th>
+                    <th>Modèles 11 - 20</th>
+                </tr>
+                <tr>
+                    <td id="gestionTemplateList1">
+                        <!-- injection des 10 premiers templates -->
+                    </td>
+                    <td id="gestionTemplateList2" class="template">
+                        <!-- injection des 10 suivants -->
+                    </td>
+                </tr>
+            </table>
         </div>
 
         <!-- div rename template -->
@@ -953,11 +987,16 @@
 
     <!-- -------------------------   DIV INFO ----------------------------------- -->
     <div class="divInfo" id="divInfo">
-        <h2>INFO</h2>
+        <p class="titleMenu">
+            <img class="titleMenu" src="./images/IconeInfo-blue.png" alt="Infos" srcset="" title="Infos">
+            INFOS
+        </p>
+
+
             <img class="mainLogo" src="./images/Mind2TaskMainLogo.png" alt="">
             
             
-            <p>Release : 1.4.1</p>
+            <p>Release : 1.4.2</p>
             <h3>
                 Actualité :
             </h3>

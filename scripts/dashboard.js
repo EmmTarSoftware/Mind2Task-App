@@ -155,9 +155,9 @@ function onGenerateStatisticResult(highTasksNumberValue, highTaskHourValue,dataB
 
         // Nbre tâches
         let newDivPBTaskCount = document.createElement("div");
-        newDivPBTaskCount.className = "dashboard-progress-count";
+        newDivPBTaskCount.className = taskCount === highTasksNumberValue ? "dashboard-progress-count-high" : "dashboard-progress-count";
         newDivPBTaskCount.id = `${month}-Taskcount`;
-        newDivPBTaskCount.innerHTML = taskCount === highTasksNumberValue ? `<strong>${taskCount} tâches </strong>` : `${taskCount} tâches`;
+        newDivPBTaskCount.innerHTML = `${taskCount} tâches`;
 
 
         // Convertion des minutes en format heure/minutes pour un meilleur affichage
@@ -170,9 +170,9 @@ function onGenerateStatisticResult(highTasksNumberValue, highTaskHourValue,dataB
 
         // Nbre hours
         let newDivPBHourCount = document.createElement("div");
-        newDivPBHourCount.className = "dashboard-progress-count";
+        newDivPBHourCount.className = hourCount === highTaskHourValue ? "dashboard-progress-hour-high" : "dashboard-progress-count";
         newDivPBHourCount.id = `${month}-Hourcount`;
-        newDivPBHourCount.innerHTML = hourCount === highTaskHourValue ? `<strong>${friendlyDurationDisplay.heures}h${friendlyDurationDisplay.minutes}</strong>` : `${friendlyDurationDisplay.heures}h${friendlyDurationDisplay.minutes}`;
+        newDivPBHourCount.innerHTML = `${friendlyDurationDisplay.heures}h${friendlyDurationDisplay.minutes}`;
 
         // Mois
         let newDivPBTaskMonth = document.createElement("div");
@@ -203,9 +203,9 @@ function onSetDiversDashboardItem(taskStatus2Length) {
     pdashboardStatus2Ref = document.getElementById("pDashboardStatus2");
 
 
-    pdashboardStatus0Ref.innerHTML = `<strong>Nombre de tâches '${statusArray[0].userStatus}' : </strong> ${nbreTaskStatus0}`;
-    pdashboardStatus1Ref.innerHTML = `<strong>Nombre de tâches '${statusArray[1].userStatus}' : </strong>${nbreTaskStatus1}`;
-    pdashboardStatus2Ref.innerHTML = `<strong>Nombre de tâches '${statusArray[2].userStatus}' : </strong>${taskStatus2Length}`;
+    pdashboardStatus0Ref.innerHTML = `Tâches <strong>'${statusArray[0].userStatus}' : </strong> ${nbreTaskStatus0}`;
+    pdashboardStatus1Ref.innerHTML = `Tâches <strong>'${statusArray[1].userStatus}' : </strong>${nbreTaskStatus1}`;
+    pdashboardStatus2Ref.innerHTML = `Tâches <strong>'${statusArray[2].userStatus}' : </strong>${taskStatus2Length}`;
 
 
 };

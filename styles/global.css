@@ -1,7 +1,7 @@
 /* Déclaration variables */
 :root{
-	--gradient-blue:linear-gradient(45deg, #3498db, #6c5ce7);
-	/* --gradient-yellow:linear-gradient(to right, #fff202, #ffd54f); */
+	/* --gradient-blue:linear-gradient(45deg, #3498db, #6c5ce7); Ancien*/
+	--gradient-blue:linear-gradient(90deg, #5c6ce7,#74bae8);
 	--gradient-yellow:#ffd54f;
 	--div-note-width: 600px;
 	--colorBackground2: #f0f9ff;
@@ -106,13 +106,32 @@ select {
 /* Style general des POPUP */
 .popup{
 		z-index: 2;
-		/* background-color: var(--colorBackground2); */
-		background-color: #f6dd89;
+		/* background-color: #f6dd89; */
+		background: linear-gradient(90deg,#ffda62, #fff0bd);
 		text-align: center;
 		border-radius: 10px;
 		border: solid 1px var(--blueColor);
 		box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Ombre portée */	
 }
+
+
+
+
+/* Affichage des titres dans les menus */
+p.titleMenu {
+    display: flex;
+    align-items: center; /* Alignement vertical */
+    font-weight: bold;
+    font-size: 25px;
+	color: #6b84e2;
+	text-decoration:underline;
+}
+
+img.titleMenu {
+    width: 50px;
+    margin-right: 10px; 
+}
+
 
 
 /* -------------------------------       NAVIGATION MAIN MENU BAR           --------------------------------*/
