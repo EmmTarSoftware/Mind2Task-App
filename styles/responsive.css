@@ -36,7 +36,12 @@
         /* margin-bottom: 50px; */
     }
     
-
+    p.textMainMenu-Selected{
+        display: inline-block;
+        margin-left: 10px;
+        color: var(--gradient-yellow);
+        border-bottom: 2px solid white;
+    }
 
 
     /* Texte des boutons création tache ou modèle */

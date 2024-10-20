@@ -8,8 +8,8 @@ Créez des tâches, attribuez-leur des priorités, suivez chaque étape de leur 
 
 ## Versions
 
-**Dernière version stable :** 1.4.0
-**Dernière version :** 1.4.1
+**Dernière version stable :** 1.4.2
+**Dernière version :** 1.4.3
 
 
 ## Auteurs

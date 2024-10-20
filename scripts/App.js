@@ -404,6 +404,8 @@ function onClickMenuAccueil() {
     onChangeDisplay([],["divAccueil"],[],[]);
     // Changement image icone
     document.getElementById("imgIconMainMenuAccueil").src = "./images/IconeHomeSelected.png";
+    // Changement de classe pour le texte
+    document.getElementById("pTextMainMenuHome").className = "textMainMenu-Selected";
 };
 
 function onCloseMenuAccueil() {
@@ -411,6 +413,8 @@ function onCloseMenuAccueil() {
     onChangeDisplay(["divNoteEditor","divNoteView","divPopupDelete","divPopupTerminer","divQuickChangePriority","divAccueil","divChoiceTemplate"],[],[],["divNoteEditor","divNoteView","divListBtnNote","divBtnNewTask"]);
     // Changement image icone
     document.getElementById("imgIconMainMenuAccueil").src = "./images/IconeHome.png";
+    // Changement de classe pour le texte
+    document.getElementById("pTextMainMenuHome").className = "textMainMenu";
 };
 
 
@@ -420,6 +424,8 @@ function onClickMenuTimeline() {
     onChangeDisplay([],["divTimeline"],[],[]);
     // Changement image icone
     document.getElementById("imgIconMainMenuTimeline").src = "./images/IconeTimelineSelected.png";
+    // Changement de classe pour le texte
+    document.getElementById("pTextMainMenuTimeline").className = "textMainMenu-Selected";
 };
 
 function onCloseMenuTimeline() {
@@ -427,6 +433,8 @@ function onCloseMenuTimeline() {
     onChangeDisplay(["divTimeline","divEditionTimeline","divPopupDeleteTimeline"],[],[],["divFullTimelineZone","divMenuTimeline","divEditionTimeline"]);
     // Changement image icone
     document.getElementById("imgIconMainMenuTimeline").src = "./images/IconeTimeline.png";
+    // Changement de classe pour le texte
+    document.getElementById("pTextMainMenuTimeline").className = "textMainMenu";
 };
 
 
@@ -439,6 +447,8 @@ function onClickMenuDashboard() {
     onChangeDisplay([],["divDashboard"],[],[]);
     // Changement image icone
     document.getElementById("imgIconMainMenuDashboard").src = "./images/IconeDashboardSelected.png";
+    // Changement de classe pour le texte
+    document.getElementById("pTextMainMenuDashboard").className = "textMainMenu-Selected";
 };
 
 function onCloseMenuDashboard() {
@@ -446,6 +456,8 @@ function onCloseMenuDashboard() {
     onChangeDisplay(["divDashboard","divPopupCloture"],[],[],["divDashboardContent"]);
     // Changement image icone
     document.getElementById("imgIconMainMenuDashboard").src = "./images/IconeDashboard.png";
+    // Changement de classe pour le texte
+    document.getElementById("pTextMainMenuDashboard").className = "textMainMenu";
 };
 
 
@@ -455,6 +467,8 @@ function onClickMenuSetting() {
     onChangeDisplay([],["divSetting"],[],[]);
     // Changement image icone
     document.getElementById("imgIconMainMenuSetting").src = "./images/IconeSettingSelected.png";
+    // Changement de classe pour le texte
+    document.getElementById("pTextMainMenuSetting").className = "textMainMenu-Selected";
 };
 
 function onCloseMenuSetting() {
@@ -462,6 +476,8 @@ function onCloseMenuSetting() {
     onChangeDisplay(["divSetting"],[],[],[]);
     // Changement image icone
     document.getElementById("imgIconMainMenuSetting").src = "./images/IconeSetting.png";
+    // Changement de classe pour le texte
+    document.getElementById("pTextMainMenuSetting").className = "textMainMenu";
 };
 
 
@@ -472,6 +488,8 @@ function onClickMenuInfo() {
     onChangeDisplay([],["divInfo"],[],[]);
     // Changement image icone
     document.getElementById("imgIconMainMenuInfo").src = "./images/IconeInfoSelected.png";
+    // Changement de classe pour le texte
+    document.getElementById("pTextMainMenuInfo").className = "textMainMenu-Selected";
 };
 
 function onCloseMenuInfo() {
@@ -479,6 +497,8 @@ function onCloseMenuInfo() {
     onChangeDisplay(["divInfo"],[],[],[]);
     // Changement image icone
     document.getElementById("imgIconMainMenuInfo").src = "./images/IconeInfo.png";
+    // Changement de classe pour le texte
+    document.getElementById("pTextMainMenuInfo").className = "textMainMenu";
 };
 
 
@@ -488,6 +508,8 @@ function onClickMenuTemplate() {
     onChangeDisplay([],["divMenuTemplate"],[],[]);
     // Changement image icone
     document.getElementById("imgIconMainMenuTemplate").src = "./images/IconeMenuTemplate2Selected.png";
+    // Changement de classe pour le texte
+    document.getElementById("pTextMainMenuTemplate").className = "textMainMenu-Selected";
 };
 
 function onCloseMenuTemplate() {
@@ -495,6 +517,8 @@ function onCloseMenuTemplate() {
     onChangeDisplay(["divMenuTemplate"],[],[],[]);
     // Changement image icone
     document.getElementById("imgIconMainMenuTemplate").src = "./images/IconeMenuTemplate2.png";
+    // Changement de classe pour le texte
+    document.getElementById("pTextMainMenuTemplate").className = "textMainMenu";
 };
 
 

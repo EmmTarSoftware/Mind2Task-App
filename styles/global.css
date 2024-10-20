@@ -166,10 +166,12 @@ img.mainMenuIcon{
 	width: 40px;
 }
 
+p.textMainMenu-Selected{
+	display: none;
+}
 p.textMainMenu{
 	display: none;
 }
-
 
 p.release{
 	margin-top: 50px;
