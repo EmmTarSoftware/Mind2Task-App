@@ -50,7 +50,7 @@
             <img class="mainMenuIcon" src="./images/IconeScreen.png" alt="Plein écran" srcset="" title="Plein écran">
             <p class="textMainMenu">Plein écran</p>
         </div>
-        <p class="release"><a class="release" target="_blank" href="https://emmtarsoftware.github.io/Mind2Task-Info/actualite.html">Release : 1.4.3</a></p>
+        <p class="release"><a class="release" target="_blank" href="https://emmtarsoftware.github.io/Mind2Task-Info/actualite.html">Release : 1.4.4</a></p>
         
 
     </div>
@@ -648,10 +648,10 @@
             <h3>Clôture de session</h3>
             <p>En cliquant sur le bouton "Clôture de session", vous confirmez votre intention de terminer votre session actuelle. Voici ce qui se passera lors de cette opération :</p>
             <ol>
-                <li><strong>Extraction de la base de données :</strong> La base de données de l'application sera extraite depuis la tâche la plus ancienne jusqu'à la plus récente. Cela signifie que toutes les informations collectées pendant votre session seront sauvegardées pour référence future.</li>
-                <li><strong>Réinitialisation de la base de données :</strong> Après l'extraction, la base de données de l'application sera réinitialisée. Cela entraînera la suppression de toutes les données de l'application, la remettant à son état initial. Cependant, vos informations extraites seront toujours disponibles pour consultation ultérieure.</li>
+                <li><strong>Extraction de la base de données "Statistiques" :</strong> La base de données des statistiques de l'application sera extraite depuis la tâche la plus ancienne jusqu'à la plus récente et sera sauvegardée pour référence future.</li>
+                <li><strong>Réinitialisation de la base de données "Statistiques":</strong> Après l'extraction, la base de données des statistiques sera réinitialisée. Cela entraînera la suppression de toutes les statistiques, les remettant à leur état initiale. Cependant, vos informations extraites seront toujours disponibles pour consultation ultérieure.</li>
             </ol>
-            <p>Veuillez noter que <u>cette action est irréversible</u> et qu'elle effacera toutes les données de l'application en dehors de la session actuelle. Assurez-vous d'avoir sauvegardé toutes les informations importantes avant de procéder.</p>
+            <p>Veuillez noter que <u>cette action est irréversible</u> et qu'elle effacera toutes les statistiques de l'application.</p>
             <button class="basicBtn basicBtnA" onclick="onValidClotureSession()">Confirmer</button>
             <button class="basicBtn basicBtnA" onclick="onCancelClotureSession()">Annuler</button>
         </div>
@@ -859,7 +859,7 @@
 
                             <!-- Import dashboard -->
                             <p>
-                                <label class="labelSetting" for="fileInputJsonDashboard">statistiques : </label>
+                                <label class="labelSetting" for="fileInputJsonDashboard">Statistiques : </label>
                                 <input type="file" id="fileInputJsonDashboard" accept=".json">
                                 <button class="basicBtn basicBtnA" onclick="importTask('fileInputJsonDashboard','dashboard','pImportDashboardResult')"><img class="iconeMenu" src="./images/IconeUpload.png" alt="Valider" srcset=""> Import Statistiques</button>
                             </p>
@@ -934,7 +934,7 @@
 
 
 
-        <p>Renommez ou supprimez vos modèles :</p>
+        <p><b>Renommez ou supprimez vos modèles :</b></p>
 
         <div class="menuTemplateList" id="divGestionTemplateList">
             <table>
@@ -951,7 +951,24 @@
                     </td>
                 </tr>
             </table>
-        </div>
+            </div>
+            <p>
+                <b>*Pour modifier le contenu d'un modèle :</b>
+                <ol>
+                    <li>
+                        ouvrez le modèle depuis l'accueil;
+                    </li>
+                    <li>
+                        changez le contenu <u>sans modifier le titre</u>; 
+                    </li>
+                    <li>
+                        cliquez sur <img src="./images/IconeSaveTemplateTuto.png" alt="" srcset="">.
+                    </li>
+                </ol>
+                
+                
+        
+            </p>
 
         <!-- div rename template -->
         <div class="renameTemplate popup" id="divRenameTemplate">
@@ -996,7 +1013,7 @@
             <img class="mainLogo" src="./images/Mind2TaskMainLogo.png" alt="">
             
             
-            <p>Release : 1.4.3</p>
+            <p>Release : 1.4.4</p>
             <h3>
                 Actualité :
             </h3>

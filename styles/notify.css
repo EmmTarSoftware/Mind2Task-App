@@ -47,6 +47,10 @@ div.userMsgText{
   opacity: 1;
 }
 
+.userMessageB.show {
+  visibility: visible;
+  opacity: 1;
+}
 
 
 /* -------------------------------- NOTIFICATION DATE ----------------------------------- */
