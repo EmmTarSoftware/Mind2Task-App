@@ -99,15 +99,33 @@ li.notifyDate{
 div.divNotifyAlert table th{
   border: none;
   width: 390px;
-  color: var(--blueColor);
   text-align: center;
 }
+
+p.notifyCategory-enabled{
+  color: var(--blueColor);
+  font-size: 18px;
+}
+
+p.notifyCategory-disabled{
+  color: rgb(73, 73, 73);
+  text-decoration: line-through;
+  font-weight: normal;
+  font-size: 12px;
+}
+
+
+
 
 div.divNotifyAlert table td{
   border-right: solid 1px;
   width: 390px;
   vertical-align: top;
 }
+
+
+
+
 
 div.divNotifyAlert table td ul li{
   margin-bottom: 10px;

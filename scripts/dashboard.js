@@ -116,7 +116,7 @@ function onGenerateStatisticResult(highTasksNumberValue, highTaskHourValue,dataB
             hourCount = dataByMonth[month].totalDuration,
             monthDisplay = dataByMonth[month].display;
 
-        // La colonne
+        // La colonne du mois
         let newDivColumn = document.createElement("div");
         newDivColumn.className = "month-column";
 
@@ -130,7 +130,7 @@ function onGenerateStatisticResult(highTasksNumberValue, highTaskHourValue,dataB
         newDivPBTaskNumberEXT.id = `${month}-TaskCountProgress`;
 
         let newDivPBTaskNumberINT = document.createElement("div");
-        newDivPBTaskNumberINT.className = "dashboard-TaskCount-Progress-fill";
+        newDivPBTaskNumberINT.className = "dashboard-Progress-fill taskCountColor";
         newDivPBTaskNumberINT.style.height = onCalculDashboardPercent(highTasksNumberValue, taskCount) + '%';
 
         newDivPBTaskNumberEXT.appendChild(newDivPBTaskNumberINT);
@@ -141,7 +141,7 @@ function onGenerateStatisticResult(highTasksNumberValue, highTaskHourValue,dataB
         newDivPBTaskHourEXT.id = `${month}-HourCountProgress`;
 
         let newDivPBTaskHourINT = document.createElement("div");
-        newDivPBTaskHourINT.className = "dashboard-TaskDuration-Progress-fill";
+        newDivPBTaskHourINT.className = "dashboard-Progress-fill taskDurationColor";
         newDivPBTaskHourINT.style.height = onCalculDashboardPercent(highTaskHourValue, hourCount) + '%';
 
         newDivPBTaskHourEXT.appendChild(newDivPBTaskHourINT);
@@ -174,14 +174,17 @@ function onGenerateStatisticResult(highTasksNumberValue, highTaskHourValue,dataB
         newDivPBHourCount.id = `${month}-Hourcount`;
         newDivPBHourCount.innerHTML = `${friendlyDurationDisplay.heures}h${friendlyDurationDisplay.minutes}`;
 
-        // Mois
+        // text du Mois
         let newDivPBTaskMonth = document.createElement("div");
-        newDivPBTaskMonth.className = "progress-label";
+        
         if (hourCount === highTaskHourValue || taskCount === highTasksNumberValue) {
-            newDivPBTaskMonth.innerHTML = `<strong>${monthDisplay}</strong>`;
+            newDivPBTaskMonth.className = "progress-month-label top-month";
         } else {
-            newDivPBTaskMonth.innerHTML = monthDisplay;
+            newDivPBTaskMonth.className = "progress-month-label";
         };
+
+        newDivPBTaskMonth.innerHTML = monthDisplay;
+
 
         // Les insertions:
         newDivColumn.appendChild(newDivPBZone);

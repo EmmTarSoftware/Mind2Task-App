@@ -385,7 +385,8 @@ function onTraiteNotifyDate() {
 
 
     // Si des notifications sont disponibles, l'icone est visible
-    imgNotifyAvailableRef.style.display = (notifyTodayArray.length > 0 || notifyLateArray.length  > 0 || notifyStepTodayArray.length > 0) ? "inline-block" : "none" ;
+    imgNotifyAvailableRef.style.display = (notifyTodayArray.length > 0 || notifyLateArray.length  > 0 || notifyStepTodayArray.length > 0 || notifyStepLateArray.length > 0) ? "inline-block" : "none" ;
+
 
 };
 
@@ -418,26 +419,26 @@ function onDisplayNotifyDate(isDisplay) {
         if (notifyTodayArray.length > 0) {
             notifyTodayArray.forEach(e=>{
                 let newLi = document.createElement("li");
-                newLi.innerHTML = `<i>${e.tag}</i> : <B> ${e.title} </B>`;
+                newLi.innerHTML = `<i>[ ${e.tag} ]</i> : <B> ${e.title} </B>`;
                 newLi.className = "notifyDate";
 
                 ulListNotifyTodayRef.appendChild(newLi);
             })
         }else{
-            ulListNotifyTodayRef.innerHTML = "Aucune notification";
+            // ulListNotifyTodayRef.innerHTML = "Aucune notification";
         };
         
         // les étapes du jours
         if (notifyStepTodayArray.length > 0) {
             notifyStepTodayArray.forEach(e=>{
                 let newLi = document.createElement("li");
-                newLi.innerHTML = `<i>${e.tag} - ${e.titleTask} </i> : <B> ${e.stepName}</B>`;
+                newLi.innerHTML = `<i>[ ${e.tag} ] - ${e.titleTask} </i> : <B> ${e.stepName}</B>`;
                 newLi.className = "notifyDate";
 
                 ulListStepNotifyTodayRef.appendChild(newLi);
             })
         }else{
-            ulListStepNotifyTodayRef.innerHTML = "Aucune notification";
+            // ulListStepNotifyTodayRef.innerHTML = "Aucune notification";
         };
 
 
@@ -447,26 +448,26 @@ function onDisplayNotifyDate(isDisplay) {
         if (notifyLateArray.length > 0) {
             notifyLateArray.forEach(e=>{
                 let newLi = document.createElement("li");
-                newLi.innerHTML = ` <i>${e.tag}</i> : <B> ${e.title} </B> => ${e.date}`;
+                newLi.innerHTML = ` <i>[ ${e.tag} ]</i> : <B> ${e.title} </B> => ${e.date}`;
                 newLi.className = "notifyDate";
 
                 ulListNotifyLateRef.appendChild(newLi);
             })
         }else{
-            ulListNotifyLateRef.innerHTML = "Aucune notification";
+            // ulListNotifyLateRef.innerHTML = "Aucune notification";
         };
 
         // les étapes en retards
         if (notifyStepLateArray.length > 0) {
             notifyStepLateArray.forEach(e=>{
                 let newLi = document.createElement("li");
-                newLi.innerHTML = `<i>${e.tag} - ${e.titleTask} </i> : <B> ${e.stepName} </B> => ${e.date}`;
+                newLi.innerHTML = `<i>[ ${e.tag} ] - ${e.titleTask} </i> : <B> ${e.stepName} </B> => ${e.date}`;
                 newLi.className = "notifyDate";
 
                 ulListStepNotifyLateRef.appendChild(newLi);
             })
         }else{
-            ulListStepNotifyLateRef.innerHTML = "Aucune notification";
+            // ulListStepNotifyLateRef.innerHTML = "Aucune notification";
         };
 
 
@@ -479,6 +480,21 @@ function onDisplayNotifyDate(isDisplay) {
     };
 
 
+
+
+
+    // Set les styles des titres des catégories
+    document.getElementById("pNotifyCategoryTaskToday").className = notifyTodayArray.length > 0 ? "notifyCategory-enabled" : "notifyCategory-disabled";
+    document.getElementById("pNotifyCategoryStepToday").className = notifyStepTodayArray.length > 0 ? "notifyCategory-enabled" : "notifyCategory-disabled";
+    document.getElementById("pNotifyCategoryTaskLate").className = notifyLateArray.length > 0 ? "notifyCategory-enabled" : "notifyCategory-disabled";
+    document.getElementById("pNotifyCategoryStepLate").className = notifyStepLateArray.length > 0 ? "notifyCategory-enabled" : "notifyCategory-disabled";
+
+    // Affiche les icone d'image d'alerte pour la partie 'en retard' des notifications
+    document.getElementById("imgIconeNotifyStepLate").style.display = notifyStepLateArray.length > 0 ? "inline-block" : "none";
+    document.getElementById("imgIconeNotifyTaskLate").style.display = notifyLateArray.length > 0 ? "inline-block" : "none";
+
+
+    // Affichage
     document.getElementById("divNotifyAlert").style.display = isDisplay === true ? "block" : "none";
 
 };
