@@ -80,7 +80,6 @@ function onFindTimelineInDB(){
         transaction.oncomplete = function (){
             let tempArrayTimeline = requestTimeline.result;
 
-
             if (tempArrayTimeline.length > 0) {
                 tempArrayTimeline.forEach(e =>{
                     arrayTimeline.push({key:e.key, title: e.title, month : e.month, color : e.color});
@@ -939,11 +938,6 @@ function onViewTimelineAccueilPopup(locationRef,item,isMoreTimeAvailable) {
         popupTimelineTitleRef.innerHTML = item.title;
         popupTimelineDetailRef.innerHTML = item.comment;
     };
-
-  
-
-    
-
 
     // Recupere la position du bouton sur lequel j'ai cliqué
     let location = locationRef.getBoundingClientRect();

@@ -240,7 +240,7 @@ function onSetMaxTaskDuration(dashboardArray) {
         elementsMaxDuration.forEach(e=>{
             let newLi = document.createElement("li");
     
-            newLi.innerHTML = `${e.title} `;
+            newLi.innerHTML = `<i>${e.tag}</i> - ${e.title} `;
     
             ulDashboardMaxDuration.appendChild(newLi);
         });

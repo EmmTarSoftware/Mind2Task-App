@@ -785,16 +785,13 @@ function onEditNote() {
 
 function onDisplayNoteEditor(boolModeCreation){
 
-
-    
-
-
     // Set le mode d'ouverture de l'editeur de note
     boolEditNoteCreation = boolModeCreation;
 
     if (boolEditNoteCreation === true) {
         console.log("ouverture de l'editeur en mode création");
-
+        console.log("Reset la variable currentKeyNoteInView");
+        currentKeyNoteInView = undefined;
         legendNoteEditorRef.innerHTML = "Créer une tâche";
     }else{
         console.log("ouverture de l'editeur en mode Modification");
@@ -803,9 +800,6 @@ function onDisplayNoteEditor(boolModeCreation){
         // Set l'editeur de note avec les éléments de la note en cours
         onSetNoteEditor(currentNoteInView);
     };
-
-
-
 };
 
 
@@ -1932,10 +1926,26 @@ function onTermineNote(data,key,isQuickAction) {
     let finalDateStart = document.getElementById("inputConfirmDateStart").value,
     finalDateEnd = document.getElementById("inputConfirmDateEnd").value;
 
+
+    // met la date du jour si un champ date est effacé
+    if(finalDateStart === ""){
+        finalDateStart = onFormatDateToday();
+        document.getElementById("inputConfirmDateStart").value = finalDateStart;
+    }
+
+    if (finalDateEnd ==="") {
+        finalDateEnd = onFormatDateToday();
+        document.getElementById("inputConfirmDateEnd").value = finalDateEnd;
+    }
+
+
+
+
     let isErrorDate = onCheckDateError(finalDateStart,finalDateEnd);
 
     if (isErrorDate === true) {
         // Stop l'enregistrement si erreur de date
+        console.log("Cloture de note : Erreur dans les dates");
         return
     };
 
@@ -2030,13 +2040,9 @@ function onInsertDataDashboard(data,keyToDelete) {
     let insertRequest = store.add(data);
 
     insertRequest.onsuccess = function () {
-        console.log(data.title + "a été ajouté à la base");
+        console.log(data.title + "a été ajouté à la base DASHBOARD");
         // evenement de notification
         eventUserMessage(arrayUserMessage.taskDone + data.title,"info");
-
-
-        // // Clear l'editeur de note
-        // onClearNoteEditor();
     };
 
     insertRequest.onerror = function(){
@@ -2047,8 +2053,19 @@ function onInsertDataDashboard(data,keyToDelete) {
     transaction.oncomplete = function(){
         console.log("transaction insertData complete");
 
-        console.log("Lancement de la suppression de la note");
-        onDeleteNote(keyToDelete);
+        console.log("Verification d'un key existante pour la note = " + keyToDelete);
+
+        
+        // Si la note est supprimé directement sans avoir été créé
+        if (keyToDelete === undefined) {
+            console.log("Aucune Key. Cette note n'a pas été enregistré. Aucune suppression nécessaire.");
+            onClearNoteEditor();
+        }else{
+            console.log("Key detecté. Lancement de la suppression de la note");
+            onDeleteNote(keyToDelete);
+        }
+
+        
 
     };
 

@@ -47,8 +47,8 @@ let db,
     dashBoardStoreName = "dashboard",
     templateStoreName = "template",
     timelineStoreName = "timeline",
-    currentBaseVersion = 4;
-    cookiesBddVersionName = "Mind2Task-bddVersion"
+    currentBaseVersion = 4,
+    cookiesBddVersionName = "Mind2Task-bddVersion";
 
 
 // Lancement /création de la base de donnée
@@ -248,8 +248,6 @@ function onCheckDateError(dateDebut, dateFin) {
         eventUserMessage(arrayUserMessage.errorDate,"error");
     };
     return tempDateDebut > tempDateFin ? true :false;
-
-
 };
 
 
